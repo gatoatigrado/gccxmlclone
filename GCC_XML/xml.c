@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2004-01-12 20:34:06 $
-  Version:   $Revision: 1.73 $
+  Date:      $Date: 2004-03-25 19:04:02 $
+  Version:   $Revision: 1.74 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1789,7 +1789,8 @@ xml_add_template_decl (xml_dump_info_p xdi, tree td, int complete)
       {
       case TYPE_DECL:
         /* Add the instantiation only if it is real.  */
-        if (!DECL_ARTIFICIAL(ts))
+        if (TREE_CODE(TREE_VEC_ELT(TYPE_TI_ARGS(TREE_TYPE(ts)), 0)) != TEMPLATE_TYPE_PARM &&
+            TREE_CODE(TREE_VEC_ELT(TYPE_TI_ARGS(TREE_TYPE(ts)), 0)) != TEMPLATE_PARM_INDEX)
           {
           xml_add_node (xdi, ts, complete);
           }
