@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-08-06 17:41:34 $
-  Version:   $Revision: 1.20 $
+  Date:      $Date: 2003-08-17 16:24:06 $
+  Version:   $Revision: 1.21 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -970,17 +970,15 @@ unsigned long SystemTools::FileLength(const char* filename)
 
 int SystemTools::Strucmp(const char *s1, const char *s2)
 {
-//  return strcasecmp(s1,s2);
-//
 // lifted from Graphvis http://www.graphviz.org 
   while ((*s1 != '\0') 
-         && (tolower(*(unsigned char *)s1) == tolower(*(unsigned char *)s2)))
+         && (tolower(*s1) == tolower(*s2)))
     {
       s1++;
       s2++;
     }
  
-  return tolower(*(unsigned char *) s1) - tolower(*(unsigned char *) s2);
+  return tolower(*s1) - tolower(*s2);
 
 }
 
