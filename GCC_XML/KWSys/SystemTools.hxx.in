@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-04-08 17:10:44 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-04-10 17:41:15 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -101,6 +101,11 @@ public:
   static kwsys_std::string UpperCase(const kwsys_std::string&);
   
   /**
+   * do a case-independent string comparison
+   */
+  static int Strucmp(const char *s1, const char *s2);
+
+  /**
    * Replace Windows file system slashes with Unix-style slashes.
    */
   static void ConvertToUnixSlashes(kwsys_std::string& path);
@@ -123,6 +128,12 @@ public:
   /** Return true if a file exists in the current directory.  */
   static bool FileExists(const char* filename);
   
+  static unsigned long FileLength(const char *filename);
+  /**
+   * given a (possibly) relative path, return the completely
+   * qualified path to a file system entity
+   */
+  static char *RealPath(const char *path, char *resolved_path);
   /**
    *  Add the paths from the environment variable PATH to the 
    *  string vector passed in.
