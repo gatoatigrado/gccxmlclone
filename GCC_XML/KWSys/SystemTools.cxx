@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-24 13:02:46 $
-  Version:   $Revision: 1.13 $
+  Date:      $Date: 2003-06-24 19:23:34 $
+  Version:   $Revision: 1.14 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -252,23 +252,37 @@ void SystemTools::ReplaceString(kwsys_std::string& source,
                                    const char* replace,
                                    const char* with)
 {
+  const char *src = source.c_str();
+  char *searchPos = strstr(src,replace);
+  
   // get out quick if string is not found
-  kwsys_std::string::size_type start = source.find(replace);
-  if(start ==  kwsys_std::string::npos)
+  if (!searchPos)
     {
     return;
     }
-  kwsys_std::string rest;
-  kwsys_std::string::size_type lengthReplace = strlen(replace);
-  kwsys_std::string::size_type lengthWith = strlen(with);
-  while(start != kwsys_std::string::npos)
+
+  // perform replacements until done
+  size_t replaceSize = strlen(replace);
+  char *orig = strdup(src);
+  char *currentPos = orig;
+  searchPos = searchPos - src + orig;
+  
+  // initialize the result
+  source.clear();
+  do
     {
-    rest = source.substr(start+lengthReplace);
-    source = source.substr(0, start);
+    *searchPos = '\0';
+    source += currentPos;
+    currentPos = searchPos + replaceSize;
+    // replace
     source += with;
-    source += rest;
-    start = source.find(replace, start + lengthWith );
+    searchPos = strstr(currentPos,replace);
     }
+  while (searchPos);
+
+  // copy any trailing text
+  source += currentPos;
+  free(orig);
 }
 
 // Read a registry value.
