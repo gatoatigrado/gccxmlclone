@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-06-10 20:15:16 $
-Version:   $Revision: 1.2 $
+Date:      $Date: 2003-06-11 13:44:48 $
+Version:   $Revision: 1.3 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -609,7 +609,6 @@ void kwsysProcess_Execute(kwsysProcess* cp)
   for(i=0; i < cp->PipeCount; ++i)
     {
     HANDLE writeEnd;
-    DWORD dummy=0;
     
     /* The pipe is not closed.  */
     cp->Pipe[i].Closed = 0;
@@ -884,7 +883,6 @@ int kwsysProcess_WaitForExit(kwsysProcess* cp, double* userTimeout)
 {
   int i;
   int pipe = 0;
-  int pipesLeft = cp->PipeCount;
   
   /* Buffer for child's return value.  */
   int childReturnValue = 0;
