@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-12-08 16:35:34 $
-#  Version:   $Revision: 1.27 $
+#  Date:      $Date: 2003-12-16 20:37:24 $
+#  Version:   $Revision: 1.28 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -216,11 +216,10 @@ SET(KWSYS_CLASSES)
 SET(KWSYS_H_FILES Configure)
 SET(KWSYS_HXX_FILES Configure)
 
-# Enforce component dependencies (none currently exists).
-#IF(KWSYS_USE_SystemTools)
-#  SET(KWSYS_USE_Directory 1)
-#  SET(KWSYS_USE_RegularExpression 1)
-#ENDIF(KWSYS_USE_SystemTools)
+# Enforce component dependencies.
+IF(KWSYS_USE_SystemTools)
+  SET(KWSYS_USE_Directory 1)
+ENDIF(KWSYS_USE_SystemTools)
 
 # Add selected C++ classes.
 FOREACH(c Directory RegularExpression SystemTools)
