@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-08-05 17:23:11 $
-  Version:   $Revision: 1.22 $
+  Date:      $Date: 2003-08-05 21:05:50 $
+  Version:   $Revision: 1.23 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -140,7 +140,7 @@ int main(int argc, char** argv)
     return 1;
     }
   
-#if defined(_WIN32) && !defined(__CYGWIN__) && !defined(GCCXML_NATIVE_BUILD)
+#if defined(_WIN32) && !defined(__CYGWIN__) && !defined(GCCXML_NATIVE_CC1PLUS)
   // Make sure a cygwin1.dll is available.
   std::string cyg = gxSystemTools::GetFilenamePath(cGCCXML_EXECUTABLE.c_str());
   cyg += "/cygwin1.dll";
