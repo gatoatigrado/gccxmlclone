@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-04-10 17:41:15 $
-  Version:   $Revision: 1.4 $
+  Date:      $Date: 2003-04-11 11:27:32 $
+  Version:   $Revision: 1.5 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1032,8 +1032,12 @@ unsigned long SystemTools::FileLength(const char* filename)
 
 int SystemTools::Strucmp(const char *s1, const char *s2)
 {
-#ifdef _WIN32
+#if defined(_WIN32)
+#ifdef __BORLANDC__
+  return stricmp(s1,s2);
+#else
   return _stricmp(s1,s2);
+#endif
 #else
   return strcasecmp(s1,s2);
 #endif
@@ -1069,9 +1073,9 @@ char *SystemTools
 ::RealPath(const char *path, char *resolved_path)
 {
 #if defined(_WIN32)
-  char pathpart[itk::IOCommon::ITK_MAXPATHLEN];
+  char pathpart[4096];
   strcpy(pathpart,path);
-  char fnamepart[itk::IOCommon::ITK_MAXPATHLEN];
+  char fnamepart[4096];
   char *slash;
 
   if((slash = strrchr(pathpart,'/')) == NULL)
@@ -1089,7 +1093,7 @@ char *SystemTools
       *slash = '\0';
       strcpy(fnamepart,slash+1);
 
-      char savedir[itk::IOCommon::ITK_MAXPATHLEN];
+      char savedir[4096];
       Getcwd(savedir,sizeof(savedir));
       Chdir(pathpart);
       Getcwd(pathpart,sizeof(pathpart));
