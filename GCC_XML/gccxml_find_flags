@@ -1,4 +1,20 @@
 #!/bin/sh
+#=============================================================================
+#
+#  Program:   GCC-XML
+#  Module:    $RCSfile: gccxml_find_flags,v $
+#  Language:  C++
+#  Date:      $Date: 2002-10-29 15:27:55 $
+#  Version:   $Revision: 1.6 $
+#
+#  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
+#  See Copyright.txt for details.
+#
+#     This software is distributed WITHOUT ANY WARRANTY; without even 
+#     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+#     PURPOSE.  See the above copyright notices for more information.
+#
+#=============================================================================
 
 # Find the compiler executable name.
 if test "x$1" = "x" ; then
