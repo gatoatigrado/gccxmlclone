@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 18:54:17 $
-  Version:   $Revision: 1.13 $
+  Date:      $Date: 2002-11-01 21:02:54 $
+  Version:   $Revision: 1.14 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -89,7 +89,6 @@ int main(int argc, char** argv)
     configuration.PrintConfiguration(std::cout);
     return cfr? 0:1;
     }
-  if(!cfr) { return 1; }
   
   // Check if there is anything to do.
   if(configuration.GetArguments().empty())
@@ -100,6 +99,13 @@ int main(int argc, char** argv)
     gxDocumentation::PrintUsage(std::cout);
     return 0;
     }
+  
+  // We have something to do.  Make sure the GCCXML_FLAGS setting is
+  // valid.
+  if(!cfr)
+    {
+    return 1;
+    }  
   
   // Get the configuration settings.
   std::string cGCCXML_EXECUTABLE = configuration.GetGCCXML_EXECUTABLE();
