@@ -69,9 +69,9 @@ static void init_operators PARAMS ((void));
 static void copy_lang_type PARAMS ((tree));
 
 /* A constraint that can be tested at compile time.  */
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:22:26 $) */
 #if defined(__STDC__) || defined(ALMOST_STDC)
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:22:26 $) */
 #define CONSTRAINT(name, expr) extern int constraint_##name [(expr) ? 1 : -1]
 #else
 #define CONSTRAINT(name, expr) extern int constraint_/**/name [(expr) ? 1 : -1]
