@@ -64,6 +64,7 @@ MACRO(FIND_EXTRA_SRCS objs var)
   ENDFOREACH(f)
 ENDMACRO(FIND_EXTRA_SRCS)
 FIND_EXTRA_SRCS("${extra_objs}" extra_srcs)
+FIND_EXTRA_SRCS("${c_target_objs}" c_target_srcs)
 FIND_EXTRA_SRCS("${cxx_target_objs}" cxx_target_srcs)
 
 #-----------------------------------------------------------------------------
@@ -417,3 +418,15 @@ SET_SOURCE_FILES_PROPERTIES(${backend_STANDARD_SRCS} ${backend_GENERATED_SRCS}
   PROPERTIES OBJECT_DEPENDS "${backend_OBJDEPS}")
 SET_SOURCE_FILES_PROPERTIES(toplev.c
   PROPERTIES COMPILE_FLAGS "-DTARGET_NAME=\\\"${target}\\\"")
+
+#-----------------------------------------------------------------------------
+# C Compiler Executable
+
+ADD_EXECUTABLE(cc1
+  c-parse.c c-lang.c c-pretty-print.c attribs.c c-errors.c c-lex.c
+  c-pragma.c c-decl.c c-typeck.c c-convert.c c-aux-info.c c-common.c
+  c-opts.c c-format.c c-semantics.c c-objc-common.c c-dump.c
+  ${c_target_srcs}
+  )
+
+TARGET_LINK_LIBRARIES(cc1 backend cpp iberty)
