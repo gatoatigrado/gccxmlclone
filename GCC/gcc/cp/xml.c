@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2003-06-20 16:02:11 $
-  Version:   $Revision: 1.53 $
+  Date:      $Date: 2003-07-14 19:31:28 $
+  Version:   $Revision: 1.54 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -223,7 +223,11 @@ do_xml_output (const char* filename)
   
   /* Start dump.  */
   fprintf (file, "<?xml version=\"1.0\"?>\n");
+#if defined(GCCXML_VERSION_FULL)
+  fprintf (file, "<GCC_XML version=\"" GCCXML_VERSION_FULL "\">\n");
+#else
   fprintf (file, "<GCC_XML>\n");
+#endif
   
   /* Dump the complete nodes.  */
   xml_dump (&xdi);  
