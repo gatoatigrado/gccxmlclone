@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 23:23:28 $
-  Version:   $Revision: 1.11 $
+  Date:      $Date: 2002-11-08 03:49:13 $
+  Version:   $Revision: 1.12 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -48,6 +48,9 @@ public:
   
   /** Return everything up to the last path name delimeter.  */
   static std::string GetFilenamePath(const char* filename);
+  
+  /** Return everything after the last path name delimeter.  */
+  static std::string GetFilenameName(const char* filename);
   
   /** Check if a file exists.  */
   static bool FileExists(const char* filename);

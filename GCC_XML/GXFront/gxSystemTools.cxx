@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 23:23:28 $
-  Version:   $Revision: 1.9 $
+  Date:      $Date: 2002-11-08 03:49:13 $
+  Version:   $Revision: 1.10 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -233,6 +233,23 @@ std::string gxSystemTools::GetFilenamePath(const char* filename)
   else
     {
     return "";
+    }
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::GetFilenameName(const char* filename)
+{
+  std::string fn = filename;
+  gxSystemTools::ConvertToUnixSlashes(fn);
+  
+  std::string::size_type slash_pos = fn.rfind("/");
+  if(slash_pos != std::string::npos)
+    {
+    return fn.substr(slash_pos+1);
+    }
+  else
+    {
+    return filename;
     }
 }
 
@@ -562,7 +579,13 @@ std::string gxSystemTools::FindProgram(const char* name)
   // See if the executable exists as written.
   if(gxSystemTools::FileExists(name) && !gxSystemTools::FileIsDirectory(name))
     {
-    return name;
+    // Yes.  Convert it to a full path.
+    std::string fullName = gxSystemTools::GetCWD()+"/"+name;
+    std::string fileName = gxSystemTools::GetFilenameName(fullName.c_str());
+    std::string fileDir = gxSystemTools::GetFilenamePath(fullName.c_str());
+    fileDir = gxSystemTools::CollapseDirectory(fileDir.c_str());
+    fullName = fileDir+"/"+fileName;
+    return fullName;
     }
   
   std::string tryPath = name;
