@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2004-03-05 17:44:28 $
-#  Version:   $Revision: 1.10 $
+#  Date:      $Date: 2004-04-05 13:01:48 $
+#  Version:   $Revision: 1.11 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -40,9 +40,9 @@ BEGIN { first=1 }
 # Find the include path options.
 INCLUDES=`
   echo "" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>&1 |
-  awk '/^\#include <.*$/   {f=1}
-       /^ \/.*$/           { if (f) { printf("-I%s ",$0) } }
-       /^End of search.*$/ {printf("\n"); exit}' - |
+  awk '/^[^ \/].*$/ { if (f) { printf("\n"); exit } }
+       /^[ ]*\/.*$/ { if (f) { printf("-I%s ",$0) } }
+       /\#include <\.\.\..*$/   {f=1} ' - |
   sed 's/^-I /-I/;s/ -I / -I/g'
 `
 
