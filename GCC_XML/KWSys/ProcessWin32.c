@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-06-10 19:46:31 $
-Version:   $Revision: 1.1 $
+Date:      $Date: 2003-06-10 20:15:16 $
+Version:   $Revision: 1.2 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -673,7 +673,8 @@ void kwsysProcess_Execute(kwsysProcess* cp)
   cp->TimeoutTime = kwsysProcessTimeFromDouble(-1);
   
   /* CREATE THE CHILD PROCESS */
-  if(!CreateProcess(0, cp->RealCommand, 0, 0, TRUE, CREATE_NEW_CONSOLE, 0,
+  if(!CreateProcess(0, cp->RealCommand, 0, 0, TRUE,
+                    cp->Win9x? CREATE_NEW_CONSOLE:DETACHED_PROCESS, 0,
                     0, &si, &cp->ProcessInformation))
     {
     kwsysProcessCleanup(cp, 1);
