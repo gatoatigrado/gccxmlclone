@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2003-02-20 16:59:26 $
-  Version:   $Revision: 1.48 $
+  Date:      $Date: 2003-03-05 13:43:44 $
+  Version:   $Revision: 1.49 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -180,7 +180,10 @@ do_xml_output (const char* filename)
     xml_add_node (&xdi, global_namespace, 1);
 
     /* Also add std namespace because it is not always referenced.  */
-    xml_add_node (&xdi, std_node, 1);
+    if(std_node)
+      {
+      xml_add_node (&xdi, std_node, 1);
+      }
     }
   
   /* Start dump.  */
