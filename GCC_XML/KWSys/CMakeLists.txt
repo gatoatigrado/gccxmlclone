@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-07-10 18:32:30 $
-#  Version:   $Revision: 1.25 $
+#  Date:      $Date: 2003-07-10 18:46:48 $
+#  Version:   $Revision: 1.26 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -95,6 +95,14 @@ IF(NOT EXECUTABLE_OUTPUT_PATH)
   SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}" CACHE PATH
       "Output directory for executables.")
 ENDIF(NOT EXECUTABLE_OUTPUT_PATH)
+
+# Generated source files will need this header.
+STRING(COMPARE EQUAL "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}"
+  KWSYS_IN_SOURCE_BUILD)
+IF(NOT KWSYS_IN_SOURCE_BUILD)
+  CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/kwsysPrivate.h
+    ${PROJECT_BINARY_DIR}/kwsysPrivate.h COPY_ONLY IMMEDIATE)
+ENDIF(NOT KWSYS_IN_SOURCE_BUILD)
 
 #-----------------------------------------------------------------------------
 # We require ANSI support from the C compiler.  Add any needed flags.
@@ -238,9 +246,10 @@ IF(KWSYS_USE_Process)
   IF(NOT UNIX)
     # Use the Windows implementation.  We need the encoded forwarding executable.
     SET(KWSYS_SRCS ${KWSYS_SRCS} ProcessWin32.c
-        ${CMAKE_CURRENT_BINARY_DIR}/${KWSYS_NAMESPACE}ProcessFwd9xEnc.c)
-    SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_BINARY_DIR}/${KWSYS_NAMESPACE}ProcessFwd9xEnc.c
-                                PROPERTIES GENERATED 1)
+      ${PROJECT_BINARY_DIR}/${KWSYS_NAMESPACE}ProcessFwd9xEnc.c)
+    SET_SOURCE_FILES_PROPERTIES(
+      ${PROJECT_BINARY_DIR}/${KWSYS_NAMESPACE}ProcessFwd9xEnc.c
+      PROPERTIES GENERATED 1)
   ELSE(NOT UNIX)
     # Use the UNIX implementation.
     SET(KWSYS_SRCS ${KWSYS_SRCS} ProcessUNIX.c)
