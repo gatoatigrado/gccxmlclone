@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-08-17 16:24:06 $
-  Version:   $Revision: 1.21 $
+  Date:      $Date: 2003-08-21 20:22:23 $
+  Version:   $Revision: 1.22 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -38,7 +38,7 @@
 #include <sys/wait.h>
 #endif
 
-#if defined(_WIN32) && (defined(_MSC_VER) || defined(__BORLANDC__))
+#if defined(_WIN32) && (defined(_MSC_VER) || defined(__BORLANDC__) || defined(__MINGW32__))
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
