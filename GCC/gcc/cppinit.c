@@ -72,9 +72,9 @@ struct cpp_pending
   struct pending_option *include_head, *include_tail;
 };
 
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:28:04 $) */
 #if defined(__STDC__) || defined(ALMOST_STDC)
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:28:04 $) */
 #define APPEND(pend, list, elt) \
   do {  if (!(pend)->list##_head) (pend)->list##_head = (elt); \
         else (pend)->list##_tail->next = (elt); \

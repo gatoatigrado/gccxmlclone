@@ -1318,11 +1318,11 @@ close_output_files ()
     {
       FILE * newfile;
 
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:27:57 $) */
 /* Do not avoid changing modification time.  The CMake build system
    handles the dependencies correctly.  */
 #if 0
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:27:57 $) */
       newfile = fopen (of->name, "r");
       if (newfile != NULL )
         {
@@ -1342,9 +1342,9 @@ close_output_files ()
           if (no_write_p)
             continue;
         }
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:27:57 $) */
 #endif
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:27:57 $) */
 
       newfile = fopen (of->name, "w");
       if (newfile == NULL)
