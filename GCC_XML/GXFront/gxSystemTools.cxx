@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-01-06 22:10:59 $
-  Version:   $Revision: 1.14 $
+  Date:      $Date: 2004-02-19 20:14:40 $
+  Version:   $Revision: 1.15 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -50,8 +50,12 @@ bool gxSystemTools::RunCommand(const char* command,  std::string& output,
   std::string commandToFile = command;
   commandToFile += " > ";
   std::string tempFile;
-  tempFile += _tempnam(0, "gccxml");
-
+  char* temp =  _tempnam(0, "gccxml");
+  if(!temp)
+    {
+    temp = "gccxmltemp";
+    }
+  tempFile += temp;
   commandToFile += tempFile;
   retVal = system(commandToFile.c_str());
   std::ifstream fin(tempFile.c_str());
