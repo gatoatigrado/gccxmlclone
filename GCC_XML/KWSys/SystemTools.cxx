@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-07-10 18:32:30 $
-  Version:   $Revision: 1.19 $
+  Date:      $Date: 2003-08-06 17:41:34 $
+  Version:   $Revision: 1.20 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -821,10 +821,10 @@ bool SystemTools::FilesDiffer(const char* source,
     }
 
 #if defined(_WIN32) || defined(__CYGWIN__)
-  kwsys_std::ifstream finSource(source, 
-                          kwsys_std::ios::binary | kwsys_std::ios::in);
-  kwsys_std::ifstream finDestination(destination, 
-                               kwsys_std::ios::binary | kwsys_std::ios::in);
+  kwsys_std::ifstream finSource(source, (kwsys_std::ios::binary |
+                                         kwsys_std::ios::in));
+  kwsys_std::ifstream finDestination(destination, (kwsys_std::ios::binary |
+                                                   kwsys_std::ios::in));
 #else
   kwsys_std::ifstream finSource(source);
   kwsys_std::ifstream finDestination(destination);
