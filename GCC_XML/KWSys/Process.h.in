@@ -3,14 +3,14 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Process.h.in,v $
   Language:  C++
-  Date:      $Date: 2003-12-03 14:20:05 $
-  Version:   $Revision: 1.9 $
+  Date:      $Date: 2003-12-05 16:37:28 $
+  Version:   $Revision: 1.10 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
