@@ -2,12 +2,9 @@
 #
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
-#  Language:  C++
-#  Date:      $Date: 2003-12-16 20:37:24 $
-#  Version:   $Revision: 1.28 $
 #
-#  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
-#  See http://www.cmake.org/HTML/Copyright.html for details.
+#  Copyright (c) Kitware, Inc., Insight Consortium.  All rights reserved.
+#  See Copyright.txt or http://www.kitware.com/Copyright.htm for details.
 #
 #     This software is distributed WITHOUT ANY WARRANTY; without even
 #     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
