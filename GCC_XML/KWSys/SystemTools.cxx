@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-04-11 22:05:57 $
-  Version:   $Revision: 1.7 $
+  Date:      $Date: 2003-05-12 17:15:49 $
+  Version:   $Revision: 1.8 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -21,8 +21,8 @@
 #include <SystemTools.hxx>
 #include <RegularExpression.hxx>
 #include <Directory.hxx>
-
-#include <fstream>
+#include <std/iostream>
+#include <std/fstream>
 
 #include <stdio.h>
 #include <sys/stat.h>

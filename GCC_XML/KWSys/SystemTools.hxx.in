@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-04-11 20:22:35 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2003-05-12 17:15:49 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -17,10 +17,9 @@
 #ifndef @KWSYS_NAMESPACE@_SystemTools_hxx
 #define @KWSYS_NAMESPACE@_SystemTools_hxx
 
-#include <@KWSYS_NAMESPACE@/StandardIncludes.hxx>
-
-#include <string>
-#include <vector>
+#include <@KWSYS_NAMESPACE@/std/iosfwd>
+#include <@KWSYS_NAMESPACE@/std/string>
+#include <@KWSYS_NAMESPACE@/std/vector>
 
 namespace @KWSYS_NAMESPACE@
 {
