@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Directory.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-05-08 18:46:23 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2003-06-25 12:29:44 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -48,7 +48,7 @@ Directory::~Directory()
 //----------------------------------------------------------------------------
 unsigned long Directory::GetNumberOfFiles()
 {
-  return this->Internal->Files.size();
+  return static_cast<unsigned long>(this->Internal->Files.size());
 }
 
 //----------------------------------------------------------------------------
