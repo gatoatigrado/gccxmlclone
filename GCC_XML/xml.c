@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2004-03-25 19:04:02 $
-  Version:   $Revision: 1.74 $
+  Date:      $Date: 2004-04-01 15:57:23 $
+  Version:   $Revision: 1.75 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1495,6 +1495,7 @@ xml_output_enumeral_type (xml_dump_info_p xdi, tree t, xml_dump_node_p dn)
   xml_print_access_attribute (xdi, TYPE_NAME (t));
   xml_print_location_attribute (xdi, TYPE_NAME (t));
   xml_print_attributes_attribute (xdi, TYPE_ATTRIBUTES(t), 0);
+  xml_print_artificial_attribute (xdi, TYPE_NAME (t));
   fprintf (xdi->file, ">\n");
 
   /* Output the list of possible values for the enumeration type.  */
