@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2003-06-17 18:18:43 $
-  Version:   $Revision: 1.52 $
+  Date:      $Date: 2003-06-20 16:02:11 $
+  Version:   $Revision: 1.53 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -155,6 +155,8 @@ static const char* xml_get_encoded_string PARAMS ((tree));
 static const char* xml_get_encoded_string_from_string PARAMS ((const char*));
 static tree xml_get_encoded_identifier_from_string PARAMS ((const char*));
 
+extern int errorcount;
+
 /* Switch to 1 to enable debugging of dump node selection.  */
 #if 0
 # define xml_add_node(xdi, node, complete)                                    \
@@ -171,6 +173,15 @@ do_xml_output (const char* filename)
   FILE* file;
   struct xml_dump_info xdi;
   
+  /* Do not dump if errors occurred during parsing.  */
+  if(errorcount)
+    {
+    /* Delete any existing output file.  */
+    unlink(filename);
+    return;
+    }
+  
+  /* Open the XML output file.  */
   file = fopen (filename, "w");
   if (!file)
     {
