@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-24 19:23:34 $
-  Version:   $Revision: 1.14 $
+  Date:      $Date: 2003-06-24 20:35:59 $
+  Version:   $Revision: 1.15 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -268,7 +268,7 @@ void SystemTools::ReplaceString(kwsys_std::string& source,
   searchPos = searchPos - src + orig;
   
   // initialize the result
-  source.clear();
+  source.erase(source.begin(),source.end());
   do
     {
     *searchPos = '\0';
