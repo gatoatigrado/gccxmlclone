@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-08-13 22:08:07 $
-Version:   $Revision: 1.21 $
+Date:      $Date: 2003-11-04 13:56:12 $
+Version:   $Revision: 1.22 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -757,7 +757,6 @@ void kwsysProcess_Execute(kwsysProcess* cp)
                                   DUPLICATE_SAME_ACCESS)))
       {
       kwsysProcessCleanup(cp, 1);
-      CloseHandle(writeEnd);
       return;
       }
     }
