@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 21:03:38 $
-  Version:   $Revision: 1.14 $
+  Date:      $Date: 2002-11-01 21:07:56 $
+  Version:   $Revision: 1.15 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -666,8 +666,8 @@ bool gxConfiguration::FindFlags()
       else if(!support6 && !support7)
         {
         std::cerr << "Compiler \"" << m_GCCXML_COMPILER 
-                  << "\" is not supported by GCC_XML because "
-                  << "neither the Vc6 or Vc7 support directories exist.\n";
+                  << "\" is not supported by GCC_XML because neither\n"
+                  << "the Vc6 or Vc7 support directories exist.\n";
         return false;
         }
       
