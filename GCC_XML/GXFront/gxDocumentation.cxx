@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-01-14 14:18:13 $
-  Version:   $Revision: 1.15 $
+  Date:      $Date: 2004-01-14 14:19:13 $
+  Version:   $Revision: 1.16 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -63,7 +63,7 @@ const gxDocumentationEntry gxDocumentationCompilers[] =
   {"SGI MIPSpro", "Version 7.3x", 0},
   {"Visual C++", "Versions 7.1, 7.0, and 6 (sp5)", 0},
   {"Intel C++", "Versions 7.0 and 7.1 for Linux", 0},
-  {"Borland C++", "Version 5.5.x for Windows", 0}
+  {"Borland C++", "Version 5.5.x for Windows", 0},
   {0,
    "Advanced users can simulate other compilers by manually configuring "
    "the GCCXML_FLAGS setting.  Contact the mailing list for help.", 0},
