@@ -1,17 +1,14 @@
 /*=========================================================================
 
-Program:   KWSys - Kitware System Library
-Module:    $RCSfile: ProcessUNIX.c,v $
-Language:  C++
-Date:      $Date: 2003-12-13 19:19:45 $
-Version:   $Revision: 1.22 $
+  Program:   KWSys - Kitware System Library
+  Module:    $RCSfile: ProcessUNIX.c,v $
 
-Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
-See http://www.cmake.org/HTML/Copyright.html for details.
+  Copyright (c) Kitware, Inc., Insight Consortium.  All rights reserved.
+  See Copyright.txt or http://www.kitware.com/Copyright.htm for details.
 
-This software is distributed WITHOUT ANY WARRANTY; without even
-the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-PURPOSE.  See the above copyright notices for more information.
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+     PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
 #define KWSYS_IN_PROCESS_C
