@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2003-09-10 13:57:48 $
-#  Version:   $Revision: 1.4 $
+#  Date:      $Date: 2003-11-06 00:47:45 $
+#  Version:   $Revision: 1.5 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -62,7 +62,6 @@ echo "__GNUC_MINOR__" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>/dev/null |
 
 # For GCC versions before 3, some special options are needed.
 if [ "$MAJOR_VERSION" -lt 3 ]; then
-  SPECIAL="-fxml-no-honor-std "
   INCLUDES="-I$SELFPATH/2.95 $INCLUDES"
 elif [ "$MAJOR_VERSION" = 3 -a "$MINOR_VERSION" -ge 3 ]; then
   SPECIAL="-include $SELFPATH/3.3/gccxml_builtins.h"
