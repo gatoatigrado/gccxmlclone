@@ -70,9 +70,9 @@ static int unary_op_p PARAMS ((enum tree_code));
 static cxx_saved_binding *store_bindings (tree, cxx_saved_binding *);
 static tree lookup_tag_reverse PARAMS ((tree, tree));
 static tree lookup_name_real PARAMS ((tree, int, int, int));
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 static int push_local_name PARAMS ((tree));
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 static void warn_extern_redeclared_static PARAMS ((tree, tree));
 static tree grok_reference_init PARAMS ((tree, tree, tree, tree *));
 static tree grokfndecl PARAMS ((tree, tree, tree, tree, int,
@@ -674,13 +674,13 @@ struct cp_binding_level GTY(())
 
 /* The binding level currently in effect.  */
 
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 /* Use *& in to convert the expression to an lvalue on all compilers.  */
 #define current_binding_level                   \
   (*(cfun && cp_function_chain->bindings        \
    ? &cp_function_chain->bindings               \
    : &scope_chain->bindings))
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 
 /* The binding level of the current class, if any.  */
 
@@ -2033,6 +2033,16 @@ cp_namespace_decls (ns)
   return NAMESPACE_LEVEL (ns)->names;
 }
 
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
+/* Return the namespace declarations that are members of the namespace NS.  */
+tree
+cp_namespace_namespaces (ns)
+     tree ns;
+{
+  return NAMESPACE_LEVEL (ns)->namespaces;
+}
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
+
 struct walk_globals_data {
   walk_globals_pred p;
   walk_globals_fn f;
@@ -2374,9 +2384,9 @@ find_binding (tree name, tree scope, cxx_binding *front)
         }
       prev = iter;
     }
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
   POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, (cxx_binding*)NULL);
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 }
 
 /* Return the binding for NAME in SCOPE, if any.  Otherwise, return NULL.  */
@@ -2939,9 +2949,9 @@ create_implicit_typedef (name, type)
 
 /* Remember a local name for name-mangling purposes.  */
 
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 static int
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 push_local_name (decl)
      tree decl;
 {
@@ -2970,17 +2980,17 @@ push_local_name (decl)
             DECL_DISCRIMINATOR (decl) = 1;
 
           VARRAY_TREE (local_names, i) = decl;
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
           POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
         }
     }
 
   VARRAY_PUSH_TREE (local_names, decl);
   timevar_pop (TV_NAME_LOOKUP);
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
   return 0;
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 }
 
 /* Push a tag name NAME for struct/class/union/enum type TYPE.
@@ -8644,26 +8654,26 @@ make_rtl_for_nonlocal_decl (decl, init, asmspec)
    DECL is a just-declared VAR_DECL; if necessary inject its
    declaration into the surrounding scope.  */
 
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 int
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 maybe_inject_for_scope_var (decl)
      tree decl;
 {
   timevar_push (TV_NAME_LOOKUP);
 
   if (!DECL_NAME (decl))
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
     POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
   
   /* Declarations of __FUNCTION__ and its ilk appear magically when
      the variable is first used.  If that happens to be inside a
      for-loop, we don't want to do anything special.  */
   if (DECL_PRETTY_FUNCTION_P (decl))
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
     POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 
   if (current_binding_level->is_for_scope)
     {
@@ -8696,9 +8706,9 @@ maybe_inject_for_scope_var (decl)
     }
 
   timevar_pop (TV_NAME_LOOKUP);
-/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
   return 0;
-/* END GCC-XML MODIFICATIONS (November 2003) */
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 }
 
 /* Generate code to initialize DECL (a local variable).  */

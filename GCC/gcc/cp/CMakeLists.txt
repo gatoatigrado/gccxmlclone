@@ -16,6 +16,7 @@ ADD_EXECUTABLE(cc1plus
   ../c-semantics.c ../c-lex.c ../c-dump.c ../c-pretty-print.c
   ../c-opts.c
   ${cxx_target_srcs}
+  xml.c
   )
 
 TARGET_LINK_LIBRARIES(cc1plus backend cpp iberty)

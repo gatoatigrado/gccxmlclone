@@ -117,6 +117,12 @@ DEFINE_LANG_NAME ("C++")
   { "-fxref", 
     N_("Emit cross referencing information") },
   { "-fno-xref", "" },
+/* BEGIN GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
+  { "-fxml=",
+    N_("Enable XML output to a file (use with -fsyntax-only)") },
+  { "-fno-xml", "" },
+  { "-fxml-start=", "Specify start locations for XML dump (use with -fxml)" },
+/* END GCC-XML MODIFICATIONS ($Date: 2003-11-21 21:29:54 $) */
 
   { "-Wreturn-type", 
     N_("Warn about inconsistent return types") },
