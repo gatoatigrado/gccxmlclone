@@ -33,6 +33,7 @@ SET(tm_p_file ${tm_p_file})
 SET(extra_modes ${extra_modes})
 SET(extra_objs ${extra_objs})
 SET(cxx_target_objs ${cxx_target_objs})
+SET(target_cpu_default ${target_cpu_default})
 EOF
 
 "${cmake_command}" -E copy_if_different "${outfile}.in" "${outfile}"

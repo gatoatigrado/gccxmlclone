@@ -72,7 +72,7 @@ FIND_EXTRA_SRCS("${cxx_target_objs}" cxx_target_srcs)
 # Generate hconfig.h.
 SET(typedefs "#ifdef IN_GCC\nstruct rtx_def;\ntypedef struct rtx_def *rtx;\nstruct rtvec_def;\ntypedef struct rtvec_def *rtvec;\nunion tree_node;\ntypedef union tree_node *tree;\n#endif\n#define GTY(x)\n")
 GCC_MAKE_CONFIG_H(hconfig.h GCC_HCONFIG_H "${typedefs}" "${tm_defines}"
-  "${build_xm_defines}" "${build_xm_file}" "" "")
+  "${build_xm_defines}" "${build_xm_file}" "" "" "${target_cpu_default}")
 
 # Build corresponding file list.
 SET(tm_file_list)
@@ -82,12 +82,13 @@ ENDFOREACH(f)
 SET(tm_file_list ${tm_file_list} ${GCC_SOURCE_DIR}/gcc/defaults.h)
 
 # Generate tm_p.h.
-GCC_MAKE_CONFIG_H(tm_p.h GCC_TM_P_H "" "" "" "${tm_p_file}" "tm-preds.h" "")
+GCC_MAKE_CONFIG_H(tm_p.h GCC_TM_P_H "" "" "" "${tm_p_file}" "tm-preds.h" "" "")
 
 # Generate config.h.
 GCC_MAKE_CONFIG_H(config.h GCC_CONFIG_H "${typedefs}" "${tm_defines}"
   "${host_xm_defines}" "${host_xm_file}" ""
-  "#ifndef GENERATOR_FILE\n# include \"insn-constants.h\"\n# include \"insn-flags.h\"\n#endif\n")
+  "#ifndef GENERATOR_FILE\n# include \"insn-constants.h\"\n# include \"insn-flags.h\"\n#endif\n"
+  "${target_cpu_default}")
 
 # Build corresponding file list.
 SET(host_xm_file_list)
@@ -104,7 +105,7 @@ SET(host_xm_file_list ${GCC_SOURCE_DIR}/include/ansidecl.h ${host_xm_file_list})
 
 # Generate tconfig.h.
 GCC_MAKE_CONFIG_H(tconfig.h GCC_TCONFIG_H "${typedefs}" "${tm_defines}"
-  "${xm_defines}" "${xm_file}" "" "")
+  "${xm_defines}" "${xm_file}" "" "" "")
 
 #-----------------------------------------------------------------------------
 # Rules to generate genrtl.h and genrtl.c.

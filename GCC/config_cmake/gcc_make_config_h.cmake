@@ -1,5 +1,5 @@
 MACRO(GCC_MAKE_CONFIG_H output blocker typedefs tm_defines xm_defines
-                        files extras specific)
+                        files extras specific cpu)
   SET(GCC_CONFIG_BLOCKER "${blocker}")
   SET(GCC_CONFIG_AUTO)
   SET(GCC_CONFIG_TYPEDEFS "${typedefs}")
@@ -8,6 +8,10 @@ MACRO(GCC_MAKE_CONFIG_H output blocker typedefs tm_defines xm_defines
   SET(GCC_CONFIG_INCLUDES)
   SET(GCC_CONFIG_EXTRAS)
   SET(GCC_CONFIG_SPECIFIC "${specific}")
+  SET(GCC_CONFIG_CPU ${cpu})
+  IF(GCC_CONFIG_CPU)
+    SET(GCC_CONFIG_TM_DEFINES "#define TARGET_CPU_DEFAULT ${GCC_CONFIG_CPU}\n")
+  ENDIF(GCC_CONFIG_CPU)
   FOREACH(d ${tm_defines})
     STRING(REGEX REPLACE "=.*" "" name "${d}")
     STRING(REGEX REPLACE "=" " " define "${d}")
