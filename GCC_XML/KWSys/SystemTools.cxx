@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-04-08 17:10:44 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-04-08 17:14:29 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -518,7 +518,7 @@ void SystemTools::ExpandRegistryValues(kwsys_std::string& source)
   // The "[^]]" part of this expression will match any character except
   // a close square-bracket.  The ']' character must be the first in the
   // list of characters inside the [^...] block of the expression.
-  cmRegularExpression regEntry("\\[(HKEY[^]]*)\\]");
+  RegularExpression regEntry("\\[(HKEY[^]]*)\\]");
   
   // check for black line or comment
   while (regEntry.find(source))
