@@ -2374,7 +2374,9 @@ find_binding (tree name, tree scope, cxx_binding *front)
         }
       prev = iter;
     }
-  POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, NULL);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+  POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
+/* END GCC-XML MODIFICATIONS (November 2003) */
 }
 
 /* Return the binding for NAME in SCOPE, if any.  Otherwise, return NULL.  */
