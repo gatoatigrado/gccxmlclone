@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-08-06 13:27:56 $
-Version:   $Revision: 1.19 $
+Date:      $Date: 2003-08-07 19:39:07 $
+Version:   $Revision: 1.20 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -787,7 +787,7 @@ void kwsysProcess_Execute(kwsysProcess* cp)
   
   /* Decide whether a child window should be shown.  */
   si.dwFlags |= STARTF_USESHOWWINDOW;
-  si.wShowWindow = cp->HideWindow?SW_HIDE:SW_SHOWDEFAULT;
+  si.wShowWindow = (unsigned short)(cp->HideWindow?SW_HIDE:SW_SHOWDEFAULT);
   
   /* The timeout period starts now.  */
   cp->StartTime = kwsysProcessTimeGetCurrent();
