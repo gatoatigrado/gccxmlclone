@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-11-08 03:49:13 $
-  Version:   $Revision: 1.12 $
+  Date:      $Date: 2003-08-04 15:46:36 $
+  Version:   $Revision: 1.13 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -88,6 +88,9 @@ public:
   
   /** Format date/time string with the current time.  */
   static std::string GetCurrentDateTime(const char* format);
+  
+  /** Return true if the two given files exist and are the same file.  */
+  static bool SameFile(const char* file1, const char* file2);
 };
 
 #endif
