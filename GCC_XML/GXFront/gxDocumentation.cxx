@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 21:07:38 $
-  Version:   $Revision: 1.5 $
+  Date:      $Date: 2002-11-04 15:01:30 $
+  Version:   $Revision: 1.6 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -349,7 +349,6 @@ void gxDocumentationPrintHelpHTMLSection(std::ostream& os,
       }
     else
       {
-      os << "<p>\n";
       gxDocumentationPrintHTMLEscapes(os, op->brief);
       os << "\n";
       ++op;
