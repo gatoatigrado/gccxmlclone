@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-25 01:37:02 $
-  Version:   $Revision: 1.16 $
+  Date:      $Date: 2003-07-01 17:27:22 $
+  Version:   $Revision: 1.17 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1657,7 +1657,6 @@ static int SystemToolsDebugReport(int, char* message, int*)
 {
   fprintf(stderr, message);
   exit(1);
-  return 0;
 }
 void SystemTools::EnableMSVCDebugHook()
 {
