@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-06-18 21:19:44 $
-Version:   $Revision: 1.4 $
+Date:      $Date: 2003-07-07 12:36:40 $
+Version:   $Revision: 1.5 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -99,6 +99,9 @@ struct kwsysProcess_s
   
   /* The timeout length.  */
   double Timeout;
+
+  /* The working directory for the process. */
+  char* WorkingDirectory;
   
   /* Time at which the child started.  Negative for no timeout.  */
   kwsysProcessTime StartTime;
@@ -203,6 +206,29 @@ void kwsysProcess_SetTimeout(kwsysProcess* cp, double timeout)
   if(cp->Timeout < 0)
     {
     cp->Timeout = 0;
+    }
+}
+
+/*--------------------------------------------------------------------------*/
+void kwsysProcess_SetWorkingDirectory(kwsysProcess* cp, const char* dir)
+{
+  if(cp->WorkingDirectory == dir)
+    {
+    return;
+    }
+  if(cp->WorkingDirectory && dir && strcmp(cp->WorkingDirectory, dir) == 0)
+    {
+    return;
+    }
+  if(cp->WorkingDirectory)
+    {
+    free(cp->WorkingDirectory);
+    cp->WorkingDirectory = 0;
+    }
+  if(dir)
+    {
+    cp->WorkingDirectory = (char*) malloc(strlen(dir) + 1);
+    strcpy(cp->WorkingDirectory, dir);
     }
 }
 
