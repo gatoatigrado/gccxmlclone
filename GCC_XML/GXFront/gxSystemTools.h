@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-10-30 19:52:02 $
-  Version:   $Revision: 1.9 $
+  Date:      $Date: 2002-11-01 18:53:39 $
+  Version:   $Revision: 1.10 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -51,6 +51,9 @@ public:
   
   /** Check if a file exists and is a directory.  */
   static bool FileIsDirectory(const char* name);
+  
+  /** Create the given directory.  */
+  static bool MakeDirectory(const char* name);
   
   /** Given a path to a directory, convert it to a full path.  This
    * collapses away relative paths.  The full path is returned.  */
