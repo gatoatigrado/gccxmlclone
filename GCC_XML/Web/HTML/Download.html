@@ -17,14 +17,19 @@ vlink="#000000" alink="#000000">
     There are several ways to get GCC-XML:
     <ul>
       <li> Download the
-              <a href="http://public.kitware.com/GCC_XML/gccxml01.exe">
+              <a href="/GCC_XML/gccxml01.exe">
                 pre-compiled binary installation for Windows</a>
       <li> Download the 
-              <a href="http://public.kitware.com/GCC_XML/gccxml.tar.gz">
+              <a href="/GCC_XML/gccxml.tar.gz">
                 pre-pathed GCC 3.0 source</a> and build it.
-              This is the recommended approach for UNIX users.
+              This is the recommended approach for UNIX users.  You may still
+              need to get part of GCC-XML by CVS, however.  See
+              <a href="/GCC_XML/HTML/Running.html">Running</a> page for details.
       <li> Check out the GCC-XML patch from our CVS repository and
               apply it to a separately obtained GCC 3.0 source.
+              See the page on
+              <a href="/GCC_XML/HTML/Patching_GCC.html">Patching GCC</a>
+              for instructions.
     </ul>
     <p>
     To use CVS, you must have it installed on your system. You may wish to
@@ -41,7 +46,8 @@ vlink="#000000" alink="#000000">
     <b>cvs -d :pserver:anonymous@public.kitware.com:/insight/cvsroot login</b><br>
     (respond with password <code>insight</code>)
     <p>
-    Follow this command by checking out the source code:<br>
+    Follow this command by checking out the source code (this does not
+    include GCC's source):<br>
     <b>cvs -d :pserver:anonymous@public.kitware.com:/insight/cvsroot co GCC_XML</b>
     </div>
     </td>

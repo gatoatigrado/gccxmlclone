@@ -17,7 +17,8 @@ vlink="#000000" alink="#000000">
     <font size=5>Install </font> GCC-XML with one of these approaches:
     <ul>
       <li> On Windows, you can use the pre-compiled installation binary.
-           See the <a href="/GCC_XML/HTML/Download.html">Download</a> page to get it.
+           See the <a href="/GCC_XML/HTML/Download.html">Download</a> page
+           to get it.
       <li> On UNIX, you need to build GCC-XML yourself from the pre-patched
            source to GCC 3.0.  See the
            <a href="/GCC_XML/HTML/Download.html">Download</a> page to get it.
@@ -48,6 +49,10 @@ vlink="#000000" alink="#000000">
             $ make<br>
           </code>
         </blockquote>
+        This example builds all of GCC's C++ compiler and its standard library,
+        but all you really need is one exectuable.  If you want to try to
+        build the minimal portion of GCC needed, try
+       <a href="direct_build.html">these</a> instructions.
       <li>
           When the build finishes, find the file
           <code>~/gccxml-build/gcc/cc1plus</code>.  This program is GCC's
@@ -56,7 +61,8 @@ vlink="#000000" alink="#000000">
           any preprocessor macros (like <code>__GNUC__</code>), so we can
           use it to exactly control how our source is parsed.  This is
           the only part of the compiler you need, and is the gcc-xml
-          executable.  Copy this program to wherever you want to install it.
+          executable.  Copy this program to wherever you want to install it,
+          and rename it to <code>gccxml</code>.
     </ol>
     </div>
     </td>
