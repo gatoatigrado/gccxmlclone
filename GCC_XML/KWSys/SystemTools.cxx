@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-23 12:56:22 $
-  Version:   $Revision: 1.12 $
+  Date:      $Date: 2003-06-24 13:02:46 $
+  Version:   $Revision: 1.13 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1399,7 +1399,7 @@ kwsys_std::string SystemTools::GetFilenameLastExtension(const kwsys_std::string&
 {
   kwsys_std::string name = SystemTools::GetFilenameName(filename);
   kwsys_std::string::size_type dot_pos = name.rfind(".");
-  if(dot_pos != std::string::npos)
+  if(dot_pos != kwsys_std::string::npos)
     {
     return name.substr(dot_pos);
     }
