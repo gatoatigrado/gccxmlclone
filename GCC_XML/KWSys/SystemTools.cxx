@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-08-21 20:22:23 $
-  Version:   $Revision: 1.22 $
+  Date:      $Date: 2003-09-18 15:05:01 $
+  Version:   $Revision: 1.23 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -692,7 +692,6 @@ void SystemTools::ConvertToUnixSlashes(kwsys_std::string& path)
     }
   
   // if there is a /tmp_mnt in a path get rid of it!
-  // stupid sgi's 
   if(path.find("/tmp_mnt") == 0)
     {
     path = path.substr(8);
@@ -1301,6 +1300,11 @@ kwsys_std::string SystemTools::CollapseFullPath(const char* in_relative,
   else
     {
     newDir = SystemTools::GetCurrentWorkingDirectory();
+    }
+  // if there is a /tmp_mnt in a path get rid of it!
+  if(newDir.find("/tmp_mnt") == 0)
+    {
+    newDir = newDir.substr(8);
     }
 #endif
   
