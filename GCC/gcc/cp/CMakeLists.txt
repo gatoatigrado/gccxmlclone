@@ -1,3 +1,6 @@
+#-----------------------------------------------------------------------------
+# C++ Compiler Executable
+
 IF(CMAKE_SYSTEM MATCHES "HP-UX")
   IF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
     SET_SOURCE_FILES_PROPERTIES(../c-opts.c PROPERTIES COMPILE_FLAGS "-Wp,-H,11000")
