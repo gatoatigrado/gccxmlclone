@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-28 16:00:31 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2002-03-28 16:22:31 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -59,6 +59,9 @@ public:
   /** Get the current working directory.  */
   static std::string GetCWD();
   
+  /** Convert the given path to one with forward slashes.  */
+  static void gxSystemTools::ConvertToUnixSlashes(std::string& path);
+
   /** Run the given command and get back the output and the result value.  */
   static bool RunCommand(const char* command, std::string& output,
                          int &retVal);

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-28 16:00:30 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-03-28 16:22:31 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -274,6 +274,32 @@ std::string gxSystemTools::CollapseDirectory(const char* in_dir)
     }
   return dir;
 #endif
+}
+
+//----------------------------------------------------------------------------
+void gxSystemTools::ConvertToUnixSlashes(std::string& path)
+{
+  std::string::size_type pos = 0;
+  while((pos = path.find('\\', pos)) != std::string::npos)
+    {
+    path[pos] = '/';
+    pos++;
+    }
+  // remove any trailing slash
+  if(path.size() && path[path.size()-1] == '/')
+    {
+    path = path.substr(0, path.size()-1);
+    }
+
+  // if there is a tilda ~ then replace it with HOME
+  if(path.find("~") == 0)
+    {
+    std::string home;
+    if(gxSystemTools::GetEnv("HOME", home))
+      {
+      path = home + path.substr(1);
+      }
+    }
 }
 
 //----------------------------------------------------------------------------
