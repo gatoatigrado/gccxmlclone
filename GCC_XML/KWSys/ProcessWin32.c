@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-06-18 21:06:21 $
-Version:   $Revision: 1.6 $
+Date:      $Date: 2003-06-18 21:27:10 $
+Version:   $Revision: 1.7 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -975,10 +975,10 @@ int kwsysProcess_WaitForExit(kwsysProcess* cp, double* userTimeout)
                              &cp->ExitCode))
     {
     /* The child exited.  */
-    cp->State = kwsysProcess_State_Exited;
     if(cp->ExitCode & 0xC0000000)
       {
       /* Child terminated due to exceptional behavior.  */
+      cp->State = kwsysProcess_State_Exception;
       switch (cp->ExitCode)
         {
         case CONTROL_C_EXIT:          
@@ -1016,6 +1016,7 @@ int kwsysProcess_WaitForExit(kwsysProcess* cp, double* userTimeout)
     else
       {
       /* Child exited normally.  */
+      cp->State = kwsysProcess_State_Exited;
       cp->ExitException = kwsysProcess_Exception_None;
       cp->ExitValue = cp->ExitCode & 0x000000FF;
       }
