@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-27 22:22:53 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-03-28 16:00:29 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -18,8 +18,21 @@
 #include "gxFlagsParser.h"
 
 #include <string.h>
-#include <unistd.h>
 #include <errno.h>
+
+#if defined(_WIN32) && !defined(__CYGWIN__)
+#include <process.h>
+inline int Execvp(const char* cmd, char** argv)
+{
+  return _execvp(cmd, argv);
+}
+#else
+#include <unistd.h>
+inline int Execvp(const char* cmd, char** argv)
+{
+  return execvp(cmd, argv);
+}
+#endif
 
 #define GCCXML_VERSION_STRING "0.2"
 
@@ -128,7 +141,7 @@ int main(int argc, char** argv)
     }
   args[flags.size()+1] = 0;
   
-  if(execvp(cGCCXML_EXECUTABLE.c_str(), args) < 0)
+  if(Execvp(cGCCXML_EXECUTABLE.c_str(), args) < 0)
     {
     std::cerr << "Error executing " << cGCCXML_EXECUTABLE.c_str() << "\n";
     exit(errno);

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-27 22:53:51 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-03-28 16:00:31 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -18,6 +18,10 @@
 #define _gxSystemTools_h
 
 #include "gxConfigure.h"
+
+#if defined(_MSC_VER)
+#pragma warning (disable: 4786)
+#endif
 
 #include <iostream>
 #include <fstream>
