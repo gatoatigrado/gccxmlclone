@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-07-10 18:32:30 $
-Version:   $Revision: 1.8 $
+Date:      $Date: 2003-08-05 13:07:54 $
+Version:   $Revision: 1.9 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -263,7 +263,7 @@ const char* kwsysProcess_GetErrorString(kwsysProcess* cp)
 {
   if(cp->State == kwsysProcess_State_Error)
     {
-    return cp->PipeBuffer;
+    return cp->ErrorMessage;
     }
   return 0;
 }
