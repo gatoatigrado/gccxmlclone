@@ -72,46 +72,48 @@ struct cpp_pending
   struct pending_option *include_head, *include_tail;
 };
 
-#ifdef __STDC__
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+#if defined(__STDC__) || defined(ALMOST_STDC)
+/* END GCC-XML MODIFICATIONS (November 2003) */
 #define APPEND(pend, list, elt) \
   do {  if (!(pend)->list##_head) (pend)->list##_head = (elt); \
-	else (pend)->list##_tail->next = (elt); \
-	(pend)->list##_tail = (elt); \
+        else (pend)->list##_tail->next = (elt); \
+        (pend)->list##_tail = (elt); \
   } while (0)
 #else
 #define APPEND(pend, list, elt) \
   do {  if (!(pend)->list/**/_head) (pend)->list/**/_head = (elt); \
-	else (pend)->list/**/_tail->next = (elt); \
-	(pend)->list/**/_tail = (elt); \
+        else (pend)->list/**/_tail->next = (elt); \
+        (pend)->list/**/_tail = (elt); \
   } while (0)
 #endif
 
-static void path_include		PARAMS ((cpp_reader *,
-						 char *, int));
-static void init_library		PARAMS ((void));
-static void init_builtins		PARAMS ((cpp_reader *));
-static void mark_named_operators	PARAMS ((cpp_reader *));
-static void append_include_chain	PARAMS ((cpp_reader *,
-						 char *, int, int));
-static struct search_path * remove_dup_dir	PARAMS ((cpp_reader *,
-						 struct search_path *,
-						 struct search_path **));
+static void path_include                PARAMS ((cpp_reader *,
+                                                 char *, int));
+static void init_library                PARAMS ((void));
+static void init_builtins               PARAMS ((cpp_reader *));
+static void mark_named_operators        PARAMS ((cpp_reader *));
+static void append_include_chain        PARAMS ((cpp_reader *,
+                                                 char *, int, int));
+static struct search_path * remove_dup_dir      PARAMS ((cpp_reader *,
+                                                 struct search_path *,
+                                                 struct search_path **));
 static struct search_path * remove_dup_nonsys_dirs PARAMS ((cpp_reader *,
-						 struct search_path **,
-						 struct search_path *));
+                                                 struct search_path **,
+                                                 struct search_path *));
 static struct search_path * remove_dup_dirs PARAMS ((cpp_reader *,
-						 struct search_path **));
-static void merge_include_chains	PARAMS ((cpp_reader *));
-static bool push_include		PARAMS ((cpp_reader *,
-						 struct pending_option *));
-static void free_chain			PARAMS ((struct pending_option *));
-static void init_standard_includes	PARAMS ((cpp_reader *));
-static void read_original_filename	PARAMS ((cpp_reader *));
-static void new_pending_directive	PARAMS ((struct cpp_pending *,
-						 const char *,
-						 cl_directive_handler));
-static int parse_option			PARAMS ((const char *));
-static void post_options		PARAMS ((cpp_reader *));
+                                                 struct search_path **));
+static void merge_include_chains        PARAMS ((cpp_reader *));
+static bool push_include                PARAMS ((cpp_reader *,
+                                                 struct pending_option *));
+static void free_chain                  PARAMS ((struct pending_option *));
+static void init_standard_includes      PARAMS ((cpp_reader *));
+static void read_original_filename      PARAMS ((cpp_reader *));
+static void new_pending_directive       PARAMS ((struct cpp_pending *,
+                                                 const char *,
+                                                 cl_directive_handler));
+static int parse_option                 PARAMS ((const char *));
+static void post_options                PARAMS ((cpp_reader *));
 
 /* Fourth argument to append_include_chain: chain to use.
    Note it's never asked to append to the quote chain.  */
@@ -141,9 +143,9 @@ __extension__ const uchar _cpp_trigraph_map[UCHAR_MAX + 1] = {
 #endif
 
 TRIGRAPH_MAP
-  s('=', '#')	s(')', ']')	s('!', '|')
-  s('(', '[')	s('\'', '^')	s('>', '}')
-  s('/', '\\')	s('<', '{')	s('-', '~')
+  s('=', '#')   s(')', ']')     s('!', '|')
+  s('(', '[')   s('\'', '^')    s('>', '}')
+  s('/', '\\')  s('<', '{')     s('-', '~')
 END
 
 #undef s
@@ -168,25 +170,25 @@ path_include (pfile, list, path)
       q = p;
       while (*q != 0 && *q != PATH_SEPARATOR) q++;
       if (q == p)
-	{
-	  /* An empty name in the path stands for the current directory.  */
-	  name = (char *) xmalloc (2);
-	  name[0] = '.';
-	  name[1] = 0;
-	}
+        {
+          /* An empty name in the path stands for the current directory.  */
+          name = (char *) xmalloc (2);
+          name[0] = '.';
+          name[1] = 0;
+        }
       else
-	{
-	  /* Otherwise use the directory that is named.  */
-	  name = (char *) xmalloc (q - p + 1);
-	  memcpy (name, p, q - p);
-	  name[q - p] = 0;
-	}
+        {
+          /* Otherwise use the directory that is named.  */
+          name = (char *) xmalloc (q - p + 1);
+          memcpy (name, p, q - p);
+          name[q - p] = 0;
+        }
 
       append_include_chain (pfile, name, path, path == SYSTEM);
 
       /* Advance past this name.  */
       if (*q == 0)
-	break;
+        break;
       p = q + 1;
     }
   while (1);
@@ -219,9 +221,9 @@ append_include_chain (pfile, dir, path, cxx_aware)
     {
       /* Dirs that don't exist are silently ignored.  */
       if (errno != ENOENT)
-	cpp_errno (pfile, DL_ERROR, dir);
+        cpp_errno (pfile, DL_ERROR, dir);
       else if (CPP_OPTION (pfile, verbose))
-	fprintf (stderr, _("ignoring nonexistent directory \"%s\"\n"), dir);
+        fprintf (stderr, _("ignoring nonexistent directory \"%s\"\n"), dir);
       free (dir);
       return;
     }
@@ -254,9 +256,9 @@ append_include_chain (pfile, dir, path, cxx_aware)
 
   switch (path)
     {
-    case BRACKET:	APPEND (pend, brack, new); break;
-    case SYSTEM:	APPEND (pend, systm, new); break;
-    case AFTER:		APPEND (pend, after, new); break;
+    case BRACKET:       APPEND (pend, brack, new); break;
+    case SYSTEM:        APPEND (pend, systm, new); break;
+    case AFTER:         APPEND (pend, after, new); break;
     }
 }
 
@@ -309,24 +311,24 @@ remove_dup_nonsys_dirs (pfile, head_ptr, end)
   for (cur = *head_ptr; cur; cur = cur->next)
     {
       if (cur->sysp)
-	{
-	  sysdir = 1;
-	  for (other = *head_ptr, prev = NULL;
-	       other != end;
-	       other = other ? other->next : *head_ptr)
-	    {
-	      if (!other->sysp
-		  && INO_T_EQ (cur->ino, other->ino)
-		  && cur->dev == other->dev)
-		{
-		  other = remove_dup_dir (pfile, prev, head_ptr);
-		  if (CPP_OPTION (pfile, verbose))
-		    fprintf (stderr,
+        {
+          sysdir = 1;
+          for (other = *head_ptr, prev = NULL;
+               other != end;
+               other = other ? other->next : *head_ptr)
+            {
+              if (!other->sysp
+                  && INO_T_EQ (cur->ino, other->ino)
+                  && cur->dev == other->dev)
+                {
+                  other = remove_dup_dir (pfile, prev, head_ptr);
+                  if (CPP_OPTION (pfile, verbose))
+                    fprintf (stderr,
   _("  as it is a non-system directory that duplicates a system directory\n"));
-		}
-	      prev = other;
-	    }
-	}
+                }
+              prev = other;
+            }
+        }
     }
 
   if (!sysdir)
@@ -350,11 +352,11 @@ remove_dup_dirs (pfile, head_ptr)
   for (cur = *head_ptr; cur; cur = cur->next)
     {
       for (other = *head_ptr; other != cur; other = other->next)
-	if (INO_T_EQ (cur->ino, other->ino) && cur->dev == other->dev)
-	  {
-	    cur = remove_dup_dir (pfile, prev, head_ptr);
-	    break;
-	  }
+        if (INO_T_EQ (cur->ino, other->ino) && cur->dev == other->dev)
+          {
+            cur = remove_dup_dir (pfile, prev, head_ptr);
+            break;
+          }
       prev = cur;
     }
 
@@ -415,8 +417,8 @@ merge_include_chains (pfile)
 
       /* If brack == qtail, remove brack as it's simpler.  */
       if (qtail && brack && INO_T_EQ (qtail->ino, brack->ino)
-	  && qtail->dev == brack->dev)
-	brack = remove_dup_dir (pfile, qtail, &quote);
+          && qtail->dev == brack->dev)
+        brack = remove_dup_dir (pfile, qtail, &quote);
     }
   else
     quote = brack;
@@ -461,14 +463,14 @@ cpp_set_lang (pfile, lang)
 
   CPP_OPTION (pfile, lang) = lang;
 
-  CPP_OPTION (pfile, c99)		 = l->c99;
-  CPP_OPTION (pfile, cplusplus)		 = l->cplusplus;
-  CPP_OPTION (pfile, extended_numbers)	 = l->extended_numbers;
-  CPP_OPTION (pfile, std)		 = l->std;
-  CPP_OPTION (pfile, trigraphs)		 = l->std;
-  CPP_OPTION (pfile, dollars_in_ident)	 = l->dollars_in_ident;
+  CPP_OPTION (pfile, c99)                = l->c99;
+  CPP_OPTION (pfile, cplusplus)          = l->cplusplus;
+  CPP_OPTION (pfile, extended_numbers)   = l->extended_numbers;
+  CPP_OPTION (pfile, std)                = l->std;
+  CPP_OPTION (pfile, trigraphs)          = l->std;
+  CPP_OPTION (pfile, dollars_in_ident)   = l->dollars_in_ident;
   CPP_OPTION (pfile, cplusplus_comments) = l->cplusplus_comments;
-  CPP_OPTION (pfile, digraphs)		 = l->digraphs;
+  CPP_OPTION (pfile, digraphs)           = l->digraphs;
 }
 
 #ifdef HOST_EBCDIC
@@ -480,7 +482,7 @@ opt_comp (p1, p2)
      const void *p1, *p2;
 {
   return strcmp (((struct cl_option *) p1)->opt_text,
-		 ((struct cl_option *) p2)->opt_text);
+                 ((struct cl_option *) p2)->opt_text);
 }
 #endif
 
@@ -497,13 +499,13 @@ init_library ()
 
 #ifdef HOST_EBCDIC
       /* For non-ASCII hosts, the cl_options array needs to be sorted at
-	 runtime.  */
+         runtime.  */
       qsort (cl_options, N_OPTS, sizeof (struct cl_option), opt_comp);
 #endif
 
       /* Set up the trigraph map.  This doesn't need to do anything if
-	 we were compiled with a compiler that supports C99 designated
-	 initializers.  */
+         we were compiled with a compiler that supports C99 designated
+         initializers.  */
       init_trigraph_map ();
     }
 }
@@ -625,7 +627,7 @@ cpp_destroy (pfile)
       runn = run->next;
       free (run->base);
       if (run != &pfile->base_run)
-	free (run);
+        free (run);
     }
 
   for (dir = CPP_OPTION (pfile, quote_include); dir; dir = dirn)
@@ -669,31 +671,31 @@ struct builtin
 #define B(n, t)    { DSC(n), t }
 static const struct builtin builtin_array[] =
 {
-  B("__TIME__",		 BT_TIME),
-  B("__DATE__",		 BT_DATE),
-  B("__FILE__",		 BT_FILE),
-  B("__BASE_FILE__",	 BT_BASE_FILE),
-  B("__LINE__",		 BT_SPECLINE),
+  B("__TIME__",          BT_TIME),
+  B("__DATE__",          BT_DATE),
+  B("__FILE__",          BT_FILE),
+  B("__BASE_FILE__",     BT_BASE_FILE),
+  B("__LINE__",          BT_SPECLINE),
   B("__INCLUDE_LEVEL__", BT_INCLUDE_LEVEL),
   /* Keep builtins not used for -traditional-cpp at the end, and
      update init_builtins() if any more are added.  */
-  B("_Pragma",		 BT_PRAGMA),
-  B("__STDC__",		 BT_STDC),
+  B("_Pragma",           BT_PRAGMA),
+  B("__STDC__",          BT_STDC),
 };
 
 static const struct builtin operator_array[] =
 {
-  B("and",	CPP_AND_AND),
-  B("and_eq",	CPP_AND_EQ),
-  B("bitand",	CPP_AND),
-  B("bitor",	CPP_OR),
-  B("compl",	CPP_COMPL),
-  B("not",	CPP_NOT),
-  B("not_eq",	CPP_NOT_EQ),
-  B("or",	CPP_OR_OR),
-  B("or_eq",	CPP_OR_EQ),
-  B("xor",	CPP_XOR),
-  B("xor_eq",	CPP_XOR_EQ)
+  B("and",      CPP_AND_AND),
+  B("and_eq",   CPP_AND_EQ),
+  B("bitand",   CPP_AND),
+  B("bitor",    CPP_OR),
+  B("compl",    CPP_COMPL),
+  B("not",      CPP_NOT),
+  B("not_eq",   CPP_NOT_EQ),
+  B("or",       CPP_OR_OR),
+  B("or_eq",    CPP_OR_EQ),
+  B("xor",      CPP_XOR),
+  B("xor_eq",   CPP_XOR_EQ)
 };
 #undef B
 
@@ -792,7 +794,7 @@ init_standard_includes (pfile)
   if (specd_prefix != 0 && cpp_GCC_INCLUDE_DIR_len)
     {
       /* Remove the `include' from /usr/local/lib/gcc.../include.
-	 GCC_INCLUDE_DIR will always end in /include.  */
+         GCC_INCLUDE_DIR will always end in /include.  */
       int default_len = cpp_GCC_INCLUDE_DIR_len;
       char *default_prefix = (char *) alloca (default_len + 1);
       int specd_len = strlen (specd_prefix);
@@ -801,28 +803,28 @@ init_standard_includes (pfile)
       default_prefix[default_len] = '\0';
 
       for (p = cpp_include_defaults; p->fname; p++)
-	{
-	  /* Some standard dirs are only for C++.  */
-	  if (!p->cplusplus
-	      || (CPP_OPTION (pfile, cplusplus)
-		  && !CPP_OPTION (pfile, no_standard_cplusplus_includes)))
-	    {
-	      /* Does this dir start with the prefix?  */
-	      if (!strncmp (p->fname, default_prefix, default_len))
-		{
-		  /* Yes; change prefix and add to search list.  */
-		  int flen = strlen (p->fname);
-		  int this_len = specd_len + flen - default_len;
-		  char *str = (char *) xmalloc (this_len + 1);
-		  memcpy (str, specd_prefix, specd_len);
-		  memcpy (str + specd_len,
-			  p->fname + default_len,
-			  flen - default_len + 1);
+        {
+          /* Some standard dirs are only for C++.  */
+          if (!p->cplusplus
+              || (CPP_OPTION (pfile, cplusplus)
+                  && !CPP_OPTION (pfile, no_standard_cplusplus_includes)))
+            {
+              /* Does this dir start with the prefix?  */
+              if (!strncmp (p->fname, default_prefix, default_len))
+                {
+                  /* Yes; change prefix and add to search list.  */
+                  int flen = strlen (p->fname);
+                  int this_len = specd_len + flen - default_len;
+                  char *str = (char *) xmalloc (this_len + 1);
+                  memcpy (str, specd_prefix, specd_len);
+                  memcpy (str + specd_len,
+                          p->fname + default_len,
+                          flen - default_len + 1);
 
-		  append_include_chain (pfile, str, SYSTEM, p->cxx_aware);
-		}
-	    }
-	}
+                  append_include_chain (pfile, str, SYSTEM, p->cxx_aware);
+                }
+            }
+        }
     }
 
   /* Search ordinary names for GNU include directories.  */
@@ -830,12 +832,12 @@ init_standard_includes (pfile)
     {
       /* Some standard dirs are only for C++.  */
       if (!p->cplusplus
-	  || (CPP_OPTION (pfile, cplusplus)
-	      && !CPP_OPTION (pfile, no_standard_cplusplus_includes)))
-	{
-	  char *str = update_path (p->fname, p->component);
-	  append_include_chain (pfile, str, SYSTEM, p->cxx_aware);
-	}
+          || (CPP_OPTION (pfile, cplusplus)
+              && !CPP_OPTION (pfile, no_standard_cplusplus_includes)))
+        {
+          char *str = update_path (p->fname, p->component);
+          append_include_chain (pfile, str, SYSTEM, p->cxx_aware);
+        }
     }
 }
 
@@ -892,24 +894,24 @@ static void sanity_checks (pfile)
 
   if (CPP_OPTION (pfile, precision) > max_precision)
     cpp_error (pfile, DL_ICE,
-	       "preprocessor arithmetic has maximum precision of %lu bits; target requires %lu bits",
-	       (unsigned long) max_precision,
-	       (unsigned long) CPP_OPTION (pfile, precision));
+               "preprocessor arithmetic has maximum precision of %lu bits; target requires %lu bits",
+               (unsigned long) max_precision,
+               (unsigned long) CPP_OPTION (pfile, precision));
 
   if (CPP_OPTION (pfile, precision) < CPP_OPTION (pfile, int_precision))
     cpp_error (pfile, DL_ICE,
-	       "CPP arithmetic must be at least as precise as a target int");
+               "CPP arithmetic must be at least as precise as a target int");
 
   if (CPP_OPTION (pfile, char_precision) < 8)
     cpp_error (pfile, DL_ICE, "target char is less than 8 bits wide");
 
   if (CPP_OPTION (pfile, wchar_precision) < CPP_OPTION (pfile, char_precision))
     cpp_error (pfile, DL_ICE,
-	       "target wchar_t is narrower than target char");
+               "target wchar_t is narrower than target char");
 
   if (CPP_OPTION (pfile, int_precision) < CPP_OPTION (pfile, char_precision))
     cpp_error (pfile, DL_ICE,
-	       "target int is narrower than target char");
+               "target int is narrower than target char");
 
   /* This is assumed in eval_token() and could be fixed if necessary.  */
   if (sizeof (cppchar_t) > sizeof (cpp_num_part))
@@ -917,9 +919,9 @@ static void sanity_checks (pfile)
 
   if (CPP_OPTION (pfile, wchar_precision) > BITS_PER_CPPCHAR_T)
     cpp_error (pfile, DL_ICE,
-	       "CPP on this host cannot handle wide character constants over %lu bits, but the target requires %lu bits",
-	       (unsigned long) BITS_PER_CPPCHAR_T,
-	       (unsigned long) CPP_OPTION (pfile, wchar_precision));
+               "CPP on this host cannot handle wide character constants over %lu bits, but the target requires %lu bits",
+               (unsigned long) BITS_PER_CPPCHAR_T,
+               (unsigned long) CPP_OPTION (pfile, wchar_precision));
 }
 #else
 # define sanity_checks(PFILE)
@@ -971,18 +973,18 @@ cpp_read_main_file (pfile, fname, table)
       struct search_path *l;
       fprintf (stderr, _("#include \"...\" search starts here:\n"));
       for (l = CPP_OPTION (pfile, quote_include); l; l = l->next)
-	{
-	  if (l == CPP_OPTION (pfile, bracket_include))
-	    fprintf (stderr, _("#include <...> search starts here:\n"));
-	  fprintf (stderr, " %s\n", l->name);
-	}
+        {
+          if (l == CPP_OPTION (pfile, bracket_include))
+            fprintf (stderr, _("#include <...> search starts here:\n"));
+          fprintf (stderr, " %s\n", l->name);
+        }
       fprintf (stderr, _("End of search list.\n"));
     }
 
   if (CPP_OPTION (pfile, deps.style) != DEPS_NONE)
     {
       if (!pfile->deps)
-	pfile->deps = deps_init ();
+        pfile->deps = deps_init ();
 
       /* Set the default target (if there is none already).  */
       deps_add_default_target (pfile->deps, fname);
@@ -1025,10 +1027,10 @@ read_original_filename (pfile)
 
       /* If it's a #line directive, handle it.  */
       if (token1->type == CPP_NUMBER)
-	{
-	  _cpp_handle_directive (pfile, token->flags & PREV_WHITE);
-	  return;
-	}
+        {
+          _cpp_handle_directive (pfile, token->flags & PREV_WHITE);
+          return;
+        }
     }
 
   /* Backup as if nothing happened.  */
@@ -1058,14 +1060,14 @@ cpp_finish_options (pfile)
       init_builtins (pfile);
       _cpp_do_file_change (pfile, LC_RENAME, _("<command line>"), 1, 0);
       for (p = CPP_OPTION (pfile, pending)->directive_head; p; p = p->next)
-	(*p->handler) (pfile, p->arg);
+        (*p->handler) (pfile, p->arg);
 
       /* Scan -imacros files after -D, -U, but before -include.
-	 pfile->next_include_file is NULL, so _cpp_pop_buffer does not
-	 push -include files.  */
+         pfile->next_include_file is NULL, so _cpp_pop_buffer does not
+         push -include files.  */
       for (p = CPP_OPTION (pfile, pending)->imacros_head; p; p = p->next)
-	if (push_include (pfile, p))
-	  cpp_scan_nooutput (pfile);
+        if (push_include (pfile, p))
+          cpp_scan_nooutput (pfile);
 
       pfile->next_include_file = &CPP_OPTION (pfile, pending)->include_head;
       _cpp_maybe_push_include_file (pfile);
@@ -1087,18 +1089,18 @@ _cpp_maybe_push_include_file (pfile)
       struct pending_option *head = *pfile->next_include_file;
 
       while (head && !push_include (pfile, head))
-	head = head->next;
+        head = head->next;
 
       if (head)
-	pfile->next_include_file = &head->next;
+        pfile->next_include_file = &head->next;
       else
-	{
-	  /* All done; restore the line map from <command line>.  */
-	  _cpp_do_file_change (pfile, LC_RENAME,
-			       pfile->line_maps.maps[0].to_file, 1, 0);
-	  /* Don't come back here again.  */
-	  pfile->next_include_file = NULL;
-	}
+        {
+          /* All done; restore the line map from <command line>.  */
+          _cpp_do_file_change (pfile, LC_RENAME,
+                               pfile->line_maps.maps[0].to_file, 1, 0);
+          /* Don't come back here again.  */
+          pfile->next_include_file = NULL;
+        }
     }
 }
 
@@ -1132,7 +1134,7 @@ cpp_finish (pfile, deps_stream)
       deps_write (pfile->deps, deps_stream, 72);
 
       if (CPP_OPTION (pfile, deps.phony_targets))
-	deps_phony_targets (pfile->deps, deps_stream);
+        deps_phony_targets (pfile->deps, deps_stream);
     }
 
   /* Report on headers that could use multiple include guards.  */
@@ -1234,38 +1236,38 @@ parse_option (input)
       comp = strncmp (input, cl_options[md].opt_text, opt_len);
 
       if (comp > 0)
-	mn = md + 1;
+        mn = md + 1;
       else if (comp < 0)
-	mx = md;
+        mx = md;
       else
-	{
-	  if (input[opt_len] == '\0')
-	    return md;
-	  /* We were passed more text.  If the option takes an argument,
-	     we may match a later option or we may have been passed the
-	     argument.  The longest possible option match succeeds.
-	     If the option takes no arguments we have not matched and
-	     continue the search (e.g. input="stdc++" match was "stdc").  */
-	  mn = md + 1;
-	  if (cl_options[md].msg)
-	    {
-	      /* Scan forwards.  If we get an exact match, return it.
-		 Otherwise, return the longest option-accepting match.
-		 This loops no more than twice with current options.  */
-	      mx = md;
-	      for (; mn < (unsigned int) N_OPTS; mn++)
-		{
-		  opt_len = cl_options[mn].opt_len;
-		  if (strncmp (input, cl_options[mn].opt_text, opt_len))
-		    break;
-		  if (input[opt_len] == '\0')
-		    return mn;
-		  if (cl_options[mn].msg)
-		    mx = mn;
-		}
-	      return mx;
-	    }
-	}
+        {
+          if (input[opt_len] == '\0')
+            return md;
+          /* We were passed more text.  If the option takes an argument,
+             we may match a later option or we may have been passed the
+             argument.  The longest possible option match succeeds.
+             If the option takes no arguments we have not matched and
+             continue the search (e.g. input="stdc++" match was "stdc").  */
+          mn = md + 1;
+          if (cl_options[md].msg)
+            {
+              /* Scan forwards.  If we get an exact match, return it.
+                 Otherwise, return the longest option-accepting match.
+                 This loops no more than twice with current options.  */
+              mx = md;
+              for (; mn < (unsigned int) N_OPTS; mn++)
+                {
+                  opt_len = cl_options[mn].opt_len;
+                  if (strncmp (input, cl_options[mn].opt_text, opt_len))
+                    break;
+                  if (input[opt_len] == '\0')
+                    return mn;
+                  if (cl_options[mn].msg)
+                    mx = mn;
+                }
+              return mx;
+            }
+        }
     }
 
   return -1;
@@ -1291,129 +1293,129 @@ cpp_handle_option (pfile, argc, argv)
       /* Skip over '-'.  */
       opt_index = parse_option (&argv[i][1]);
       if (opt_index < 0)
-	return i;
+        return i;
 
       opt_code = cl_options[opt_index].opt_code;
       if (cl_options[opt_index].msg)
-	{
-	  arg = &argv[i][cl_options[opt_index].opt_len + 1];
-	  if (arg[0] == '\0')
-	    {
-	      arg = argv[++i];
-	      if (!arg)
-		{
-		  cpp_error (pfile, DL_ERROR,
-			     cl_options[opt_index].msg, argv[i - 1]);
-		  return argc;
-		}
-	    }
-	}
+        {
+          arg = &argv[i][cl_options[opt_index].opt_len + 1];
+          if (arg[0] == '\0')
+            {
+              arg = argv[++i];
+              if (!arg)
+                {
+                  cpp_error (pfile, DL_ERROR,
+                             cl_options[opt_index].msg, argv[i - 1]);
+                  return argc;
+                }
+            }
+        }
 
       switch (opt_code)
-	{
-	case N_OPTS: /* Shut GCC up.  */
-	  break;
+        {
+        case N_OPTS: /* Shut GCC up.  */
+          break;
 
-	case OPT_D:
-	  new_pending_directive (pend, arg, cpp_define);
-	  break;
-	case OPT_iprefix:
-	  CPP_OPTION (pfile, include_prefix) = arg;
-	  CPP_OPTION (pfile, include_prefix_len) = strlen (arg);
-	  break;
+        case OPT_D:
+          new_pending_directive (pend, arg, cpp_define);
+          break;
+        case OPT_iprefix:
+          CPP_OPTION (pfile, include_prefix) = arg;
+          CPP_OPTION (pfile, include_prefix_len) = strlen (arg);
+          break;
 
-	case OPT_A:
-	  if (arg[0] == '-')
-	    new_pending_directive (pend, arg + 1, cpp_unassert);
-	  else
-	    new_pending_directive (pend, arg, cpp_assert);
-	  break;
-	case OPT_U:
-	  new_pending_directive (pend, arg, cpp_undef);
-	  break;
-	case OPT_I:           /* Add directory to path for includes.  */
-	  if (!strcmp (arg, "-"))
-	    {
-	      /* -I- means:
-		 Use the preceding -I directories for #include "..."
-		 but not #include <...>.
-		 Don't search the directory of the present file
-		 for #include "...".  (Note that -I. -I- is not the same as
-		 the default setup; -I. uses the compiler's working dir.)  */
-	      if (! CPP_OPTION (pfile, ignore_srcdir))
-		{
-		  pend->quote_head = pend->brack_head;
-		  pend->quote_tail = pend->brack_tail;
-		  pend->brack_head = 0;
-		  pend->brack_tail = 0;
-		  CPP_OPTION (pfile, ignore_srcdir) = 1;
-		}
-	      else
-		{
-		  cpp_error (pfile, DL_ERROR, "-I- specified twice");
-		  return argc;
-		}
-	    }
-	  else
-	    append_include_chain (pfile, xstrdup (arg), BRACKET, 0);
-	  break;
-	case OPT_isystem:
-	  /* Add directory to beginning of system include path, as a system
-	     include directory.  */
-	  append_include_chain (pfile, xstrdup (arg), SYSTEM, 0);
-	  break;
-	case OPT_include:
-	case OPT_imacros:
-	  {
-	    struct pending_option *o = (struct pending_option *)
-	      xmalloc (sizeof (struct pending_option));
-	    o->arg = arg;
-	    o->next = NULL;
+        case OPT_A:
+          if (arg[0] == '-')
+            new_pending_directive (pend, arg + 1, cpp_unassert);
+          else
+            new_pending_directive (pend, arg, cpp_assert);
+          break;
+        case OPT_U:
+          new_pending_directive (pend, arg, cpp_undef);
+          break;
+        case OPT_I:           /* Add directory to path for includes.  */
+          if (!strcmp (arg, "-"))
+            {
+              /* -I- means:
+                 Use the preceding -I directories for #include "..."
+                 but not #include <...>.
+                 Don't search the directory of the present file
+                 for #include "...".  (Note that -I. -I- is not the same as
+                 the default setup; -I. uses the compiler's working dir.)  */
+              if (! CPP_OPTION (pfile, ignore_srcdir))
+                {
+                  pend->quote_head = pend->brack_head;
+                  pend->quote_tail = pend->brack_tail;
+                  pend->brack_head = 0;
+                  pend->brack_tail = 0;
+                  CPP_OPTION (pfile, ignore_srcdir) = 1;
+                }
+              else
+                {
+                  cpp_error (pfile, DL_ERROR, "-I- specified twice");
+                  return argc;
+                }
+            }
+          else
+            append_include_chain (pfile, xstrdup (arg), BRACKET, 0);
+          break;
+        case OPT_isystem:
+          /* Add directory to beginning of system include path, as a system
+             include directory.  */
+          append_include_chain (pfile, xstrdup (arg), SYSTEM, 0);
+          break;
+        case OPT_include:
+        case OPT_imacros:
+          {
+            struct pending_option *o = (struct pending_option *)
+              xmalloc (sizeof (struct pending_option));
+            o->arg = arg;
+            o->next = NULL;
 
-	    if (opt_code == OPT_include)
-	      APPEND (pend, include, o);
-	    else
-	      APPEND (pend, imacros, o);
-	  }
-	  break;
-	case OPT_iwithprefix:
-	  /* Add directory to end of path for includes,
-	     with the default prefix at the front of its name.  */
-	  /* fall through */
-	case OPT_iwithprefixbefore:
-	  /* Add directory to main path for includes,
-	     with the default prefix at the front of its name.  */
-	  {
-	    char *fname;
-	    int len;
+            if (opt_code == OPT_include)
+              APPEND (pend, include, o);
+            else
+              APPEND (pend, imacros, o);
+          }
+          break;
+        case OPT_iwithprefix:
+          /* Add directory to end of path for includes,
+             with the default prefix at the front of its name.  */
+          /* fall through */
+        case OPT_iwithprefixbefore:
+          /* Add directory to main path for includes,
+             with the default prefix at the front of its name.  */
+          {
+            char *fname;
+            int len;
 
-	    len = strlen (arg);
+            len = strlen (arg);
 
-	    if (CPP_OPTION (pfile, include_prefix) != 0)
-	      {
-		size_t ipl = CPP_OPTION (pfile, include_prefix_len);
-		fname = xmalloc (ipl + len + 1);
-		memcpy (fname, CPP_OPTION (pfile, include_prefix), ipl);
-		memcpy (fname + ipl, arg, len + 1);
-	      }
-	    else if (cpp_GCC_INCLUDE_DIR_len)
-	      {
-		fname = xmalloc (cpp_GCC_INCLUDE_DIR_len + len + 1);
-		memcpy (fname, cpp_GCC_INCLUDE_DIR, cpp_GCC_INCLUDE_DIR_len);
-		memcpy (fname + cpp_GCC_INCLUDE_DIR_len, arg, len + 1);
-	      }
-	    else
-	      fname = xstrdup (arg);
+            if (CPP_OPTION (pfile, include_prefix) != 0)
+              {
+                size_t ipl = CPP_OPTION (pfile, include_prefix_len);
+                fname = xmalloc (ipl + len + 1);
+                memcpy (fname, CPP_OPTION (pfile, include_prefix), ipl);
+                memcpy (fname + ipl, arg, len + 1);
+              }
+            else if (cpp_GCC_INCLUDE_DIR_len)
+              {
+                fname = xmalloc (cpp_GCC_INCLUDE_DIR_len + len + 1);
+                memcpy (fname, cpp_GCC_INCLUDE_DIR, cpp_GCC_INCLUDE_DIR_len);
+                memcpy (fname + cpp_GCC_INCLUDE_DIR_len, arg, len + 1);
+              }
+            else
+              fname = xstrdup (arg);
 
-	    append_include_chain (pfile, fname,
-			  opt_code == OPT_iwithprefix ? SYSTEM: BRACKET, 0);
-	  }
-	  break;
-	case OPT_idirafter:
-	  /* Add directory to end of path for includes.  */
-	  append_include_chain (pfile, xstrdup (arg), AFTER, 0);
-	  break;
-	}
+            append_include_chain (pfile, fname,
+                          opt_code == OPT_iwithprefix ? SYSTEM: BRACKET, 0);
+          }
+          break;
+        case OPT_idirafter:
+          /* Add directory to end of path for includes.  */
+          append_include_chain (pfile, xstrdup (arg), AFTER, 0);
+          break;
+        }
     }
   return i + 1;
 }
@@ -1435,7 +1437,7 @@ cpp_handle_options (pfile, argc, argv)
     {
       strings_processed = cpp_handle_option (pfile, argc - i, argv + i);
       if (strings_processed == 0)
-	break;
+        break;
     }
 
   return i;

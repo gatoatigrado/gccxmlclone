@@ -69,7 +69,9 @@ static void init_operators PARAMS ((void));
 static void copy_lang_type PARAMS ((tree));
 
 /* A constraint that can be tested at compile time.  */
-#ifdef __STDC__
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+#if defined(__STDC__) || defined(ALMOST_STDC)
+/* END GCC-XML MODIFICATIONS (November 2003) */
 #define CONSTRAINT(name, expr) extern int constraint_##name [(expr) ? 1 : -1]
 #else
 #define CONSTRAINT(name, expr) extern int constraint_/**/name [(expr) ? 1 : -1]
@@ -77,9 +79,9 @@ static void copy_lang_type PARAMS ((tree));
 
 #include "cpplib.h"
 
-extern int yychar;		/*  the lookahead symbol		*/
-extern YYSTYPE yylval;		/*  the semantic value of the		*/
-				/*  lookahead symbol			*/
+extern int yychar;              /*  the lookahead symbol                */
+extern YYSTYPE yylval;          /*  the semantic value of the           */
+                                /*  lookahead symbol                    */
 
 /* the declaration found for the last IDENTIFIER token read in.  yylex
    must look this up to detect typedefs, which get token type
@@ -154,17 +156,17 @@ make_reference_declarator (cv_qualifiers, target)
   if (target)
     {
       if (TREE_CODE (target) == ADDR_EXPR)
-	{
-	  error ("cannot declare references to references");
-	  return target;
-	}
+        {
+          error ("cannot declare references to references");
+          return target;
+        }
       if (TREE_CODE (target) == INDIRECT_REF)
-	{
-	  error ("cannot declare pointers to references");
-	  return target;
-	}
+        {
+          error ("cannot declare pointers to references");
+          return target;
+        }
       if (TREE_CODE (target) == IDENTIFIER_NODE && ANON_AGGRNAME_P (target))
-	  error ("type name expected before `&'");
+          error ("type name expected before `&'");
     }
   target = build_nt (ADDR_EXPR, target);
   TREE_TYPE (target) = cv_qualifiers;
@@ -176,10 +178,10 @@ make_call_declarator (target, parms, cv_qualifiers, exception_specification)
      tree target, parms, cv_qualifiers, exception_specification;
 {
   target = build_nt (CALL_EXPR, target,
-		     tree_cons (parms, cv_qualifiers, NULL_TREE),
-		     /* The third operand is really RTL.  We
-			shouldn't put anything there.  */
-		     NULL_TREE);
+                     tree_cons (parms, cv_qualifiers, NULL_TREE),
+                     /* The third operand is really RTL.  We
+                        shouldn't put anything there.  */
+                     NULL_TREE);
   CALL_DECLARATOR_EXCEPTION_SPEC (target) = exception_specification;
   return target;
 }
@@ -192,10 +194,10 @@ set_quals_and_spec (call_declarator, cv_qualifiers, exception_specification)
   CALL_DECLARATOR_EXCEPTION_SPEC (call_declarator) = exception_specification;
 }
 
-int interface_only;		/* whether or not current file is only for
-				   interface definitions.  */
-int interface_unknown;		/* whether or not we know this class
-				   to behave according to #pragma interface.  */
+int interface_only;             /* whether or not current file is only for
+                                   interface definitions.  */
+int interface_unknown;          /* whether or not we know this class
+                                   to behave according to #pragma interface.  */
 
 
 /* Initialization before switch parsing.  */
@@ -253,16 +255,16 @@ init_operators ()
   char buffer[256];
   struct operator_name_info_t *oni;
 
-#define DEF_OPERATOR(NAME, CODE, MANGLING, ARITY, ASSN_P)		    \
+#define DEF_OPERATOR(NAME, CODE, MANGLING, ARITY, ASSN_P)                   \
   sprintf (buffer, ISALPHA (NAME[0]) ? "operator %s" : "operator%s", NAME); \
-  identifier = get_identifier (buffer);					    \
-  IDENTIFIER_OPNAME_P (identifier) = 1;					    \
-									    \
-  oni = (ASSN_P								    \
-	 ? &assignment_operator_name_info[(int) CODE]			    \
-	 : &operator_name_info[(int) CODE]);				    \
-  oni->identifier = identifier;						    \
-  oni->name = NAME;							    \
+  identifier = get_identifier (buffer);                                     \
+  IDENTIFIER_OPNAME_P (identifier) = 1;                                     \
+                                                                            \
+  oni = (ASSN_P                                                             \
+         ? &assignment_operator_name_info[(int) CODE]                       \
+         : &operator_name_info[(int) CODE]);                                \
+  oni->identifier = identifier;                                             \
+  oni->name = NAME;                                                         \
   oni->mangled_name = MANGLING;                                             \
   oni->arity = ARITY;
 
@@ -322,110 +324,110 @@ struct resword
 
 /* Disable mask.  Keywords are disabled if (reswords[i].disable & mask) is
    _true_.  */
-#define D_EXT		0x01	/* GCC extension */
-#define D_ASM		0x02	/* in C99, but has a switch to turn it off */
+#define D_EXT           0x01    /* GCC extension */
+#define D_ASM           0x02    /* in C99, but has a switch to turn it off */
 
 CONSTRAINT(ridbits_fit, RID_LAST_MODIFIER < sizeof(unsigned long) * CHAR_BIT);
 
 static const struct resword reswords[] =
 {
-  { "_Complex",		RID_COMPLEX,	0 },
-  { "__FUNCTION__",	RID_FUNCTION_NAME, 0 },
+  { "_Complex",         RID_COMPLEX,    0 },
+  { "__FUNCTION__",     RID_FUNCTION_NAME, 0 },
   { "__PRETTY_FUNCTION__", RID_PRETTY_FUNCTION_NAME, 0 },
-  { "__alignof", 	RID_ALIGNOF,	0 },
-  { "__alignof__",	RID_ALIGNOF,	0 },
-  { "__asm",		RID_ASM,	0 },
-  { "__asm__",		RID_ASM,	0 },
-  { "__attribute",	RID_ATTRIBUTE,	0 },
-  { "__attribute__",	RID_ATTRIBUTE,	0 },
-  { "__builtin_va_arg",	RID_VA_ARG,	0 },
-  { "__complex",	RID_COMPLEX,	0 },
-  { "__complex__",	RID_COMPLEX,	0 },
-  { "__const",		RID_CONST,	0 },
-  { "__const__",	RID_CONST,	0 },
-  { "__extension__",	RID_EXTENSION,	0 },
-  { "__func__",		RID_C99_FUNCTION_NAME,	0 },
-  { "__imag",		RID_IMAGPART,	0 },
-  { "__imag__",		RID_IMAGPART,	0 },
-  { "__inline",		RID_INLINE,	0 },
-  { "__inline__",	RID_INLINE,	0 },
-  { "__label__",	RID_LABEL,	0 },
-  { "__null",		RID_NULL,	0 },
-  { "__real",		RID_REALPART,	0 },
-  { "__real__",		RID_REALPART,	0 },
-  { "__restrict",	RID_RESTRICT,	0 },
-  { "__restrict__",	RID_RESTRICT,	0 },
-  { "__signed",		RID_SIGNED,	0 },
-  { "__signed__",	RID_SIGNED,	0 },
-  { "__thread",		RID_THREAD,	0 },
-  { "__typeof",		RID_TYPEOF,	0 },
-  { "__typeof__",	RID_TYPEOF,	0 },
-  { "__volatile",	RID_VOLATILE,	0 },
-  { "__volatile__",	RID_VOLATILE,	0 },
-  { "asm",		RID_ASM,	D_ASM },
-  { "auto",		RID_AUTO,	0 },
-  { "bool",		RID_BOOL,	0 },
-  { "break",		RID_BREAK,	0 },
-  { "case",		RID_CASE,	0 },
-  { "catch",		RID_CATCH,	0 },
-  { "char",		RID_CHAR,	0 },
-  { "class",		RID_CLASS,	0 },
-  { "const",		RID_CONST,	0 },
-  { "const_cast",	RID_CONSTCAST,	0 },
-  { "continue",		RID_CONTINUE,	0 },
-  { "default",		RID_DEFAULT,	0 },
-  { "delete",		RID_DELETE,	0 },
-  { "do",		RID_DO,		0 },
-  { "double",		RID_DOUBLE,	0 },
-  { "dynamic_cast",	RID_DYNCAST,	0 },
-  { "else",		RID_ELSE,	0 },
-  { "enum",		RID_ENUM,	0 },
-  { "explicit",		RID_EXPLICIT,	0 },
-  { "export",		RID_EXPORT,	0 },
-  { "extern",		RID_EXTERN,	0 },
-  { "false",		RID_FALSE,	0 },
-  { "float",		RID_FLOAT,	0 },
-  { "for",		RID_FOR,	0 },
-  { "friend",		RID_FRIEND,	0 },
-  { "goto",		RID_GOTO,	0 },
-  { "if",		RID_IF,		0 },
-  { "inline",		RID_INLINE,	0 },
-  { "int",		RID_INT,	0 },
-  { "long",		RID_LONG,	0 },
-  { "mutable",		RID_MUTABLE,	0 },
-  { "namespace",	RID_NAMESPACE,	0 },
-  { "new",		RID_NEW,	0 },
-  { "operator",		RID_OPERATOR,	0 },
-  { "private",		RID_PRIVATE,	0 },
-  { "protected",	RID_PROTECTED,	0 },
-  { "public",		RID_PUBLIC,	0 },
-  { "register",		RID_REGISTER,	0 },
-  { "reinterpret_cast",	RID_REINTCAST,	0 },
-  { "return",		RID_RETURN,	0 },
-  { "short",		RID_SHORT,	0 },
-  { "signed",		RID_SIGNED,	0 },
-  { "sizeof",		RID_SIZEOF,	0 },
-  { "static",		RID_STATIC,	0 },
-  { "static_cast",	RID_STATCAST,	0 },
-  { "struct",		RID_STRUCT,	0 },
-  { "switch",		RID_SWITCH,	0 },
-  { "template",		RID_TEMPLATE,	0 },
-  { "this",		RID_THIS,	0 },
-  { "throw",		RID_THROW,	0 },
-  { "true",		RID_TRUE,	0 },
-  { "try",		RID_TRY,	0 },
-  { "typedef",		RID_TYPEDEF,	0 },
-  { "typename",		RID_TYPENAME,	0 },
-  { "typeid",		RID_TYPEID,	0 },
-  { "typeof",		RID_TYPEOF,	D_ASM|D_EXT },
-  { "union",		RID_UNION,	0 },
-  { "unsigned",		RID_UNSIGNED,	0 },
-  { "using",		RID_USING,	0 },
-  { "virtual",		RID_VIRTUAL,	0 },
-  { "void",		RID_VOID,	0 },
-  { "volatile",		RID_VOLATILE,	0 },
-  { "wchar_t",          RID_WCHAR,	0 },
-  { "while",		RID_WHILE,	0 },
+  { "__alignof",        RID_ALIGNOF,    0 },
+  { "__alignof__",      RID_ALIGNOF,    0 },
+  { "__asm",            RID_ASM,        0 },
+  { "__asm__",          RID_ASM,        0 },
+  { "__attribute",      RID_ATTRIBUTE,  0 },
+  { "__attribute__",    RID_ATTRIBUTE,  0 },
+  { "__builtin_va_arg", RID_VA_ARG,     0 },
+  { "__complex",        RID_COMPLEX,    0 },
+  { "__complex__",      RID_COMPLEX,    0 },
+  { "__const",          RID_CONST,      0 },
+  { "__const__",        RID_CONST,      0 },
+  { "__extension__",    RID_EXTENSION,  0 },
+  { "__func__",         RID_C99_FUNCTION_NAME,  0 },
+  { "__imag",           RID_IMAGPART,   0 },
+  { "__imag__",         RID_IMAGPART,   0 },
+  { "__inline",         RID_INLINE,     0 },
+  { "__inline__",       RID_INLINE,     0 },
+  { "__label__",        RID_LABEL,      0 },
+  { "__null",           RID_NULL,       0 },
+  { "__real",           RID_REALPART,   0 },
+  { "__real__",         RID_REALPART,   0 },
+  { "__restrict",       RID_RESTRICT,   0 },
+  { "__restrict__",     RID_RESTRICT,   0 },
+  { "__signed",         RID_SIGNED,     0 },
+  { "__signed__",       RID_SIGNED,     0 },
+  { "__thread",         RID_THREAD,     0 },
+  { "__typeof",         RID_TYPEOF,     0 },
+  { "__typeof__",       RID_TYPEOF,     0 },
+  { "__volatile",       RID_VOLATILE,   0 },
+  { "__volatile__",     RID_VOLATILE,   0 },
+  { "asm",              RID_ASM,        D_ASM },
+  { "auto",             RID_AUTO,       0 },
+  { "bool",             RID_BOOL,       0 },
+  { "break",            RID_BREAK,      0 },
+  { "case",             RID_CASE,       0 },
+  { "catch",            RID_CATCH,      0 },
+  { "char",             RID_CHAR,       0 },
+  { "class",            RID_CLASS,      0 },
+  { "const",            RID_CONST,      0 },
+  { "const_cast",       RID_CONSTCAST,  0 },
+  { "continue",         RID_CONTINUE,   0 },
+  { "default",          RID_DEFAULT,    0 },
+  { "delete",           RID_DELETE,     0 },
+  { "do",               RID_DO,         0 },
+  { "double",           RID_DOUBLE,     0 },
+  { "dynamic_cast",     RID_DYNCAST,    0 },
+  { "else",             RID_ELSE,       0 },
+  { "enum",             RID_ENUM,       0 },
+  { "explicit",         RID_EXPLICIT,   0 },
+  { "export",           RID_EXPORT,     0 },
+  { "extern",           RID_EXTERN,     0 },
+  { "false",            RID_FALSE,      0 },
+  { "float",            RID_FLOAT,      0 },
+  { "for",              RID_FOR,        0 },
+  { "friend",           RID_FRIEND,     0 },
+  { "goto",             RID_GOTO,       0 },
+  { "if",               RID_IF,         0 },
+  { "inline",           RID_INLINE,     0 },
+  { "int",              RID_INT,        0 },
+  { "long",             RID_LONG,       0 },
+  { "mutable",          RID_MUTABLE,    0 },
+  { "namespace",        RID_NAMESPACE,  0 },
+  { "new",              RID_NEW,        0 },
+  { "operator",         RID_OPERATOR,   0 },
+  { "private",          RID_PRIVATE,    0 },
+  { "protected",        RID_PROTECTED,  0 },
+  { "public",           RID_PUBLIC,     0 },
+  { "register",         RID_REGISTER,   0 },
+  { "reinterpret_cast", RID_REINTCAST,  0 },
+  { "return",           RID_RETURN,     0 },
+  { "short",            RID_SHORT,      0 },
+  { "signed",           RID_SIGNED,     0 },
+  { "sizeof",           RID_SIZEOF,     0 },
+  { "static",           RID_STATIC,     0 },
+  { "static_cast",      RID_STATCAST,   0 },
+  { "struct",           RID_STRUCT,     0 },
+  { "switch",           RID_SWITCH,     0 },
+  { "template",         RID_TEMPLATE,   0 },
+  { "this",             RID_THIS,       0 },
+  { "throw",            RID_THROW,      0 },
+  { "true",             RID_TRUE,       0 },
+  { "try",              RID_TRY,        0 },
+  { "typedef",          RID_TYPEDEF,    0 },
+  { "typename",         RID_TYPENAME,   0 },
+  { "typeid",           RID_TYPEID,     0 },
+  { "typeof",           RID_TYPEOF,     D_ASM|D_EXT },
+  { "union",            RID_UNION,      0 },
+  { "unsigned",         RID_UNSIGNED,   0 },
+  { "using",            RID_USING,      0 },
+  { "virtual",          RID_VIRTUAL,    0 },
+  { "void",             RID_VOID,       0 },
+  { "volatile",         RID_VOLATILE,   0 },
+  { "wchar_t",          RID_WCHAR,      0 },
+  { "while",            RID_WHILE,      0 },
 
 };
 
@@ -434,127 +436,127 @@ static const struct resword reswords[] =
    three languages.  */
 const short rid_to_yy[RID_MAX] =
 {
-  /* RID_STATIC */	SCSPEC,
-  /* RID_UNSIGNED */	TYPESPEC,
-  /* RID_LONG */	TYPESPEC,
-  /* RID_CONST */	CV_QUALIFIER,
-  /* RID_EXTERN */	SCSPEC,
-  /* RID_REGISTER */	SCSPEC,
-  /* RID_TYPEDEF */	SCSPEC,
-  /* RID_SHORT */	TYPESPEC,
-  /* RID_INLINE */	SCSPEC,
-  /* RID_VOLATILE */	CV_QUALIFIER,
-  /* RID_SIGNED */	TYPESPEC,
-  /* RID_AUTO */	SCSPEC,
-  /* RID_RESTRICT */	CV_QUALIFIER,
+  /* RID_STATIC */      SCSPEC,
+  /* RID_UNSIGNED */    TYPESPEC,
+  /* RID_LONG */        TYPESPEC,
+  /* RID_CONST */       CV_QUALIFIER,
+  /* RID_EXTERN */      SCSPEC,
+  /* RID_REGISTER */    SCSPEC,
+  /* RID_TYPEDEF */     SCSPEC,
+  /* RID_SHORT */       TYPESPEC,
+  /* RID_INLINE */      SCSPEC,
+  /* RID_VOLATILE */    CV_QUALIFIER,
+  /* RID_SIGNED */      TYPESPEC,
+  /* RID_AUTO */        SCSPEC,
+  /* RID_RESTRICT */    CV_QUALIFIER,
 
   /* C extensions.  Bounded pointers are not yet in C++ */
-  /* RID_BOUNDED */	0,
-  /* RID_UNBOUNDED */	0,
-  /* RID_COMPLEX */	TYPESPEC,
-  /* RID_THREAD */	SCSPEC,
+  /* RID_BOUNDED */     0,
+  /* RID_UNBOUNDED */   0,
+  /* RID_COMPLEX */     TYPESPEC,
+  /* RID_THREAD */      SCSPEC,
 
   /* C++ */
-  /* RID_FRIEND */	SCSPEC,
-  /* RID_VIRTUAL */	SCSPEC,
-  /* RID_EXPLICIT */	SCSPEC,
-  /* RID_EXPORT */	EXPORT,
-  /* RID_MUTABLE */	SCSPEC,
+  /* RID_FRIEND */      SCSPEC,
+  /* RID_VIRTUAL */     SCSPEC,
+  /* RID_EXPLICIT */    SCSPEC,
+  /* RID_EXPORT */      EXPORT,
+  /* RID_MUTABLE */     SCSPEC,
 
   /* ObjC */
-  /* RID_IN */		0,
-  /* RID_OUT */		0,
-  /* RID_INOUT */	0,
-  /* RID_BYCOPY */	0,
-  /* RID_BYREF */	0,
-  /* RID_ONEWAY */	0,
+  /* RID_IN */          0,
+  /* RID_OUT */         0,
+  /* RID_INOUT */       0,
+  /* RID_BYCOPY */      0,
+  /* RID_BYREF */       0,
+  /* RID_ONEWAY */      0,
 
   /* C */
-  /* RID_INT */		TYPESPEC,
-  /* RID_CHAR */	TYPESPEC,
-  /* RID_FLOAT */	TYPESPEC,
-  /* RID_DOUBLE */	TYPESPEC,
-  /* RID_VOID */	TYPESPEC,
-  /* RID_ENUM */	ENUM,
-  /* RID_STRUCT */	AGGR,
-  /* RID_UNION */	AGGR,
-  /* RID_IF */		IF,
-  /* RID_ELSE */	ELSE,
-  /* RID_WHILE */	WHILE,
-  /* RID_DO */		DO,
-  /* RID_FOR */		FOR,
-  /* RID_SWITCH */	SWITCH,
-  /* RID_CASE */	CASE,
-  /* RID_DEFAULT */	DEFAULT,
-  /* RID_BREAK */	BREAK,
-  /* RID_CONTINUE */	CONTINUE,
-  /* RID_RETURN */	RETURN_KEYWORD,
-  /* RID_GOTO */	GOTO,
-  /* RID_SIZEOF */	SIZEOF,
+  /* RID_INT */         TYPESPEC,
+  /* RID_CHAR */        TYPESPEC,
+  /* RID_FLOAT */       TYPESPEC,
+  /* RID_DOUBLE */      TYPESPEC,
+  /* RID_VOID */        TYPESPEC,
+  /* RID_ENUM */        ENUM,
+  /* RID_STRUCT */      AGGR,
+  /* RID_UNION */       AGGR,
+  /* RID_IF */          IF,
+  /* RID_ELSE */        ELSE,
+  /* RID_WHILE */       WHILE,
+  /* RID_DO */          DO,
+  /* RID_FOR */         FOR,
+  /* RID_SWITCH */      SWITCH,
+  /* RID_CASE */        CASE,
+  /* RID_DEFAULT */     DEFAULT,
+  /* RID_BREAK */       BREAK,
+  /* RID_CONTINUE */    CONTINUE,
+  /* RID_RETURN */      RETURN_KEYWORD,
+  /* RID_GOTO */        GOTO,
+  /* RID_SIZEOF */      SIZEOF,
 
   /* C extensions */
-  /* RID_ASM */		ASM_KEYWORD,
-  /* RID_TYPEOF */	TYPEOF,
-  /* RID_ALIGNOF */	ALIGNOF,
-  /* RID_ATTRIBUTE */	ATTRIBUTE,
-  /* RID_VA_ARG */	VA_ARG,
-  /* RID_EXTENSION */	EXTENSION,
-  /* RID_IMAGPART */	IMAGPART,
-  /* RID_REALPART */	REALPART,
-  /* RID_LABEL */	LABEL,
-  /* RID_PTRBASE */	0,
-  /* RID_PTREXTENT */	0,
-  /* RID_PTRVALUE */	0,
-  /* RID_CHOOSE_EXPR */	0,
+  /* RID_ASM */         ASM_KEYWORD,
+  /* RID_TYPEOF */      TYPEOF,
+  /* RID_ALIGNOF */     ALIGNOF,
+  /* RID_ATTRIBUTE */   ATTRIBUTE,
+  /* RID_VA_ARG */      VA_ARG,
+  /* RID_EXTENSION */   EXTENSION,
+  /* RID_IMAGPART */    IMAGPART,
+  /* RID_REALPART */    REALPART,
+  /* RID_LABEL */       LABEL,
+  /* RID_PTRBASE */     0,
+  /* RID_PTREXTENT */   0,
+  /* RID_PTRVALUE */    0,
+  /* RID_CHOOSE_EXPR */ 0,
   /* RID_TYPES_COMPATIBLE_P */ 0,
 
-  /* RID_FUNCTION_NAME */	VAR_FUNC_NAME,
+  /* RID_FUNCTION_NAME */       VAR_FUNC_NAME,
   /* RID_PRETTY_FUNCTION_NAME */ VAR_FUNC_NAME,
-  /* RID_c99_FUNCTION_NAME */	VAR_FUNC_NAME,
+  /* RID_c99_FUNCTION_NAME */   VAR_FUNC_NAME,
 
   /* C++ */
-  /* RID_BOOL */	TYPESPEC,
-  /* RID_WCHAR */	TYPESPEC,
-  /* RID_CLASS */	AGGR,
-  /* RID_PUBLIC */	VISSPEC,
-  /* RID_PRIVATE */	VISSPEC,
-  /* RID_PROTECTED */	VISSPEC,
-  /* RID_TEMPLATE */	TEMPLATE,
-  /* RID_NULL */	CONSTANT,
-  /* RID_CATCH */	CATCH,
-  /* RID_DELETE */	DELETE,
-  /* RID_FALSE */	CXX_FALSE,
-  /* RID_NAMESPACE */	NAMESPACE,
-  /* RID_NEW */		NEW,
-  /* RID_OPERATOR */	OPERATOR,
-  /* RID_THIS */	THIS,
-  /* RID_THROW */	THROW,
-  /* RID_TRUE */	CXX_TRUE,
-  /* RID_TRY */		TRY,
-  /* RID_TYPENAME */	TYPENAME_KEYWORD,
-  /* RID_TYPEID */	TYPEID,
-  /* RID_USING */	USING,
+  /* RID_BOOL */        TYPESPEC,
+  /* RID_WCHAR */       TYPESPEC,
+  /* RID_CLASS */       AGGR,
+  /* RID_PUBLIC */      VISSPEC,
+  /* RID_PRIVATE */     VISSPEC,
+  /* RID_PROTECTED */   VISSPEC,
+  /* RID_TEMPLATE */    TEMPLATE,
+  /* RID_NULL */        CONSTANT,
+  /* RID_CATCH */       CATCH,
+  /* RID_DELETE */      DELETE,
+  /* RID_FALSE */       CXX_FALSE,
+  /* RID_NAMESPACE */   NAMESPACE,
+  /* RID_NEW */         NEW,
+  /* RID_OPERATOR */    OPERATOR,
+  /* RID_THIS */        THIS,
+  /* RID_THROW */       THROW,
+  /* RID_TRUE */        CXX_TRUE,
+  /* RID_TRY */         TRY,
+  /* RID_TYPENAME */    TYPENAME_KEYWORD,
+  /* RID_TYPEID */      TYPEID,
+  /* RID_USING */       USING,
 
   /* casts */
-  /* RID_CONSTCAST */	CONST_CAST,
-  /* RID_DYNCAST */	DYNAMIC_CAST,
-  /* RID_REINTCAST */	REINTERPRET_CAST,
-  /* RID_STATCAST */	STATIC_CAST,
+  /* RID_CONSTCAST */   CONST_CAST,
+  /* RID_DYNCAST */     DYNAMIC_CAST,
+  /* RID_REINTCAST */   REINTERPRET_CAST,
+  /* RID_STATCAST */    STATIC_CAST,
 
   /* Objective-C */
-  /* RID_ID */			0,
-  /* RID_AT_ENCODE */		0,
-  /* RID_AT_END */		0,
-  /* RID_AT_CLASS */		0,
-  /* RID_AT_ALIAS */		0,
-  /* RID_AT_DEFS */		0,
-  /* RID_AT_PRIVATE */		0,
-  /* RID_AT_PROTECTED */	0,
-  /* RID_AT_PUBLIC */		0,
-  /* RID_AT_PROTOCOL */		0,
-  /* RID_AT_SELECTOR */		0,
-  /* RID_AT_INTERFACE */	0,
-  /* RID_AT_IMPLEMENTATION */	0
+  /* RID_ID */                  0,
+  /* RID_AT_ENCODE */           0,
+  /* RID_AT_END */              0,
+  /* RID_AT_CLASS */            0,
+  /* RID_AT_ALIAS */            0,
+  /* RID_AT_DEFS */             0,
+  /* RID_AT_PRIVATE */          0,
+  /* RID_AT_PROTECTED */        0,
+  /* RID_AT_PUBLIC */           0,
+  /* RID_AT_PROTOCOL */         0,
+  /* RID_AT_SELECTOR */         0,
+  /* RID_AT_INTERFACE */        0,
+  /* RID_AT_IMPLEMENTATION */   0
 };
 
 void
@@ -563,7 +565,7 @@ init_reswords ()
   unsigned int i;
   tree id;
   int mask = ((flag_no_asm ? D_ASM : 0)
-	      | (flag_no_gnu_keywords ? D_EXT : 0));
+              | (flag_no_gnu_keywords ? D_EXT : 0));
 
   /* It is not necessary to register ridpointers as a GC root, because
      all the trees it points to are permanently interned in the
@@ -575,7 +577,7 @@ init_reswords ()
       C_RID_CODE (id) = reswords[i].rid;
       ridpointers [(int) reswords[i].rid] = id;
       if (! (reswords[i].disable & mask))
-	C_IS_RESERVED_WORD (id) = 1;
+        C_IS_RESERVED_WORD (id) = 1;
     }
 }
 
@@ -587,13 +589,13 @@ init_cp_pragma ()
 
   cpp_register_pragma (parse_in, 0, "interface", handle_pragma_interface);
   cpp_register_pragma (parse_in, 0, "implementation",
-		       handle_pragma_implementation);
+                       handle_pragma_implementation);
 
   cpp_register_pragma (parse_in, "GCC", "interface", handle_pragma_interface);
   cpp_register_pragma (parse_in, "GCC", "implementation",
-		       handle_pragma_implementation);
+                       handle_pragma_implementation);
   cpp_register_pragma (parse_in, "GCC", "java_exceptions",
-		       handle_pragma_java_exceptions);
+                       handle_pragma_java_exceptions);
 }
 
 /* Initialize the C++ front end.  This function is very sensitive to
@@ -674,50 +676,50 @@ yyprint (file, yychar, yylval)
     case PRE_PARSED_CLASS_DECL:
       t = yylval.ttype;
       if (TREE_CODE (t) == TYPE_DECL || TREE_CODE (t) == TEMPLATE_DECL)
-	{
-	  fprintf (file, " `%s'", IDENTIFIER_POINTER (DECL_NAME (t)));
-	  break;
-	}
+        {
+          fprintf (file, " `%s'", IDENTIFIER_POINTER (DECL_NAME (t)));
+          break;
+        }
       my_friendly_assert (TREE_CODE (t) == IDENTIFIER_NODE, 224);
       if (IDENTIFIER_POINTER (t))
-	  fprintf (file, " `%s'", IDENTIFIER_POINTER (t));
+          fprintf (file, " `%s'", IDENTIFIER_POINTER (t));
       break;
 
     case AGGR:
       if (yylval.ttype == class_type_node)
-	fprintf (file, " `class'");
+        fprintf (file, " `class'");
       else if (yylval.ttype == record_type_node)
-	fprintf (file, " `struct'");
+        fprintf (file, " `struct'");
       else if (yylval.ttype == union_type_node)
-	fprintf (file, " `union'");
+        fprintf (file, " `union'");
       else if (yylval.ttype == enum_type_node)
-	fprintf (file, " `enum'");
+        fprintf (file, " `enum'");
       else
-	abort ();
+        abort ();
       break;
 
     case CONSTANT:
       t = yylval.ttype;
       if (TREE_CODE (t) == INTEGER_CST)
-	fprintf (file,
+        fprintf (file,
 #if HOST_BITS_PER_WIDE_INT == 64
 #if HOST_BITS_PER_WIDE_INT == HOST_BITS_PER_INT
-		 " 0x%x%016x",
+                 " 0x%x%016x",
 #else
 #if HOST_BITS_PER_WIDE_INT == HOST_BITS_PER_LONG
-		 " 0x%lx%016lx",
+                 " 0x%lx%016lx",
 #else
-		 " 0x%llx%016llx",
+                 " 0x%llx%016llx",
 #endif
 #endif
 #else
 #if HOST_BITS_PER_WIDE_INT != HOST_BITS_PER_INT
-		 " 0x%lx%08lx",
+                 " 0x%lx%08lx",
 #else
-		 " 0x%x%08x",
+                 " 0x%x%08x",
 #endif
 #endif
-		 TREE_INT_CST_HIGH (t), TREE_INT_CST_LOW (t));
+                 TREE_INT_CST_HIGH (t), TREE_INT_CST_LOW (t));
       break;
     }
 }
@@ -782,11 +784,11 @@ print_parse_statistics ()
     {
       int idx = sorted[i];
       if (token_count[idx] == 0)
-	break;
+        break;
       if (token_count[idx] < token_count[-1])
-	break;
+        break;
       fprintf (stderr, "token %d, `%s', count = %d\n",
-	       idx, yytname[YYTRANSLATE (idx)], token_count[idx]);
+               idx, yytname[YYTRANSLATE (idx)], token_count[idx]);
     }
   fprintf (stderr, "\n");
   for (i = 0; i < REDUCE_LENGTH; i++)
@@ -796,11 +798,11 @@ print_parse_statistics ()
     {
       int idx = sorted[i];
       if (reduce_count[idx] == 0)
-	break;
+        break;
       if (reduce_count[idx] < reduce_count[-1])
-	break;
+        break;
       fprintf (stderr, "rule %d, line %d, count = %d\n",
-	       idx, yyrline[idx], reduce_count[idx]);
+               idx, yyrline[idx], reduce_count[idx]);
     }
   fprintf (stderr, "\n");
 #endif
@@ -821,7 +823,7 @@ extract_interface_info ()
       tree til = tinst_for_decl ();
 
       if (til)
-	finfo = get_fileinfo (TINST_FILE (til));
+        finfo = get_fileinfo (TINST_FILE (til));
     }
   if (!finfo)
     finfo = get_fileinfo (input_filename);
@@ -847,21 +849,21 @@ interface_strcmp (s)
       s1 = s;
 
       if (*s1 != *t1 || *s1 == 0)
-	continue;
+        continue;
 
       while (*s1 == *t1 && *s1 != 0)
-	s1++, t1++;
+        s1++, t1++;
 
       /* A match.  */
       if (*s1 == *t1)
-	return 0;
+        return 0;
 
       /* Don't get faked out by xxx.yyy.cc vs xxx.zzz.cc.  */
       if (strchr (s1, '.') || strchr (t1, '.'))
-	continue;
+        continue;
 
       if (*s1 == '\0' || s1[-1] != '.' || t1[-1] != '.')
-	continue;
+        continue;
 
       /* A match.  */
       return 0;
@@ -891,10 +893,10 @@ check_for_missing_semicolon (type)
       || yychar == 0  /* EOF */)
     {
       if (TYPE_ANONYMOUS_P (type))
-	error ("semicolon missing after %s declaration",
-	       TREE_CODE (type) == ENUMERAL_TYPE ? "enum" : "struct");
+        error ("semicolon missing after %s declaration",
+               TREE_CODE (type) == ENUMERAL_TYPE ? "enum" : "struct");
       else
-	error ("semicolon missing after declaration of `%T'", type);
+        error ("semicolon missing after declaration of `%T'", type);
       shadow_tag (build_tree_list (0, type));
     }
   /* Could probably also hack cases where class { ... } f (); appears.  */
@@ -921,7 +923,7 @@ note_list_got_semicolon (declspecs)
     {
       tree type = TREE_VALUE (link);
       if (type && TYPE_P (type))
-	note_got_semicolon (type);
+        note_got_semicolon (type);
     }
   clear_anon_tags ();
 }
@@ -942,7 +944,7 @@ parse_strconst_pragma (name, opt)
     {
       result = x;
       if (c_lex (&x) != CPP_EOF)
-	warning ("junk at end of #pragma %s", name);
+        warning ("junk at end of #pragma %s", name);
       return result;
     }
 
@@ -989,9 +991,9 @@ handle_pragma_interface (dfile)
   if (impl_file_chain == 0)
     {
       /* If this is zero at this point, then we are
-	 auto-implementing.  */
+         auto-implementing.  */
       if (main_input_filename == 0)
-	main_input_filename = input_filename;
+        main_input_filename = input_filename;
     }
 
   interface_only = interface_strcmp (main_filename);
@@ -1026,23 +1028,23 @@ handle_pragma_implementation (dfile)
   if (fname == 0)
     {
       if (main_input_filename)
-	main_filename = main_input_filename;
+        main_filename = main_input_filename;
       else
-	main_filename = input_filename;
+        main_filename = input_filename;
       main_filename = lbasename (main_filename);
     }
   else
     {
       main_filename = TREE_STRING_POINTER (fname);
       if (cpp_included (parse_in, main_filename))
-	warning ("#pragma implementation for %s appears after file is included",
-		 main_filename);
+        warning ("#pragma implementation for %s appears after file is included",
+                 main_filename);
     }
 
   for (; ifiles; ifiles = ifiles->next)
     {
       if (! strcmp (ifiles->filename, main_filename))
-	break;
+        break;
     }
   if (ifiles == 0)
     {
@@ -1084,14 +1086,14 @@ is_global (d)
     switch (TREE_CODE (d))
       {
       case ERROR_MARK:
-	return 1;
+        return 1;
 
       case OVERLOAD: d = OVL_FUNCTION (d); continue;
       case TREE_LIST: d = TREE_VALUE (d); continue;
       default:
         my_friendly_assert (DECL_P (d), 980629);
 
-	return DECL_NAMESPACE_SCOPE_P (d);
+        return DECL_NAMESPACE_SCOPE_P (d);
       }
 }
 
@@ -1104,25 +1106,25 @@ unqualified_name_lookup_error (tree name)
   if (IDENTIFIER_OPNAME_P (name))
     {
       if (name != ansi_opname (ERROR_MARK))
-	error ("`%D' not defined", name);
+        error ("`%D' not defined", name);
     }
   else if (current_function_decl == 0)
     error ("`%D' was not declared in this scope", name);
   else
     {
       if (IDENTIFIER_NAMESPACE_VALUE (name) != error_mark_node
-	  || IDENTIFIER_ERROR_LOCUS (name) != current_function_decl)
-	{
-	  static int undeclared_variable_notice;
+          || IDENTIFIER_ERROR_LOCUS (name) != current_function_decl)
+        {
+          static int undeclared_variable_notice;
 
-	  error ("`%D' undeclared (first use this function)", name);
+          error ("`%D' undeclared (first use this function)", name);
 
-	  if (! undeclared_variable_notice)
-	    {
-	      error ("(Each undeclared identifier is reported only once for each function it appears in.)");
-	      undeclared_variable_notice = 1;
-	    }
-	}
+          if (! undeclared_variable_notice)
+            {
+              error ("(Each undeclared identifier is reported only once for each function it appears in.)");
+              undeclared_variable_notice = 1;
+            }
+        }
       /* Prevent repeated error messages.  */
       SET_IDENTIFIER_NAMESPACE_VALUE (name, error_mark_node);
       SET_IDENTIFIER_ERROR_LOCUS (name, current_function_decl);
@@ -1165,27 +1167,27 @@ do_identifier (token, parsing, args)
   if (id == error_mark_node)
     {
       /* lookup_name quietly returns error_mark_node if we're parsing,
-	 as we don't want to complain about an identifier that ends up
-	 being used as a declarator.  So we call it again to get the error
-	 message.  */
+         as we don't want to complain about an identifier that ends up
+         being used as a declarator.  So we call it again to get the error
+         message.  */
       id = lookup_name (token, 0);
       POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, error_mark_node);
     }
 
   if (!id || (TREE_CODE (id) == FUNCTION_DECL
-	      && DECL_ANTICIPATED (id)))
+              && DECL_ANTICIPATED (id)))
     {
       if (current_template_parms)
-	POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP,
+        POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP,
                                 build_min_nt (LOOKUP_EXPR, token));
       else if (IDENTIFIER_TYPENAME_P (token))
-	/* A templated conversion operator might exist.  */
+        /* A templated conversion operator might exist.  */
         POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, token);
       else
-	{
-	  unqualified_name_lookup_error (token);
-	  POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, error_mark_node);
-	}
+        {
+          unqualified_name_lookup_error (token);
+          POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, error_mark_node);
+        }
     }
 
   id = check_for_out_of_scope_variable (id);
@@ -1195,9 +1197,9 @@ do_identifier (token, parsing, args)
     {
       /* Check access.  */
       if (IDENTIFIER_CLASS_VALUE (token) == id)
-	enforce_access (CP_DECL_CONTEXT(id), id);
+        enforce_access (CP_DECL_CONTEXT(id), id);
       if (!processing_template_decl || DECL_TEMPLATE_PARM_P (id))
-	id = DECL_INITIAL (id);
+        id = DECL_INITIAL (id);
     }
   else
     id = hack_identifier (id, token);
@@ -1212,12 +1214,12 @@ do_identifier (token, parsing, args)
      local variables and then finding matching instantiations.  */
   if (current_template_parms
       && (is_overloaded_fn (id)
-	  || (TREE_CODE (id) == VAR_DECL
-	      && CP_DECL_CONTEXT (id)
-	      && TREE_CODE (CP_DECL_CONTEXT (id)) == FUNCTION_DECL)
-	  || TREE_CODE (id) == PARM_DECL
-	  || TREE_CODE (id) == RESULT_DECL
-	  || TREE_CODE (id) == USING_DECL))
+          || (TREE_CODE (id) == VAR_DECL
+              && CP_DECL_CONTEXT (id)
+              && TREE_CODE (CP_DECL_CONTEXT (id)) == FUNCTION_DECL)
+          || TREE_CODE (id) == PARM_DECL
+          || TREE_CODE (id) == RESULT_DECL
+          || TREE_CODE (id) == USING_DECL))
     id = build_min_nt (LOOKUP_EXPR, token);
 
   POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, id);
@@ -1230,14 +1232,14 @@ do_scoped_id (token, id)
 {
   timevar_push (TV_NAME_LOOKUP);
   if (!id || (TREE_CODE (id) == FUNCTION_DECL
-	      && DECL_ANTICIPATED (id)))
+              && DECL_ANTICIPATED (id)))
     {
       if (processing_template_decl)
-	{
-	  id = build_min_nt (LOOKUP_EXPR, token);
-	  LOOKUP_EXPR_GLOBAL (id) = 1;
-	  POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, id);
-	}
+        {
+          id = build_min_nt (LOOKUP_EXPR, token);
+          LOOKUP_EXPR_GLOBAL (id) = 1;
+          POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, id);
+        }
       if (IDENTIFIER_NAMESPACE_VALUE (token) != error_mark_node)
         error ("`::%D' undeclared (first use here)", token);
       id = error_mark_node;
@@ -1247,16 +1249,16 @@ do_scoped_id (token, id)
   else
     {
       if (TREE_CODE (id) == ADDR_EXPR)
-	mark_used (TREE_OPERAND (id, 0));
+        mark_used (TREE_OPERAND (id, 0));
       else if (TREE_CODE (id) != OVERLOAD)
-	mark_used (id);
+        mark_used (id);
     }
   if (TREE_CODE (id) == CONST_DECL && ! processing_template_decl)
     {
       /* XXX CHS - should we set TREE_USED of the constant? */
       id = DECL_INITIAL (id);
       /* This is to prevent an enum whose value is 0
-	 from being considered a null pointer constant.  */
+         from being considered a null pointer constant.  */
       id = build1 (NOP_EXPR, TREE_TYPE (id), id);
       TREE_CONSTANT (id) = 1;
     }
@@ -1264,11 +1266,11 @@ do_scoped_id (token, id)
   if (processing_template_decl)
     {
       if (is_overloaded_fn (id))
-	{
-	  id = build_min_nt (LOOKUP_EXPR, token);
-	  LOOKUP_EXPR_GLOBAL (id) = 1;
-	  POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, id);
-	}
+        {
+          id = build_min_nt (LOOKUP_EXPR, token);
+          LOOKUP_EXPR_GLOBAL (id) = 1;
+          POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, id);
+        }
       /* else just use the decl */
     }
   POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, convert_from_reference (id));
@@ -1287,13 +1289,13 @@ identifier_typedecl_value (node)
     {
       t = IDENTIFIER_VALUE (node);
       if (t && TREE_CODE (t) == TYPE_DECL && TREE_TYPE (t) == type)
-	return t;
+        return t;
     }
   if (IDENTIFIER_NAMESPACE_VALUE (node))
     {
       t = IDENTIFIER_NAMESPACE_VALUE (node);
       if (t && TREE_CODE (t) == TYPE_DECL && TREE_TYPE (t) == type)
-	return t;
+        return t;
     }
 
   /* Will this one ever happen?  */
@@ -1475,7 +1477,7 @@ cxx_make_type (code)
       struct lang_type *pi;
 
       pi = ((struct lang_type *)
-	    ggc_alloc_cleared (sizeof (struct lang_type)));
+            ggc_alloc_cleared (sizeof (struct lang_type)));
 
       TYPE_LANG_SPECIFIC (t) = pi;
       pi->u.c.h.is_lang_type_class = 1;
@@ -1493,8 +1495,8 @@ cxx_make_type (code)
       CLASSTYPE_INTERFACE_ONLY (t) = interface_only;
 
       /* Make sure this is laid out, for ease of use later.  In the
-	 presence of parse errors, the normal was of assuring this
-	 might not ever get executed, so we lay it out *immediately*.  */
+         presence of parse errors, the normal was of assuring this
+         might not ever get executed, so we lay it out *immediately*.  */
       build_pointer_type (t);
     }
   else
