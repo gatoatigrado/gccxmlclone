@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-27 12:42:22 $
-  Version:   $Revision: 1.23 $
+  Date:      $Date: 2003-07-14 18:34:41 $
+  Version:   $Revision: 1.24 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -291,7 +291,7 @@ void gxConfiguration::FindRoots(const char* argv0)
   // directory as the data root.
   if(sPath == ePath)
     {
-    m_DataRoot = GCCXML_SOURCE_DIR;
+    m_DataRoot = GCCXML_SOURCE_DIR "/Support";
     }
   else if(gxSystemTools::FileIsDirectory(sharePath.c_str()))
     {
