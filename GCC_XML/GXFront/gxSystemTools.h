@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 18:53:39 $
-  Version:   $Revision: 1.10 $
+  Date:      $Date: 2002-11-01 23:23:28 $
+  Version:   $Revision: 1.11 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -45,6 +45,9 @@ public:
   /** Read an environment variable.  */
   static const char* GetEnv(const char* key);
   static bool GetEnv(const char* key, std::string& result);
+  
+  /** Return everything up to the last path name delimeter.  */
+  static std::string GetFilenamePath(const char* filename);
   
   /** Check if a file exists.  */
   static bool FileExists(const char* filename);

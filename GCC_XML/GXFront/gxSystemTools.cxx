@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 18:53:39 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2002-11-01 23:23:28 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -216,6 +216,23 @@ bool gxSystemTools::GetEnv(const char* key, std::string& result)
   else
     {
     return false;
+    }
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::GetFilenamePath(const char* filename)
+{
+  std::string fn = filename;
+  gxSystemTools::ConvertToUnixSlashes(fn);
+  
+  std::string::size_type slash_pos = fn.rfind("/");
+  if(slash_pos != std::string::npos)
+    {
+    return fn.substr(0, slash_pos);
+    }
+  else
+    {
+    return "";
     }
 }
 
