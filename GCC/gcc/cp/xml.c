@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2004-04-21 16:10:38 $
-  Version:   $Revision: 1.76 $
+  Date:      $Date: 2004-04-21 16:18:06 $
+  Version:   $Revision: 1.77 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -876,10 +876,12 @@ xml_output_unimplemented (xml_dump_info_p xdi, tree t, xml_dump_node_p dn,
                           const char* where)
 {
   int tree_code = TREE_CODE (t);
-  fprintf (xdi->file,
-           "  <Unimplemented id=\"_%d\" tree_code=\"%d\""
-           " tree_code_name=\"%s\" node=\"%p\"",
-           (dn? dn->index : 0),
+  fprintf (xdi->file, "  <Unimplemented");
+  if(dn)
+    {
+    fprintf (xdi->file, " id=\"_%d\"", dn->index);
+    }
+  fprintf (xdi->file, " tree_code=\"%d\" tree_code_name=\"%s\" node=\"%p\"",
            tree_code, tree_code_name [tree_code], t);
   if (where)
     {
@@ -1511,7 +1513,8 @@ xml_output_enumeral_type (xml_dump_info_p xdi, tree t, xml_dump_node_p dn)
     else
       {
       fprintf (xdi->file, "  ");
-      xml_output_unimplemented (xdi, TREE_VALUE (tv), dn, "xml_output_enumeral_type");
+      xml_output_unimplemented (xdi, TREE_VALUE (tv), 0,
+                                "xml_output_enumeral_type");
       }
     }
 
