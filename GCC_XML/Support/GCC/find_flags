@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2003-09-09 13:52:54 $
-#  Version:   $Revision: 1.2 $
+#  Date:      $Date: 2003-09-09 15:38:27 $
+#  Version:   $Revision: 1.3 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -54,11 +54,11 @@ SELFPATH=`cd $SELFPATH ; pwd`
 # Determine the major version number.
 MAJOR_VERSION=`
 echo "__GNUC__" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>/dev/null |
-  sed -n '/^[0-9]/{p;}'`
+  sed -n '/^[0-9]/{s/[^0-9]//g;p;}'`
 
 MINOR_VERSION=`
 echo "__GNUC_MINOR__" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>/dev/null |
-  sed -n '/^[0-9]/{p;}'`
+  sed -n '/^[0-9]/{s/[^0-9]//g;p;}'`
 
 # For GCC versions before 3, some special options are needed.
 if [ "$MAJOR_VERSION" -lt 3 ]; then
