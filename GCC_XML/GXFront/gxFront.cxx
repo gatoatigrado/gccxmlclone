@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-10-24 20:20:47 $
-  Version:   $Revision: 1.9 $
+  Date:      $Date: 2002-10-28 22:09:07 $
+  Version:   $Revision: 1.10 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -42,7 +42,7 @@ void printUsage(std::ostream& os)
   os <<
     "Usage:\n"
     "\n"
-    "  gccxml [options] input.cxx -fxml=output.xml [-fxml-start=foo]\n"
+    "  gccxml [options] input.cxx -fxml=output.xml [-fxml-start=foo[,...]]\n"
     "\n"
     "This program is a wrapper around a real GCC-XML executable.  It will\n"
     "help the user to find the proper GCCXML_FLAGS setting and then run\n"
