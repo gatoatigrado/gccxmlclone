@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: Base64.c,v $
 Language:  C++
-Date:      $Date: 2003-06-30 01:42:48 $
-Version:   $Revision: 1.1 $
+Date:      $Date: 2003-06-30 12:48:53 $
+Version:   $Revision: 1.2 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -14,7 +14,7 @@ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#define KWSYS_IN_PROCESS_C
+#define KWSYS_IN_BASE64_C
 #include <Base64.h>
 
 /*--------------------------------------------------------------------------*/
