@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-06-30 14:30:38 $
-  Version:   $Revision: 1.7 $
+  Date:      $Date: 2003-07-07 21:45:51 $
+  Version:   $Revision: 1.8 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -245,9 +245,11 @@ public:
    * Read line from file. Make sure to get everything. Due to a buggy stream
    * library on the HP and another on Mac OSX, we need this very carefully
    * written version of getline. Returns true if any data were read before the
-   * end-of-file was reached.
+   * end-of-file was reached. If the has_newline argument is specified, it will
+   * be true when the line read had a newline character.
    */
-  static bool GetLineFromStream(kwsys_std::istream& istr, kwsys_std::string& line);
+  static bool GetLineFromStream(kwsys_std::istream& istr, kwsys_std::string& line,
+                                bool* has_newline=0);
   
 protected:
   // these two functions can be called from ConvertToOutputPath

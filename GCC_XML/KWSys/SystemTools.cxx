@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-07-01 17:27:22 $
-  Version:   $Revision: 1.17 $
+  Date:      $Date: 2003-07-07 21:45:51 $
+  Version:   $Revision: 1.18 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1616,12 +1616,17 @@ kwsys_std::string SystemTools::MakeCindentifier(const char* s)
 // Due to a buggy stream library on the HP and another on Mac OSX, we
 // need this very carefully written version of getline.  Returns true
 // if any data were read before the end-of-file was reached.
-bool SystemTools::GetLineFromStream(kwsys_std::istream& is, kwsys_std::string& line)
+bool SystemTools::GetLineFromStream(kwsys_std::istream& is, kwsys_std::string& line,
+                                    bool *has_newline /* = 0 */)
 {
   const int bufferSize = 1024;
   char buffer[bufferSize];
   line = "";
   bool haveData = false;
+  if ( has_newline )
+    {
+    *has_newline = false;
+    }
 
   // If no characters are read from the stream, the end of file has
   // been reached.
@@ -1635,6 +1640,10 @@ bool SystemTools::GetLineFromStream(kwsys_std::istream& is, kwsys_std::string& l
     // reached.
     if(strlen(buffer) < static_cast<size_t>(is.gcount()))
       {
+      if ( has_newline )
+        {
+        *has_newline = true;
+        }
       break;
       }
 
