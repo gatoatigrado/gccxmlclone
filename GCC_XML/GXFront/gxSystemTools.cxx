@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-08 03:49:13 $
-  Version:   $Revision: 1.10 $
+  Date:      $Date: 2003-03-18 20:48:13 $
+  Version:   $Revision: 1.11 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -424,7 +424,7 @@ bool gxSystemTools::RunCommand(const char* command,  std::string& output,
     }
   fin.close();
   gxSystemTools::RemoveFile(tempFile.c_str());
-  return true;
+  return (retVal == 0);
 #else
   fflush(stdout);
   fflush(stderr);
@@ -442,7 +442,7 @@ bool gxSystemTools::RunCommand(const char* command,  std::string& output,
 
   retVal = pclose(cpipe);
   retVal = WEXITSTATUS(retVal);
-  return true;
+  return (retVal == 0);
 #endif
 }
 
