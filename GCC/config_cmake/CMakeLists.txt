@@ -12,6 +12,7 @@ MACRO(PERFORM_C_TEST var description invert)
     TRY_COMPILE(${var}_COMPILED
       ${GCCCONFIG_BINARY_DIR}
       ${GCCCONFIG_SOURCE_DIR}/gcc_c_tests.c
+      OUTPUT_VARIABLE OUTPUT
       COMPILE_DEFINITIONS
       -DTEST_${var}
       -DHAVE_GETPAGESIZE=${HAVE_GETPAGESIZE}
@@ -27,6 +28,13 @@ MACRO(PERFORM_C_TEST var description invert)
       -DHAVE_UNISTD_H=${HAVE_UNISTD_H}
       -DSTDC_HEADERS=${STDC_HEADERS}
       )
+    IF(${var}_COMPILED)
+      FILE(APPEND ${CMAKE_BINARY_DIR}/CMakeOutput.log 
+        "${description} compiled with the following output:\n${OUTPUT}\n\n")
+    ELSE(${var}_COMPILED)
+      FILE(APPEND ${CMAKE_BINARY_DIR}/CMakeError.log 
+        "${description} failed to compile with the following output:\n${OUTPUT}\n\n")
+    ENDIF(${var}_COMPILED)
     IF(${invert} MATCHES INVERT)
       IF(${var}_COMPILED)
         MESSAGE(STATUS "${description} - no")
@@ -245,9 +253,24 @@ PERFORM_C_TEST(NEED_DECLARATION_CANONICALIZE_FILE_NAME
 
 PERFORM_C_TEST(HAVE_UINTPTR_T "checking for uintptr_t" DIRECT)
 PERFORM_C_TEST(HAVE_PID_T "checking for pid_t" DIRECT)
-PERFORM_C_TEST_RUN(gcc_ac_cv_func_fork "checking for fork" yes no DIRECT)
-PERFORM_C_TEST_RUN(gcc_ac_cv_func_vfork "checking for vfork" yes no DIRECT)
-PERFORM_C_TEST_RUN(HAVE_MMAP "checking for working mmap" yes no DIRECT)
+
+SET(GCC_UNIX_TESTS 1)
+IF(WIN32)
+  IF(NOT CYGWIN)
+    SET(GCC_UNIX_TESTS 0)
+  ENDIF(NOT CYGWIN)
+ENDIF(WIN32)
+
+IF(GCC_UNIX_TESTS)
+  PERFORM_C_TEST_RUN(gcc_ac_cv_func_fork "checking for fork" yes no DIRECT)
+  PERFORM_C_TEST_RUN(gcc_ac_cv_func_vfork "checking for vfork" yes no DIRECT)
+  PERFORM_C_TEST_RUN(HAVE_MMAP "checking for working mmap" yes no DIRECT)
+ELSE(GCC_UNIX_TESTS)
+  SET(gcc_ac_cv_func_fork 0)
+  SET(gcc_ac_cv_func_vfork 0)
+  SET(HAVE_MMAP 0)
+ENDIF(GCC_UNIX_TESTS)
+
 PERFORM_C_TEST(CRAY_STACKSEG_END "checking whether alloca needs Cray hooks" DIRECT)
 PERFORM_C_TEST_RUN(STACK_DIRECTION "checking stack direction for C alloca" -1 +1 DIRECT)
 IF(STACK_DIRECTION_RESULT)
@@ -304,7 +327,11 @@ ENDIF(WORDS_BIGENDIAN)
 
 # gcc tests
 
-PERFORM_C_TEST_RUN(GETGROUPS_T "checking type of array argument to getgroups" "gid_t" "int" DIRECT)
+IF(GCC_UNIX_TESTS)
+  PERFORM_C_TEST_RUN(GETGROUPS_T "checking type of array argument to getgroups" "gid_t" "int" DIRECT)
+ELSE(GCC_UNIX_TESTS)
+  SET(GETGROUPS_T 0)
+ENDIF(GCC_UNIX_TESTS)
 PERFORM_C_TEST(STRING_WITH_STRINGS "checking whether string.h and strings.h may both be included" DIRECT)
 PERFORM_C_TEST(_GNU_SOURCE "checking whether C library is GNU" DIRECT)
 PERFORM_C_TEST(HAVE_LC_MESSAGES "checking for LC_MESSAGES" DIRECT)
