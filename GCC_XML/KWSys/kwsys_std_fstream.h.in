@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: kwsys_std_fstream.h.in,v $
   Language:  C++
-  Date:      $Date: 2003-05-12 17:15:49 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-05-12 17:43:03 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -28,8 +28,7 @@
 # include <fstream>
 #else
 # include <fstream.h>
-# if !defined(KWSYS_NO_STD_NAMESPACE)
-
+# if !defined(KWSYS_NO_STD_NAMESPACE) && !defined(KWSYS_FAKE_STD_NAMESPACE)
 namespace std
 {
   using ::ostream;
@@ -40,7 +39,6 @@ namespace std
   using ::endl;
   using ::flush;
 }
-
 # endif
 #endif
 

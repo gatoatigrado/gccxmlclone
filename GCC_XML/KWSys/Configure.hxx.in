@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Configure.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-05-12 17:15:49 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2003-05-12 17:43:03 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -22,6 +22,10 @@
 #cmakedefine KWSYS_NO_ANSI_STREAM_HEADERS
 #cmakedefine KWSYS_NO_ANSI_STRING_STREAM
 #cmakedefine KWSYS_NO_ANSI_FOR_SCOPE
+
+#if defined(__GNUC__) && (__GNUC__ < 3)
+# define KWSYS_FAKE_STD_NAMESPACE
+#endif
 
 #if defined(KWSYS_NO_STD_NAMESPACE)
 # define kwsys_std
