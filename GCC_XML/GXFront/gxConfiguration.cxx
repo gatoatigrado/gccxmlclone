@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-10-28 20:50:04 $
-  Version:   $Revision: 1.29 $
+  Date:      $Date: 2003-11-24 22:09:28 $
+  Version:   $Revision: 1.30 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -581,6 +581,12 @@ bool gxConfiguration::FindConfigFile()
       }
     }
   // Check for a configuration file in the executable root directory.
+  config = m_ExecutableRoot+"/gccxml_config";
+  if(gxSystemTools::FileExists(config.c_str()))
+    {
+    m_GCCXML_CONFIG = config;
+    return true;
+    }
   config = m_ExecutableRoot+"/config";
   if(gxSystemTools::FileExists(config.c_str()))
     {
@@ -588,6 +594,12 @@ bool gxConfiguration::FindConfigFile()
     return true;
     }
   // Check for a configuration file in the data root directory.
+  config = m_DataRoot+"/gccxml_config";
+  if(gxSystemTools::FileExists(config.c_str()))
+    {
+    m_GCCXML_CONFIG = config;
+    return true;
+    }
   config = m_DataRoot+"/config";
   if(gxSystemTools::FileExists(config.c_str()))
     {
