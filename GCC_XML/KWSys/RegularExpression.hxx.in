@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: RegularExpression.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-04-08 17:10:44 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-05-08 18:46:23 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -35,9 +35,9 @@
 #ifndef @KWSYS_NAMESPACE@_RegularExpression_hxx
 #define @KWSYS_NAMESPACE@_RegularExpression_hxx
 
-#include <@KWSYS_NAMESPACE@/StandardIncludes.hxx>
+#include <@KWSYS_NAMESPACE@/Configure.hxx>
 
-#include <string>
+#include <@KWSYS_NAMESPACE@/std/string>
 
 namespace @KWSYS_NAMESPACE@
 {
