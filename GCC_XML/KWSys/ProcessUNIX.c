@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-12-04 18:56:00 $
-Version:   $Revision: 1.17 $
+Date:      $Date: 2003-12-05 16:53:17 $
+Version:   $Revision: 1.18 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -486,8 +486,8 @@ void kwsysProcess_Execute(kwsysProcess* cp)
 }
 
 /*--------------------------------------------------------------------------*/
-int kwsysProcess_WaitForData(kwsysProcess* cp, int pipes, char** data,
-                             int* length, double* userTimeout)
+int kwsysProcess_WaitForData(kwsysProcess* cp, char** data, int* length,
+                             double* userTimeout)
 {
   int i;
   int max = -1;
@@ -537,9 +537,9 @@ int kwsysProcess_WaitForData(kwsysProcess* cp, int pipes, char** data,
             {
             /* This is data on the special termination pipe.  Ignore it.  */
             }
-          else if(pipes & (1 << i))
+          else if(data && length)
             {
-            /* Caller wants this data.  Report it.  */
+            /* Report this data.  */
             *data = cp->PipeBuffer;
             *length = n;
             pipeId = (1 << i);
@@ -687,7 +687,7 @@ int kwsysProcess_WaitForExit(kwsysProcess* cp, double* userTimeout)
     }
 
   /* Wait for all the pipes to close.  Ignore all data.  */
-  while((pipe = kwsysProcess_WaitForData(cp, 0, 0, 0, userTimeout)) > 0)
+  while((pipe = kwsysProcess_WaitForData(cp, 0, 0, userTimeout)) > 0)
     {
     if(pipe == kwsysProcess_Pipe_Timeout)
       {
