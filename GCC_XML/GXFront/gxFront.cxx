@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-10-30 19:53:13 $
-  Version:   $Revision: 1.12 $
+  Date:      $Date: 2002-11-01 18:54:17 $
+  Version:   $Revision: 1.13 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -25,7 +25,7 @@
 #include <process.h>
 inline int GXSpawn(const char* cmd, char** argv)
 {
-  return _spawnvp(_P_WAIT, cmd, argv);
+  return static_cast<int>(_spawnvp(_P_WAIT, cmd, argv));
 }
 #else
 #include <unistd.h>

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-10-30 20:28:32 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-11-01 18:54:17 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -505,7 +505,7 @@ void gxDocumentation::PrintColumn(std::ostream& os, int width,
         }
       
       // Print the word.
-      os.write(l, r-l);
+      os.write(l, static_cast<long>(r-l));
       
       if(*r == '\n')
         {
@@ -518,7 +518,7 @@ void gxDocumentation::PrintColumn(std::ostream& os, int width,
       else
         {
         // No provided newline.  Continue this line.
-        column += (r-l);
+        column += static_cast<long>(r-l);
         }
       }
     else
@@ -529,8 +529,8 @@ void gxDocumentation::PrintColumn(std::ostream& os, int width,
       if(r > l)
         {
         os << indent;
-        os.write(l, r-l);
-        column = r-l;
+        os.write(l, static_cast<long>(r-l));
+        column = static_cast<long>(r-l);
         }
       }
     
