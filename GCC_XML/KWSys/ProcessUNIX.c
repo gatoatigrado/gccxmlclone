@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-06-18 21:06:21 $
-Version:   $Revision: 1.3 $
+Date:      $Date: 2003-06-18 21:19:44 $
+Version:   $Revision: 1.4 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -621,13 +621,9 @@ int kwsysProcess_WaitForExit(kwsysProcess* cp, double* userTimeout)
 #ifdef SIGINT
       case SIGINT:  cp->ExitException = kwsysProcess_Exception_Interrupt; break;
 #endif
-#ifdef SIGABRT
-      case SIGABRT: cp->ExitException = kwsysProcess_Exception_Abort; break;
-#endif
       default: cp->ExitException = kwsysProcess_Exception_Other; break;
       }
     cp->ExitCode = status;
-    cp->ExitValue = (int)WTERMSIG(status);
     }
   else
     {
