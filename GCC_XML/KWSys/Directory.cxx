@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Directory.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-30 14:30:38 $
-  Version:   $Revision: 1.4 $
+  Date:      $Date: 2003-07-10 18:32:30 $
+  Version:   $Revision: 1.5 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -14,12 +14,13 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#include <Directory.hxx>
+#include "kwsysPrivate.h"
+#include KWSYS_HEADER(Directory.hxx)
 
-#include <Configure.hxx>
+#include KWSYS_HEADER(Configure.hxx)
 
-#include <std/string>
-#include <std/vector>
+#include KWSYS_HEADER(std/string)
+#include KWSYS_HEADER(std/vector)
 
 namespace KWSYS_NAMESPACE
 {

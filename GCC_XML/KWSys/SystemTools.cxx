@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-07-07 21:45:51 $
-  Version:   $Revision: 1.18 $
+  Date:      $Date: 2003-07-10 18:32:30 $
+  Version:   $Revision: 1.19 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -14,10 +14,11 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#include <SystemTools.hxx>
+#include "kwsysPrivate.h"
+#include KWSYS_HEADER(SystemTools.hxx)
 
-#include <std/iostream>
-#include <std/fstream>
+#include KWSYS_HEADER(std/iostream)
+#include KWSYS_HEADER(std/fstream)
 
 #ifdef _MSC_VER
 # pragma warning (disable: 4786)

@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: RegularExpression.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-30 14:30:38 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2003-07-10 18:32:30 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -33,7 +33,9 @@
 // Updated: DLS 03/22/91  New lite version
 //
 
-#include <RegularExpression.hxx>        // Include class specification 
+#include "kwsysPrivate.h"
+#include KWSYS_HEADER(RegularExpression.hxx)
+
 #include <stdio.h>
 
 namespace KWSYS_NAMESPACE

@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-07-07 13:38:14 $
-Version:   $Revision: 1.15 $
+Date:      $Date: 2003-07-10 18:32:30 $
+Version:   $Revision: 1.16 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -15,7 +15,8 @@ PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
 #define KWSYS_IN_PROCESS_C
-#include <Process.h>
+#include "kwsysPrivate.h"
+#include KWSYS_HEADER(Process.h)
 
 /*
 
