@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Integrating the GCC-XML extension by hand.</title>
+  </head>
+
+  <body>
+    All of the changes need to be made in the <code>~/gcc/gcc/cp</code>
+    directory.
+
+    <ol>
+      <li>In <code>Make-lang.in</code>:
+        <ul>
+          <li> Add "<code>cp/xml.o</code>" to the <code>CXX_OBJS</code> list.
+          <li> Below the line
+<pre>
+cp/mangle.o: cp/mangle.c $(CXX_TREE_H) toplev.h
+</pre>
+            add the line
+<pre>
+cp/xml.o: cp/xml.c $(CXX_TREE_H) toplev.h
+</pre>
+        </ul>
+      <li> In <code>semantics.c</code>:
+        Find the <code>finish_translation_unit</code> function and add these
+        lines to the end of it:
+<pre>
+/* Do XML output if enabled.  */
+if (flag_xml)
+  do_xml_output (flag_xml);
+</pre>
+      <li> In <code>decl2.c</code>:
+        <ul>
+          <li> Add the lines
+<pre>
+/* Filename for xml dump of translation unit.  */
+
+const char* flag_xml = 0;
+</pre>
+            just above the <code>lang_f_options[]</code> table definition.
+          <li> Add
+<pre>
+      else if ((option_value
+                = skip_leading_substring (p, "xml=")))
+        {
+        if (*option_value == '\0')
+          error ("no file specified with -fxml");
+        else
+          flag_xml = option_value;
+        }
+</pre>
+            in <code>cxx_decode_option</code>, just above these lines:
+<pre>
+      else if (dump_switch_p (p))
+        ;
+</pre>
+        </ul>
+      <li>In <code>lang-options.h</code>:
+        Add the lines
+<pre>
+  { "-fxml=",
+    N_("Enable XML output to a file (use with -fsyntax-only)") },
+  { "-fno-xml", "" },
+</pre>
+        to the bottom of the "<code>-f</code>" part of the list, just after
+        the <code> { "-fno-xref", "" },</code> line.
+      <li>In <code>cp-tree.h</code>:
+        <ul>
+          <li>
+            Add the lines
+<pre>
+/* Filename for xml dump of translation unit.  */
+
+extern const char* flag_xml;
+</pre>
+        just after the <code>extern int flag_check_new;</code> line.
+          <li>
+            Add the lines
+<pre>
+/* in xml.c */
+extern void do_xml_output                       PARAMS ((const char *));
+</pre>
+            at the bottom of the file, just above the
+            <code>/* -- end of C++ */</code> comment (before <code>#endif</code>).
+        </ul>
+    </ol>
+
+    <hr>
+    <address><a href="mailto:brad.king@kitware.com"></a></address>
+<!-- Created: Wed Jan 17 15:22:05 EST 2001 -->
+<!-- hhmts start -->
+Last modified: Thu Jun 14 10:38:35 EDT 2001
+<!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!--#include virtual="/GCC_XML/HTML/Head.html"-->
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 text="black" link="#FFFFFF" 
+vlink="#000000" alink="#000000">
+
+<!--#include virtual="/GCC_XML/HTML/Table.html"-->
+
+<tr>
+<!--#include virtual="/GCC_XML/HTML/SideBar.html"-->
+
+    <td width="550" valign="top" bgcolor="#FFFFFF">
+    <div align="left">
+    <font size=5>Running </font> GCC-XML has the goal of providing
+        an XML description of your code as it is seen by the compiler
+        when it is built.  This means that GCC-XML should make use of
+        the same standard library and other headers as your compiler.
+        The hard part about running GCC-XML involves determining the
+        set of -I and -D options it needs to use the headers from the
+        compiler of your choice.
+        <p>
+        Run gccxml with the <code>-fxml=</code>some-file-name flag
+        (added by extension) to enable the XML output after parsing.
+        Try running gcc-xml on <a href="example1.cxx">this</a> example
+        source:
+        <blockquote>
+          <code>
+            $ cc1plus -quiet -nostdinc -o /dev/null -fsyntax-only example1.cxx -fxml=example1.xml
+          </code>
+        </blockquote>
+        If there are no errors, the XML description of the program
+        will be written to a file with the provided name.  For this
+        example, it looks like <a href="example1.xml">this</a>.  Note
+        that the options used above are not sufficient for much more
+        than the example given.  If any files are
+        <code>#include</code>d, more options will be needed.
+        <p>
+        More instructions will be added here later on how to determine
+        the correct set of flags for GCC-XML.
+    </div>
+    </td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

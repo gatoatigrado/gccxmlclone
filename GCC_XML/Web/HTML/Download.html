@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!--#include virtual="/GCC_XML/HTML/Head.html"-->
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 text="black" link="#FFFFFF" 
+vlink="#000000" alink="#000000">
+
+<!--#include virtual="/GCC_XML/HTML/Table.html"-->
+
+<tr>
+<!--#include virtual="/GCC_XML/HTML/SideBar.html"-->
+
+    <td width="550" valign="top" bgcolor="#FFFFFF">
+    <div align="left">
+    There are several ways to get GCC-XML:
+    <ul>
+      <li> Download the
+              <a href="http://public.kitware.com/GCC_XML/gccxml01.exe">
+                pre-compiled binary installation for Windows</a>
+      <li> Download the 
+              <a href="http://public.kitware.com/GCC_XML/gccxml.tar.gz">
+                pre-pathed GCC 3.0 source</a> and build it.
+              This is the recommended approach for UNIX users.
+      <li> Check out the GCC-XML patch from our CVS repository and
+              apply it to a separately obtained GCC 3.0 source.
+    </ul>
+    <p>
+    To use CVS, you must have it installed on your system. You may wish to
+    use the 
+    <a href="http://sources.redhat.com/cygwin/">Cygwin</a> tools on Windows
+    platforms, or <a href="http://www.wincvs.org">WinCVS</a> which provides 
+    a very nice GUI to CVS.
+    <p>
+    The source is accessed by checking out a read-only version of the GCC-XML
+    source code. (Only developers have write-access to the repository. Contact
+    Kitware at kitware@kitware.com if you require write access.) Use
+    the following commands.
+    <p>
+    <b>cvs -d :pserver:anonymous@public.kitware.com:/insight/cvsroot login</b><br>
+    (respond with password <code>insight</code>)
+    <p>
+    Follow this command by checking out the source code:<br>
+    <b>cvs -d :pserver:anonymous@public.kitware.com:/insight/cvsroot co GCC_XML</b>
+    </div>
+    </td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

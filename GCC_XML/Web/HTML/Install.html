@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!--#include virtual="/GCC_XML/HTML/Head.html"-->
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 text="black" link="#FFFFFF" 
+vlink="#000000" alink="#000000">
+
+<!--#include virtual="/GCC_XML/HTML/Table.html"-->
+
+<tr>
+<!--#include virtual="/GCC_XML/HTML/SideBar.html"-->
+
+    <td width="550" valign="top" bgcolor="#FFFFFF">
+    <div align="left">
+    <font size=5>Install </font> GCC-XML with one of these approaches:
+    <ul>
+      <li> On Windows, you can use the pre-compiled installation binary.
+           See the <a href="/GCC_XML/HTML/Download.html">Download</a> page to get it.
+      <li> On UNIX, you need to build GCC-XML yourself from the pre-patched
+           source to GCC 3.0.  See the
+           <a href="/GCC_XML/HTML/Download.html">Download</a> page to get it.
+           This is also an option for cygwin users, although the
+           binary version will work.
+      <li> On UNIX, you can install GCC 3.0 with the extension available
+           as part of the compiler.  See the page on
+           <a href="/GCC_XML/HTML/Patching_GCC.html">Patching GCC</a>
+           for instructions.
+    </ul>
+    The rest of these instructions assume you have chosen to build
+    GCC-XML yourself.  It is also assumed that you have the GCC source
+    (with patch applied) in the directory <code>~/gccxml</code>.  You
+    will build the program in a parallel directory called
+    <code>~/gccxml-build</code>.
+    <ol>
+      <li>
+        Configure and build GCC (but don't install it).  Go
+        <a href="http://gcc.gnu.org/install/index.html">here</a> for
+        instructions.  Don't bother with a bootstrap, just run
+        <code>make</code> after the configuration step.  Example:
+        <blockquote>
+          <code>
+            $ cd ~<br>
+            $ mkdir gccxml-build<br>
+            $ cd gccxml-build<br>
+            $ ../gccxml/configure --enable-languages=c++ --disable-nls<br>
+            $ make<br>
+          </code>
+        </blockquote>
+      <li>
+          When the build finishes, find the file
+          <code>~/gccxml-build/gcc/cc1plus</code>.  This program is GCC's
+          C++ front-end which is run by the standard <code>gcc</code>
+          executable for C++ programs.  It does not automatically add
+          any preprocessor macros (like <code>__GNUC__</code>), so we can
+          use it to exactly control how our source is parsed.  This is
+          the only part of the compiler you need, and is the gcc-xml
+          executable.  Copy this program to wherever you want to install it.
+    </ol>
+    </div>
+    </td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

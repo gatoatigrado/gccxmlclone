@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+
+<!--#include virtual="/GCC_XML/HTML/Head.html"-->
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 text="black" link="#FFFFFF" 
+vlink="#000000" alink="#000000">
+
+<!--#include virtual="/GCC_XML/HTML/Table.html"-->
+
+<tr>
+<!--#include virtual="/GCC_XML/HTML/SideBar.html"-->
+
+    <td width="550" valign="top" bgcolor="#FFFFFF">
+    <div align="left">
+    <font size=5>Patching </font> the source to GCC 3.0 is the choice for you
+    if you want to make the extension part of your installation of GCC.
+    The extension is "read-only" in that it will not modify GCC's internal
+    representation of a program in any way.  If you want to use GCC-XML
+    only as a separate tool, you should use the normal
+    <a href="/GCC_XML/HTML/Install.html">Installation</a> instructions.
+    <ol>
+      <li>
+        Begin by obtaining a copy of the source to
+        GCC 3.0.  Go <a href="http://gcc.gnu.org/cvs.html">here</a>
+        for instructions to get it via CVS.  Use "<code>-r gcc_3_0_release</code>"
+        when doing a CVS checkout to get the 3.0 release. For the
+        instructions below, I assume that GCC is in the directory
+        "<code>~/gcc</code>".
+      <li>
+        Create a location separate from the GCC tree for the
+        extension.  Check out the extension source from the GCC-XML
+        repository.  See the
+        <a href="/GCC_XML/HTML/Download.html">Download</a> page for
+        instructions.  For these instructions, I assume that the
+        GCC-XML is in the directory "<code>~/GCC_XML</code>".
+      <li>
+        Copy the file <code>xml.c</code> from the GCC_XML source to the
+        directory <code>~/gcc/gcc/cp</code>:
+        <blockquote>
+          <code>
+            $ cp ~/GCC_XML/xml.c ~/gcc/gcc/cp/xml.c
+          </code>
+        </blockquote>
+        A symbolic link would also suffice.
+      <li>
+        Patch the directory <code>~/gcc/gcc/cp</code> with
+        <code>~/GCC_XML/gcc_cp.patch</code>:
+        <blockquote>
+          <code>
+            $ cd ~/gcc/gcc/cp<br>
+            $ patch <~/GCC_XML/gcc_cp.patch
+          </code>
+        </blockquote>
+        Instead of patching the directory, you can also try to edit the GCC
+        sources yourself to make the (few) changes.  If you want to try this,
+        go <a href="/GCC_XML/HTML/integrate_instructions.html">here</a>
+        for instructions.
+    </ol>
+    You should now be able to bootstrap and install GCC.  Go
+    <a href="http://gcc.gnu.org/install/index.html">here</a> for instructions.
+    The installed compiler will have the <code>-fxml=...</code> flag available.
+    However, you should be careful using it through the compiler-driver
+    programs like <code>gcc</code> or <code>g++</code>.  These programs
+    add extra preprocessor macro definitions that may affect the parsing of
+    the code.  Instead, you may wish to use the tool through the
+    <code>cc1plus</code> executable so that you can exactly control the
+    way your code is pre-processed before being dumped in XML.  This
+    executable is located in <code>PREFIX/lib/gcc-lib/PLATFORM/3.0</code>
+    (where PREFIX is your installation prefix, and PLATFORM is something
+    like i686-pc-linux-gnu).
+    </div>
+    </td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
