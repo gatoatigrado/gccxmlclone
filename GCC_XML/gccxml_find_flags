@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: gccxml_find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2002-10-29 15:27:55 $
-#  Version:   $Revision: 1.6 $
+#  Date:      $Date: 2003-01-28 04:50:12 $
+#  Version:   $Revision: 1.7 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -53,10 +53,10 @@ GCCXML_FLAGS_SCRIPT=""
 !
 
 # Run the compiler's preprocessor on the above code to identify it.
-if ! (${GCCXML_COMPILER} ${GCCXML_CXXFLAGS} \
+if (${GCCXML_COMPILER} ${GCCXML_CXXFLAGS} \
                          -E "/tmp/gccxml_identify_compiler$GCCXML_PID.cc" \
                           > "/tmp/gccxml_identify_compiler$GCCXML_PID.pp";
-      rm -f "/tmp/gccxml_identify_compiler$GCCXML_PID.cc") ; then
+      rm -f "/tmp/gccxml_identify_compiler$GCCXML_PID.cc") ; then : ; else
   echo "Error running \"${GCCXML_COMPILER} -E\""
   exit 1
 fi
