@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-01 23:27:35 $
-  Version:   $Revision: 1.15 $
+  Date:      $Date: 2002-11-07 23:23:07 $
+  Version:   $Revision: 1.16 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -34,8 +34,6 @@ inline int GXSpawn(const char* cmd, char** argv)
   return execvp(cmd, argv);
 }
 #endif
-
-#define GCCXML_VERSION_STRING "0.3 - development"
 
 int main(int argc, char** argv)
 {

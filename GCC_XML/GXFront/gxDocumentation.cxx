@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-04 15:25:05 $
-  Version:   $Revision: 1.7 $
+  Date:      $Date: 2002-11-07 23:23:07 $
+  Version:   $Revision: 1.8 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -15,6 +15,7 @@
 
 =========================================================================*/
 #include "gxDocumentation.h"
+#include "gxConfigure.h"
 
 //----------------------------------------------------------------------------
 struct gxDocumentationEntry
@@ -428,7 +429,7 @@ void gxDocumentation::PrintManPage(std::ostream& os)
 {
   os << ".TH GCC-XML 1 \""
      << gxSystemTools::GetCurrentDateTime("%B %d, %Y").c_str()
-     << "\"\n";
+     << "\" \"GCC-XML " GCCXML_VERSION_STRING "\"\n";
   os << ".SH NAME\n";
   gxDocumentationPrintManSection(os, gxDocumentationName);
   os << ".SH SYNOPSIS\n";
