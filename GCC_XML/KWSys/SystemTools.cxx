@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-05-13 12:38:49 $
-  Version:   $Revision: 1.9 $
+  Date:      $Date: 2003-05-13 13:50:43 $
+  Version:   $Revision: 1.10 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1314,7 +1314,7 @@ bool SystemTools::SplitProgramPath(const char* in_name,
       dir = "";
       }
     }
-  if((dir != "") && !SystemTools::FileIsDirectory(dir.c_str()))
+  if(!(dir == "") && !SystemTools::FileIsDirectory(dir.c_str()))
     {
     kwsys_std::string oldDir = in_name;
     SystemTools::ConvertToUnixSlashes(oldDir);
@@ -1346,7 +1346,7 @@ kwsys_std::string SystemTools::CollapseFullPath(const char* in_relative,
   
 #ifdef _WIN32
   // Follow relative path.
-  if(dir != "")
+  if(!(dir == ""))
     {
     Chdir(dir.c_str());
     }
@@ -1369,7 +1369,7 @@ kwsys_std::string SystemTools::CollapseFullPath(const char* in_relative,
   
   // Resolve relative path.
   kwsys_std::string newDir;
-  if(dir != "")
+  if(!(dir == ""))
     {
     realpath(dir.c_str(), resolved_name);
     newDir = resolved_name;
@@ -1385,7 +1385,7 @@ kwsys_std::string SystemTools::CollapseFullPath(const char* in_relative,
   
   // Construct and return the full path.
   kwsys_std::string newPath = newDir;
-  if(file != "")
+  if(!(file == ""))
     {
     newPath += "/";
     newPath += file;
@@ -1595,8 +1595,8 @@ void SystemTools::GlobDirs(const char *fullPath,
     {
     for (unsigned int i = 0; i < d.GetNumberOfFiles(); ++i)
       {
-      if((kwsys_std::string(d.GetFile(i)) != ".")
-         && (kwsys_std::string(d.GetFile(i)) != ".."))
+      if(!(kwsys_std::string(d.GetFile(i)) == ".")
+         && !(kwsys_std::string(d.GetFile(i)) == ".."))
         {
         kwsys_std::string fname = startPath;
         fname +="/";
@@ -1675,8 +1675,8 @@ bool SystemTools::SimpleGlob(const kwsys_std::string& glob,
     {
     for (unsigned int i = 0; i < d.GetNumberOfFiles(); ++i)
       {
-      if((kwsys_std::string(d.GetFile(i)) != ".")
-         && (kwsys_std::string(d.GetFile(i)) != ".."))
+      if(!(kwsys_std::string(d.GetFile(i)) == ".")
+         && !(kwsys_std::string(d.GetFile(i)) == ".."))
         {
         kwsys_std::string fname = path;
         if ( path[path.size()-1] != '/' )
