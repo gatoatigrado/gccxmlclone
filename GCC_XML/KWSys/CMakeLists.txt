@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-07-03 11:58:07 $
-#  Version:   $Revision: 1.22 $
+#  Date:      $Date: 2003-07-08 02:41:46 $
+#  Version:   $Revision: 1.23 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -328,7 +328,6 @@ IF(KWSYS_USE_Process)
       SET(BIN_DIR ${EXECUTABLE_OUTPUT_PATH})
     ENDIF(EXECUTABLE_OUTPUT_PATH)
     
-    SET(MAKE_SYSTEM)
     SET(CFG_INTDIR "/${CMAKE_CFG_INTDIR}")
     IF(CMAKE_BUILD_TOOL MATCHES "make")
       SET(CFG_INTDIR "")
