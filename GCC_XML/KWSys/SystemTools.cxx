@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-05-12 17:15:49 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2003-05-13 12:38:49 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -77,6 +77,18 @@ inline int Chdir(const char* dir)
 }
 #endif
 
+#if !defined(_WIN32) && defined(__COMO__)
+// Hack for como strict mode to avoid defining _SVID_SOURCE or _BSD_SOURCE.
+extern "C"
+{
+extern FILE *popen (__const char *__command, __const char *__modes) __THROW;
+extern int pclose (FILE *__stream) __THROW;
+extern char *realpath (__const char *__restrict __name,
+                       char *__restrict __resolved) __THROW;
+extern char *strdup (__const char *__s) __THROW;
+extern int putenv (char *__string) __THROW;
+}
+#endif
 
 /* Implement floattime() for various platforms */
 // Taken from Python 2.1.3
