@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: kwsysPrivate.h,v $
   Language:  C++
-  Date:      $Date: 2003-07-10 18:32:30 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-12-14 18:44:20 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -32,6 +32,14 @@
 #define KWSYS_HEADER(x) KWSYS_HEADER0(KWSYS_NAMESPACE/x)
 #define KWSYS_HEADER0(x) KWSYS_HEADER1(x)
 #define KWSYS_HEADER1(x) <x>
+
+/*
+  Define KWSYS_NAMESPACE_STRING to be a string constant containing the
+  name configured for this instance of the kwsys library.
+*/
+#define KWSYS_NAMESPACE_STRING KWSYS_NAMESPACE_STRING0(KWSYS_NAMESPACE)
+#define KWSYS_NAMESPACE_STRING0(x) KWSYS_NAMESPACE_STRING1(x)
+#define KWSYS_NAMESPACE_STRING1(x) #x
 
 #else
 # error "kwsysPrivate.h included multiple times."
