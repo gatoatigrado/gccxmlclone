@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-12-03 14:20:05 $
-Version:   $Revision: 1.24 $
+Date:      $Date: 2003-12-05 16:19:43 $
+Version:   $Revision: 1.25 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -821,7 +821,7 @@ void kwsysProcess_Execute(kwsysProcess* cp)
     (unsigned short)(cp->HideWindow?SW_HIDE:SW_SHOWDEFAULT);
   
   /* Connect the child's output pipes to the threads.  */
-  si.StartupInfo.dwFlags = STARTF_USESTDHANDLES;
+  si.StartupInfo.dwFlags |= STARTF_USESTDHANDLES;
 
   /* Create stderr pipe to be shared by all processes in the pipeline.
      Neither end is directly inherited.  */
