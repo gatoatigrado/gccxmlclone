@@ -17,6 +17,16 @@
 
 /* Written by Paul Eggert.  */
 
+/*============================================================================
+  This source has been modified for GCC-XML (November 2003).
+  Code below contained within
+    #if !defined(_MSC_VER)
+    #else
+    #endif
+  blocks has been modified to compile with Visual C++ 6 and above.
+============================================================================*/
+
+
 #if HAVE_CONFIG_H
 # include <config.h>
 #endif
