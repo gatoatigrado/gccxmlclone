@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-01-14 16:34:39 $
-  Version:   $Revision: 1.34 $
+  Date:      $Date: 2004-01-22 21:51:36 $
+  Version:   $Revision: 1.35 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -970,7 +970,18 @@ bool gxConfiguration::FindFlags()
   return false;
 #else
   // This is a UNIX environment.  Use the gccxml_find_flags script.
-  std::string gccxmlFindFlags = m_GCCXML_ROOT+"/gccxml_find_flags";
+  std::string gccxmlFindFlags;
+  if(m_GCCXML_ROOT.find(" ") != m_GCCXML_ROOT.npos)
+    {
+    gccxmlFindFlags = "\"";
+    gccxmlFindFlags += m_GCCXML_ROOT;
+    gccxmlFindFlags += "/gccxml_find_flags\"";
+    }
+  else
+    {
+    gccxmlFindFlags = m_GCCXML_ROOT;
+    gccxmlFindFlags += "/gccxml_find_flags";
+    }
   gccxmlFindFlags += " ";
   gccxmlFindFlags += m_GCCXML_COMPILER;
   gccxmlFindFlags += " ";
