@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-06-12 19:58:30 $
-Version:   $Revision: 1.4 $
+Date:      $Date: 2003-06-12 20:18:07 $
+Version:   $Revision: 1.5 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -210,6 +210,11 @@ kwsysProcess* kwsysProcess_New()
   
   /* Allocate a process control structure.  */
   cp = (kwsysProcess*)malloc(sizeof(kwsysProcess));
+  if(!cp)
+    {
+    /* Could not allocate memory for the control structure.  */
+    return 0;
+    }
   ZeroMemory(cp, sizeof(*cp));
   
   /* Set initial status.  */
