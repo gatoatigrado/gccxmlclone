@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-27 22:53:51 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2002-03-27 23:03:01 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -173,7 +173,7 @@ void gxConfiguration::FindRoots(const char* argv0)
   
   // If we are running from the build directory, use the source
   // directory as the data root.
-  if(selfPath == GCCXML_BINARY_DIR)
+  if(selfPath == GCCXML_EXECUTABLE_DIR)
     {
     m_DataRoot = GCCXML_SOURCE_DIR;
     }
