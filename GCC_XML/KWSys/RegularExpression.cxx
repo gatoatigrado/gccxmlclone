@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: RegularExpression.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-07-10 18:32:30 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2003-11-04 14:00:18 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -769,7 +769,7 @@ static void reginsert (char op, char* opnd) {
     place = opnd;               // Op node, where operand used to be.
     *place++ = op;
     *place++ = '\0';
-    *place++ = '\0';
+    *place = '\0';
 }
 
 
