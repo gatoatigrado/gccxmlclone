@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-08-27 00:46:04 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2002-10-24 20:20:47 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -53,7 +53,8 @@ void printUsage(std::ostream& os)
     "  --version               = Print the version line and exit.\n"
     "  --print                 = Print the configuration settings and exit.\n"
     "  --gccxml-executable xxx = Use \"xxx\" as the real gccxml executable.\n"
-    "  --gccxml-compiler xxx   = Use \"xxx\" to find GCCXML_FLAGS setting.\n"
+    "  --gccxml-compiler xxx   = Use \"xxx\" compiler to find GCCXML_FLAGS.\n"
+    "  --gccxml-cxxflags xxx   = Use \"xxx\" C++ flags to find GCCXML_FLAGS.\n"
     "  --gccxml-config xxx     = Read file \"xxx\" for configuration.\n"
     "  --gccxml-root xxx       = Use directory \"xxx\" to find supprot library.\n"
     "\n"

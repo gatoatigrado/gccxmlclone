@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-28 23:27:38 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2002-10-24 20:20:47 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -69,10 +69,12 @@ protected:
   // The configuration settings.
   std::string m_GCCXML_CONFIG;
   std::string m_GCCXML_COMPILER;
+  std::string m_GCCXML_CXXFLAGS;
   std::string m_GCCXML_EXECUTABLE;
   std::string m_GCCXML_FLAGS;
   std::string m_GCCXML_USER_FLAGS;
   std::string m_GCCXML_ROOT;
+  bool m_HaveGCCXML_CXXFLAGS;
   
   // Program and data locations.
   std::string m_ExecutableRoot;
@@ -96,6 +98,9 @@ protected:
   
   // Check the environment for any settings that we do not yet have.
   void CheckEnvironment();
+  
+  // Check the environment for CXX and CXXFLAGS settings.
+  void CheckCxxEnvironment();
   
   // Check if there is a configuration file.  If so, read it.
   bool CheckConfigFile();
