@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-12-03 18:37:21 $
-Version:   $Revision: 1.16 $
+Date:      $Date: 2003-12-04 18:56:00 $
+Version:   $Revision: 1.17 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -927,8 +927,8 @@ static void kwsysProcessCleanupDescriptor(int* pfd)
 }
 
 /*--------------------------------------------------------------------------*/
-int kwsysProcessCreate(kwsysProcess* cp, int index,
-                       kwsysProcessCreateInformation* si, int* readEnd)
+static int kwsysProcessCreate(kwsysProcess* cp, int index,
+                              kwsysProcessCreateInformation* si, int* readEnd)
 {
   /* Setup the process's stdin.  */
   if(index > 0)
