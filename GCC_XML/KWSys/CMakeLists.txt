@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-06-23 12:56:03 $
-#  Version:   $Revision: 1.17 $
+#  Date:      $Date: 2003-06-26 17:39:35 $
+#  Version:   $Revision: 1.18 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -17,14 +17,16 @@
 
 # The Kitware System Library is intended to be included in other
 # projects.  It is completely configurable in that the library's
-# namespace can be configured and the components that are included
-# selected invididually.
+# namespace can be configured and the components that are included can
+# be selected invididually.
 
 # Typical usage is to import the kwsys directory tree into a
-# subdirectory under a parent project.  The CMake listfile above this
-# one configures the library as follows:
+# subdirectory under a parent project and enable the classes that will
+# be used.  All classes are disabled by default.  The CMake listfile
+# above this one configures the library as follows:
 #
-#  SET(KWSYS_NAMESPACE fookwsys)
+#  SET(KWSYS_NAMESPACE foosys)
+#  SET(KWSYS_USE_Directory 1)    # Enable Directory class.
 #  SUBDIRS(kwsys)
 #
 # Optional settings are as follows:
@@ -59,9 +61,9 @@
 
 # Once configured, kwsys should be used as follows from C or C++ code:
 #
-#  #include <fookwsys/Directory.hxx>
+#  #include <foosys/Directory.hxx>
 #   ...
-#  fookwsys::Directory directory;
+#  foosys::Directory directory;
 #
 
 #-----------------------------------------------------------------------------
