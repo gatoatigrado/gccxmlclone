@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-10 18:30:48 $
-  Version:   $Revision: 1.22 $
+  Date:      $Date: 2003-06-27 12:42:22 $
+  Version:   $Revision: 1.23 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -285,7 +285,7 @@ void gxConfiguration::FindRoots(const char* argv0)
   m_ExecutableRoot = selfPath;
   
   // Find the data files.
-  std::string sharePath = selfPath+"/../share/gccxml-" GCCXML_VERSION_STRING;
+  std::string sharePath = selfPath+"/../share/gccxml-" GCCXML_VERSION;
   
   // If we are running from the build directory, use the source
   // directory as the data root.
