@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-27 20:14:39 $
-  Version:   $Revision: 1.17 $
+  Date:      $Date: 2003-02-21 03:17:40 $
+  Version:   $Revision: 1.18 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -117,8 +117,8 @@ int main(int argc, char** argv)
   
   // Create the set of flags.
   std::vector<std::string> flags;
-  parser.AddParsedFlags(flags);
   configuration.AddArguments(flags);
+  parser.AddParsedFlags(flags);
   
   // List set of flags if debugging.
   if(configuration.GetDebugFlag())
