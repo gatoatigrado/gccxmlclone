@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-06-30 14:44:35 $
-Version:   $Revision: 1.9 $
+Date:      $Date: 2003-07-01 17:27:42 $
+Version:   $Revision: 1.10 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -680,7 +680,7 @@ void kwsysProcess_Execute(kwsysProcess* cp)
     /* The forwarding executable is given a handle to the error pipe
        and a handle to the kill event.  */
     cp->RealCommand = malloc(strlen(cp->Win9x)+strlen(cp->Command)+100);
-    sprintf(cp->RealCommand, "%s %d %d %s", cp->Win9x,
+    sprintf(cp->RealCommand, "%s %p %p %s", cp->Win9x,
             cp->Pipe[CMPE_PIPE_ERROR].Write,
             cp->Win9xKillEvent, cp->Command);
     }

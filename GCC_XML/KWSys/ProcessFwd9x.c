@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessFwd9x.c,v $
 Language:  C++
-Date:      $Date: 2003-06-30 14:44:35 $
-Version:   $Revision: 1.2 $
+Date:      $Date: 2003-07-01 17:27:42 $
+Version:   $Revision: 1.3 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -72,12 +72,12 @@ int main()
 
   /* Parse the error pipe handle.  */
   while(*cmdLine && *cmdLine == ' ') { ++cmdLine; }
-  sscanf(cmdLine, "%d", &errorPipe);
+  sscanf(cmdLine, "%p", &errorPipe);
 
   /* Parse the kill event handle.  */
   while(*cmdLine && *cmdLine != ' ') { ++cmdLine; }
   while(*cmdLine && *cmdLine == ' ') { ++cmdLine; }
-  sscanf(cmdLine, "%d", &killEvent);
+  sscanf(cmdLine, "%p", &killEvent);
   
   /* Skip to the beginning of the command line of the real child.  */
   while(*cmdLine && *cmdLine != ' ') { ++cmdLine; }
