@@ -3,14 +3,14 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.h,v $
   Language:  C++
-  Date:      $Date: 2002-10-30 19:53:12 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-10-28 20:03:20 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
