@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-29 14:11:16 $
-  Version:   $Revision: 1.4 $
+  Date:      $Date: 2002-03-29 16:31:45 $
+  Version:   $Revision: 1.5 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -114,6 +114,10 @@ int main(int argc, char** argv)
   gxFlagsParser parser;
   parser.Parse(cGCCXML_FLAGS.c_str());
   parser.Parse(cGCCXML_USER_FLAGS.c_str());
+  
+  // Convert the program path to a platform-dependent format.
+  cGCCXML_EXECUTABLE =
+    gxSystemTools::ConvertToOutputPath(cGCCXML_EXECUTABLE.c_str());
   
   // Create the set of flags.
   std::vector<std::string> flags;

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-29 15:51:20 $
-  Version:   $Revision: 1.5 $
+  Date:      $Date: 2002-03-29 16:31:45 $
+  Version:   $Revision: 1.6 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -68,6 +68,11 @@ public:
   
   /** Delete the file with the given name.  */
   static bool RemoveFile(const char* source);
+  
+  /** Convert a file path to a suitable output format.  */
+  static std::string ConvertToOutputPath(const char* path);
+  static std::string ConvertToWindowsOutputPath(const char* path);
+  static std::string ConvertToUnixOutputPath(const char* path);
 };
 
 #endif

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-28 16:22:31 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2002-03-29 16:31:45 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -364,4 +364,83 @@ bool gxSystemTools::RunCommand(const char* command,  std::string& output,
 bool gxSystemTools::RemoveFile(const char* source)
 {
   return (unlink(source) != 0) ? false : true;
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::ConvertToOutputPath(const char* path)
+{
+#if defined(_WIN32) && !defined(__CYGWIN__)
+  return gxSystemTools::ConvertToWindowsOutputPath(path);
+#else
+  return gxSystemTools::ConvertToUnixOutputPath(path);
+#endif
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::ConvertToWindowsOutputPath(const char* path)
+{  
+  // remove double slashes not at the start
+  std::string ret = path;
+  std::string::size_type pos = 0;
+  // first convert all of the slashes
+  while((pos = ret.find('/', pos)) != std::string::npos)
+    {
+    ret[pos] = '\\';
+    pos++;
+    }
+  // check for really small paths
+  if(ret.size() < 2)
+    {
+    return ret;
+    }
+  // now clean up a bit and remove double slashes
+  // Only if it is not the first position in the path which is a network
+  // path on windows
+  pos = 1; // start at position 1
+  while((pos = ret.find("\\\\", pos)) != std::string::npos)
+    {
+    ret.erase(pos, 1);
+    }
+  // now double quote the path if it has spaces in it
+  // and is not already double quoted
+  if(ret.find(" ") != std::string::npos
+     && ret[0] != '\"')
+    {
+    std::string result;
+    result = "\"" + ret + "\"";
+    ret = result;
+    }
+  return ret;
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::ConvertToUnixOutputPath(const char* path)
+{
+  // change // to /, and escape any spaces in the path
+  std::string ret = path;
+  
+  // remove // except at the beginning might be a cygwin drive
+  std::string::size_type pos = 1;
+  while((pos = ret.find("//", pos)) != std::string::npos)
+    {
+    ret.erase(pos, 1);
+    }
+  // now escape spaces if there is a space in the path
+  if(ret.find(" ") != std::string::npos)
+    {
+    std::string result = "";
+    char lastch = 1;
+    for(const char* ch = ret.c_str(); *ch != '\0'; ++ch)
+      {
+      // if it is already escaped then don't try to escape it again
+      if(*ch == ' ' && lastch != '\\')
+        {
+        result += '\\';
+        }
+      result += *ch;
+      lastch = *ch;
+      }
+    ret = result;
+    }
+  return ret;
 }
