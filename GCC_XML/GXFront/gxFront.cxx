@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-05-07 11:03:42 $
-  Version:   $Revision: 1.28 $
+  Date:      $Date: 2004-08-26 18:16:26 $
+  Version:   $Revision: 1.29 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -112,19 +112,21 @@ int main(int argc, char** argv)
     if(configuration.GetPreprocessFlag())
       {
       std::cout << "Using \"" << cGCCXML_CPP.c_str()
-                << "\" as GCC-XML preprocessor.\n";
-      std::cout << "Using the following arguments to GCC-XML preprocessor:\n";
+                << "\" as GCC-XML preprocessor." << std::endl
+                << "Using the following arguments to GCC-XML preprocessor:"
+                << std::endl;
       }
     else
       {
       std::cout << "Using \"" << cGCCXML_EXECUTABLE.c_str()
-                << "\" as GCC-XML executable.\n";
-      std::cout << "Using the following arguments to GCC-XML executable:\n";
+                << "\" as GCC-XML executable." << std::endl
+                << "Using the following arguments to GCC-XML executable:"
+                << std::endl;
       }
     for(std::vector<std::string>::const_iterator i = flags.begin();
         i != flags.end(); ++i)
       {
-      std::cout << "  \"" << i->c_str() << "\"\n";
+      std::cout << "  \"" << i->c_str() << "\"" << std::endl;
       }
     }
 
