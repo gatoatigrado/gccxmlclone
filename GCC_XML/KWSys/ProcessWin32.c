@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-12-14 18:47:39 $
-Version:   $Revision: 1.31 $
+Date:      $Date: 2003-12-14 18:48:18 $
+Version:   $Revision: 1.32 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -492,7 +492,7 @@ void kwsysProcess_Delete(kwsysProcess* cp)
     }
   if(cp->Win9x)
     {
-    /* Close or handle to the forwarding executable file.  This will
+    /* Close our handle to the forwarding executable file.  This will
        cause it to be deleted.  */
     kwsysProcessCleanupHandle(&cp->Win9xHandle);
     }
