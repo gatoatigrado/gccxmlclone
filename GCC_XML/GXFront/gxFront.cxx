@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-27 12:42:22 $
-  Version:   $Revision: 1.21 $
+  Date:      $Date: 2003-08-05 17:23:11 $
+  Version:   $Revision: 1.22 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -192,7 +192,7 @@ int main(int argc, char** argv)
   
   // Run the patched GCC C++ parser.
   int result = 0;
-  if((result = GXSpawn(cGCCXML_EXECUTABLE.c_str(), args)) < 0)
+  if((result = GXSpawn(cge.c_str(), args)) < 0)
     {
     result = errno;
     std::cerr << "Error executing " << cGCCXML_EXECUTABLE.c_str() << "\n";
