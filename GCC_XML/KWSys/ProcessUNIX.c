@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-08-05 17:53:30 $
-Version:   $Revision: 1.11 $
+Date:      $Date: 2003-08-05 18:27:47 $
+Version:   $Revision: 1.12 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -232,6 +232,22 @@ void kwsysProcess_SetWorkingDirectory(kwsysProcess* cp, const char* dir)
     cp->WorkingDirectory = (char*)malloc(strlen(dir) + 1);
     strcpy(cp->WorkingDirectory, dir);
     }
+}
+
+/*--------------------------------------------------------------------------*/
+int kwsysProcess_GetOption(kwsysProcess* cp, int optionId)
+{
+  (void)cp;
+  (void)optionId;
+  return 0;
+}
+
+/*--------------------------------------------------------------------------*/
+void kwsysProcess_SetOption(kwsysProcess* cp, int optionId, int value)
+{
+  (void)cp;
+  (void)optionId;
+  (void)value;
 }
 
 /*--------------------------------------------------------------------------*/
