@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2003-10-21 13:17:21 $
-  Version:   $Revision: 1.65 $
+  Date:      $Date: 2003-10-27 18:44:08 $
+  Version:   $Revision: 1.66 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1623,7 +1623,10 @@ xml_add_type_decl (xml_dump_info_p xdi, tree td, int complete)
         }
       break;
     default:
-      xml_output_unimplemented (xdi, t, 0, "xml_add_type_decl");
+      {
+      /* Add the node even though it is unimplemented.  */
+      return xml_add_node_real (xdi, td, complete);
+      }
     }
   return 0;
 }
