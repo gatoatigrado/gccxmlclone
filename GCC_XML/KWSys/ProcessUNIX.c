@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-12-13 19:13:54 $
-Version:   $Revision: 1.21 $
+Date:      $Date: 2003-12-13 19:19:45 $
+Version:   $Revision: 1.22 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -50,6 +50,7 @@ do.
 #include <sys/time.h>  /* struct timeval */
 #include <sys/types.h> /* pid_t, fd_set */
 #include <sys/wait.h>  /* waitpid */
+#include <sys/stat.h>  /* open mode */
 #include <unistd.h>    /* pipe, close, fork, execvp, select, _exit */
 #include <fcntl.h>     /* fcntl */
 #include <errno.h>     /* errno */
