@@ -1,3 +1,9 @@
+IF(CMAKE_SYSTEM MATCHES "HP-UX")
+  IF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+    SET_SOURCE_FILES_PROPERTIES(../c-opts.c PROPERTIES COMPILE_FLAGS "-Wp,-H,11000")
+  ENDIF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+ENDIF(CMAKE_SYSTEM MATCHES "HP-UX")
+
 ADD_EXECUTABLE(cc1plus
   call.c decl.c expr.c pt.c typeck2.c class.c decl2.c error.c lex.c
   parse.c ptree.c rtti.c spew.c typeck.c cvt.c except.c friend.c init.c
