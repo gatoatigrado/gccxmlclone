@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-07-01 17:27:42 $
-Version:   $Revision: 1.10 $
+Date:      $Date: 2003-07-02 12:35:30 $
+Version:   $Revision: 1.11 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -460,7 +460,7 @@ void kwsysProcess_SetCommand(kwsysProcess* cp, char const* const* command)
 
       /* Add the length of the argument, plus 3 for the double quotes
          and space separating the arguments.  */
-      length += strlen(*arg) + 3;
+      length += (int)strlen(*arg) + 3;
       
       /* Scan the string to find characters that need escaping.  */
       for(c=*arg; *c; ++c)
