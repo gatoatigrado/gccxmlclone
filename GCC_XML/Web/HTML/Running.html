@@ -42,37 +42,43 @@ vlink="#000000" alink="#000000">
         parsing it with GCC-XML.
 
         <h2>GCC</h2>
-        There is a UNIX shell script called
-        <code>find_gcc_options</code> in the GCC_XML repository that
-        should find the options that you need to use GCC-XML with any
-        version of GCC.
+        The GCC support library is installed with the
+        "<code>install_gcc</code>" makefile target.  See the <a
+        href="/GCC_XML/HTML/Install.html">Install</a> page for details
+        about installing it.  There is a UNIX shell script called
+        <code>find_gcc_options</code> in the <code>GccInclude</code>
+        subdirectory in the support library installation.  Running
+        this script should find the options that you need to use
+        GCC-XML with any version of GCC.  GCC-XML currently does not
+        require a -I option adding the GccInclude directory to the
+        beginning of the include search path because there are no
+        special headers that override system headers.  This may change
+        in the future, however.
+
+        <h2>MipsPro</h2>
+        The MipsPro support library is installed with the
+        "<code>install_mpro</code>" makefile target.  See the <a
+        href="/GCC_XML/HTML/Install.html">Install</a> page for details
+        about installing it.  There is a UNIX shell script called
+        <code>find_mpro_options</code> in the <code>MproInclude</code>
+        subdirectory in the support library installation.  Running
+        this script should find the options that you need to use
+        GCC-XML with versions of MipsPro.  It has been tested with
+        variants of version 7.3.  GCC-XML will require a -I option
+        adding the MproInclude directory to the beginning of the
+        include search path.
 
         <h2>Visual C++ 6.0 Service Pack 5 (also Intel C++)</h2>
         The standard headers provided in the <code>VC98/Include</code>
         directory by Microsoft cannot be used directly by GCC-XML
         because they actually contain illegal C++ code (according to
-        ISO C++ Standard).  To get around this problem, you should use
-        the pre-compiled binary installation provided on the download
-        page.  During installation, your copy of Visual C++ is found
-        and some of its headers are copied to a folder called
-        VcInclude in the GCC_XML installation directory.  The copies are
-        then patched to correct the invalid code.  The VcInclude
+        ISO C++ Standard).  To get around this problem, the
+        pre-compiled binary installation program finds your copy of
+        Visual C++.  Some of its headers are copied to a folder called
+        VcInclude in the GCC_XML installation directory.  The copies
+        are then patched to correct the invalid code.  The VcInclude
         directory will also contain a file called FLAGS.txt which has
         the set of options you need to give to GCC-XML.
-
-        <h2>MipsPro</h2>
-        There is a UNIX shell script called
-        <code>find_mpro_options</code> in the GCC_XML repository that
-        should find the options that you need to use GCC-XML with
-        versions of MipsPro.  It has been tested with a variants of
-        version 7.3.  However, these options are not all that is
-        needed to make GCC-XML work for this compiler.  Some of SGI's
-        headers are missing certain forward declarations required by
-        C++ and needed by GCC.  There is a directory called
-        <code>MproInclude</code> in the GCC_XML repository that
-        contains headers that fix the problem.  GCC-XML will require a
-        -I option pointing at a copy of the MproInclude directory to
-        come before the -I options for SGI's headers or /usr/include.
 
         <h2>Example of running GCC-XML</h2>
         <p>
