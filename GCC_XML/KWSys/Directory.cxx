@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Directory.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-06-25 12:29:44 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2003-06-30 14:30:38 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -15,6 +15,8 @@
 
 =========================================================================*/
 #include <Directory.hxx>
+
+#include <Configure.hxx>
 
 #include <std/string>
 #include <std/vector>

@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-06-23 12:56:22 $
-  Version:   $Revision: 1.6 $
+  Date:      $Date: 2003-06-30 14:30:38 $
+  Version:   $Revision: 1.7 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -21,6 +21,8 @@
 #include <@KWSYS_NAMESPACE@/std/string>
 #include <@KWSYS_NAMESPACE@/std/vector>
 
+#include <@KWSYS_NAMESPACE@/Configure.h>
+
 /* Define this macro temporarily to keep the code readable.  */
 #if !defined (KWSYS_NAMESPACE) && !defined(@KWSYS_NAMESPACE@_NAME_IS_KWSYS)
 # define kwsys_std @KWSYS_NAMESPACE@_std
@@ -32,7 +34,7 @@ namespace @KWSYS_NAMESPACE@
 /** \class SystemTools
  * \brief A collection of useful platform-independent system functions.
  */
-class SystemTools
+class @KWSYS_NAMESPACE@_EXPORT SystemTools
 {
 public:
   /**

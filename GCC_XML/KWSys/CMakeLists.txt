@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-06-30 12:48:31 $
-#  Version:   $Revision: 1.20 $
+#  Date:      $Date: 2003-06-30 14:30:38 $
+#  Version:   $Revision: 1.21 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -147,6 +147,19 @@ SET(KWSYS_NO_STD_NAMESPACE ${CMAKE_NO_STD_NAMESPACE})
 SET(KWSYS_NO_ANSI_STREAM_HEADERS ${CMAKE_NO_ANSI_STREAM_HEADERS})
 SET(KWSYS_NO_ANSI_STRING_STREAM ${CMAKE_NO_ANSI_STRING_STREAM})
 
+# Choose default shared/static build if not specified.
+IF(KWSYS_BUILD_SHARED MATCHES "^KWSYS_BUILD_SHARED$")
+  SET(KWSYS_BUILD_SHARED ${BUILD_SHARED_LIBS})
+ENDIF(KWSYS_BUILD_SHARED MATCHES "^KWSYS_BUILD_SHARED$")
+
+IF(KWSYS_BUILD_SHARED)
+  SET(KWSYS_BUILD_SHARED 1)
+  SET(KWSYS_LIBRARY_TYPE SHARED)
+ELSE(KWSYS_BUILD_SHARED)
+  SET(KWSYS_BUILD_SHARED 0)
+  SET(KWSYS_LIBRARY_TYPE STATIC)
+ENDIF(KWSYS_BUILD_SHARED)
+
 #-----------------------------------------------------------------------------
 # Choose a directory for the generated headers.
 IF(NOT KWSYS_HEADER_ROOT)
@@ -192,7 +205,7 @@ ENDFOREACH(header)
 # Build a list of classes and headers we need to implement the
 # selected components.  Initialize with required components.
 SET(KWSYS_CLASSES)
-SET(KWSYS_H_FILES)
+SET(KWSYS_H_FILES Configure)
 SET(KWSYS_HXX_FILES Configure)
 
 # Enforce component dependencies (none currently exists).
@@ -283,7 +296,7 @@ ENDFOREACH(h)
 
 #-----------------------------------------------------------------------------
 # Add the library with the configured name and list of sources.
-ADD_LIBRARY(${KWSYS_NAMESPACE} ${KWSYS_SRCS})
+ADD_LIBRARY(${KWSYS_NAMESPACE} ${KWSYS_LIBRARY_TYPE} ${KWSYS_SRCS})
 
 # Create an install target for the library.
 IF(KWSYS_LIBRARY_INSTALL_DIR)

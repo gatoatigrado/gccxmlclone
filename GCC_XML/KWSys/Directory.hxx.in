@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Directory.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-05-08 18:46:23 $
-  Version:   $Revision: 1.3 $
+  Date:      $Date: 2003-06-30 14:30:38 $
+  Version:   $Revision: 1.4 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -17,7 +17,7 @@
 #ifndef @KWSYS_NAMESPACE@_Directory_hxx
 #define @KWSYS_NAMESPACE@_Directory_hxx
 
-#include <@KWSYS_NAMESPACE@/Configure.hxx>
+#include <@KWSYS_NAMESPACE@/Configure.h>
 
 namespace @KWSYS_NAMESPACE@
 {
@@ -32,7 +32,7 @@ class DirectoryInternals;
  *
  * Directory currently works with Windows and Unix operating systems.
  */
-class Directory 
+class @KWSYS_NAMESPACE@_EXPORT Directory 
 {
 public:
   Directory();
