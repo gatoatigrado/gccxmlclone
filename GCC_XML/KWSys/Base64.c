@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: Base64.c,v $
 Language:  C++
-Date:      $Date: 2003-06-30 12:48:53 $
-Version:   $Revision: 1.2 $
+Date:      $Date: 2003-06-30 14:44:35 $
+Version:   $Revision: 1.3 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -62,9 +62,9 @@ static const unsigned char kwsysBase64DecodeTable[256] =
 };
 
 /*--------------------------------------------------------------------------*/
-static unsigned char kwsysBase64EncodeChar(unsigned char c)
+static unsigned char kwsysBase64EncodeChar(int c)
 {
-  return kwsysBase64EncodeTable[c];
+  return kwsysBase64EncodeTable[(unsigned char)c];
 }
 
 /*--------------------------------------------------------------------------*/
@@ -176,9 +176,9 @@ int kwsysBase64_Decode3(const unsigned char *src, unsigned char *dest)
   
   /* Decode the 3 bytes */
 
-  dest[0] = ((d0 << 2) & 0xFC) | ((d1 >> 4) & 0x03);
-  dest[1] = ((d1 << 4) & 0xF0) | ((d2 >> 2) & 0x0F);
-  dest[2] = ((d2 << 6) & 0xC0) | ((d3 >> 0) & 0x3F);
+  dest[0] = (unsigned char)(((d0 << 2) & 0xFC) | ((d1 >> 4) & 0x03));
+  dest[1] = (unsigned char)(((d1 << 4) & 0xF0) | ((d2 >> 2) & 0x0F));
+  dest[2] = (unsigned char)(((d2 << 6) & 0xC0) | ((d3 >> 0) & 0x3F));
   
   /* Return the number of bytes actually decoded */
 
