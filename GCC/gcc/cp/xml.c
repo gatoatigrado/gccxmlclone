@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2003-06-12 21:28:17 $
-  Version:   $Revision: 1.51 $
+  Date:      $Date: 2003-06-17 18:18:43 $
+  Version:   $Revision: 1.52 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -154,6 +154,13 @@ static void xml_add_start_nodes PARAMS((xml_dump_info_p, const char*));
 static const char* xml_get_encoded_string PARAMS ((tree));
 static const char* xml_get_encoded_string_from_string PARAMS ((const char*));
 static tree xml_get_encoded_identifier_from_string PARAMS ((const char*));
+
+/* Switch to 1 to enable debugging of dump node selection.  */
+#if 0
+# define xml_add_node(xdi, node, complete)                                    \
+   (fprintf(stderr, "Adding node at line %d\n", __LINE__),                    \
+    xml_add_node(xdi, node, complete))
+#endif
 
 /* Main XML output function.  Called by parser at the end of a translation
    unit.  Walk the entire translation unit starting at the global
@@ -1456,7 +1463,11 @@ xml_add_template_decl (xml_dump_info_p xdi, tree td, int complete)
     switch (TREE_CODE (ts))
       {
       case TYPE_DECL:
-        xml_add_node (xdi, ts, complete);
+        /* Add the instantiation only if it is real.  */
+        if (!DECL_ARTIFICIAL(ts))
+          {
+          xml_add_node (xdi, ts, complete);
+          }
         break;
       default:
         /* xml_output_unimplemented (xdi, ts, 0,
@@ -1550,6 +1561,11 @@ xml_dump_tree_node (xml_dump_info_p xdi, tree n, xml_dump_node_p dn)
       xml_output_unimplemented (xdi, n, dn, 0);
     }
 }
+
+/* If we enabled xml dump debugging, undefine the macro.  */
+#if defined(xml_add_node)
+# undef xml_add_node
+#endif
 
 /* Add tree node N to those encountered.  Return its index.  */
 int
