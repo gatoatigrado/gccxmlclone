@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2004-01-14 16:14:33 $
-#  Version:   $Revision: 1.2 $
+#  Date:      $Date: 2004-04-06 18:42:45 $
+#  Version:   $Revision: 1.3 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -48,6 +48,8 @@ INCLUDES=`
 SELFPATH=`echo $0 | sed -n '/\//{s/\/find_flags//;p;}'`
 if test "x$SELFPATH" = "x" ; then SELFPATH="." ; fi
 SELFPATH=`cd "$SELFPATH" ; pwd`
+
+INCLUDES="-iwrapper$SELFPATH $INCLUDES"
 
 # Format and print out the options.
 OPTIONS="$MACROS -D_WCHAR_T $INCLUDES"
