@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessUNIX.c,v $
 Language:  C++
-Date:      $Date: 2003-08-05 13:07:54 $
-Version:   $Revision: 1.9 $
+Date:      $Date: 2003-08-05 15:34:39 $
+Version:   $Revision: 1.10 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -285,6 +285,7 @@ void kwsysProcess_Execute(kwsysProcess* cp)
   
   /* We want no special handling of SIGCHLD.  Repeat call until it is
      not interrupted.  */
+  memset(&newSigChldAction, 0, sizeof(struct sigaction));
   newSigChldAction.sa_handler = SIG_DFL;
   while((sigaction(SIGCHLD, &newSigChldAction, &cp->OldSigChldAction) < 0) &&
         (errno == EINTR));
@@ -901,6 +902,7 @@ static void kwsysProcessChildErrorExit(kwsysProcess* cp)
 static void kwsysProcessRestoreDefaultSignalHandlers()
 {
   struct sigaction act;
+  memset(&act, 0, sizeof(struct sigaction));
   act.sa_handler = SIG_DFL;
 #ifdef SIGHUP
   sigaction(SIGHUP, &act, 0);
