@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-27 20:54:04 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2002-03-27 22:22:51 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -40,6 +40,10 @@ public:
   /** Get the set of arguments to pass through to the real executable.  */
   const std::vector<std::string>& GetArguments() const;
   
+  /** Add the arguments to pass through to the real executable to the
+      given vector.  */
+  void AddArguments(std::vector<std::string>& arguments) const;
+  
   /** Ask whether the --help argument was given.  */
   bool GetHelpFlag() const;
   
@@ -49,8 +53,17 @@ public:
   /** Ask whether the --print argument was given.  */
   bool GetPrintFlag() const;
   
-  /** Get the command to execute the real gccxml executable.  */
-  std::string GetCommand() const;
+  /** Ask whether the --debug argument was given.  */
+  bool GetDebugFlag() const;
+  
+  /** Get the GCCXML_EXECUTABLE setting.  */
+  const std::string& GetGCCXML_EXECUTABLE() const;
+  
+  /** Get the GCCXML_FLAGS setting.  */
+  const std::string& GetGCCXML_FLAGS() const;
+  
+  /** Get the GCCXML_USER_FLAGS setting.  */
+  const std::string& GetGCCXML_USER_FLAGS() const;
   
 protected:
   // The configuration settings.
@@ -73,6 +86,7 @@ protected:
   bool m_HelpFlag;
   bool m_VersionFlag;
   bool m_PrintFlag;
+  bool m_DebugFlag;
   
   // Find executable and data locations of GCC-XML.
   void FindRoots(const char* argv0);
