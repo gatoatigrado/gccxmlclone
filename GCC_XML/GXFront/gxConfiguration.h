@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2003-10-28 20:50:04 $
-  Version:   $Revision: 1.11 $
+  Date:      $Date: 2004-08-26 18:19:33 $
+  Version:   $Revision: 1.12 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -118,6 +118,9 @@ protected:
 
   // Parse settings off the command line.
   bool ProcessCommandLine(int argc, const char*const* argv);
+
+  // Read arguments for gccxml_cc1plus from a file.
+  bool ReadArgumentFile(const char* fname);
 
   // Check the environment for any settings that we do not yet have.
   void CheckEnvironment();
