@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: RegularExpression.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-05-08 18:46:23 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2003-06-19 22:57:11 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -38,6 +38,11 @@
 #include <@KWSYS_NAMESPACE@/Configure.hxx>
 
 #include <@KWSYS_NAMESPACE@/std/string>
+
+/* Define this macro temporarily to keep the code readable.  */
+#if !defined (KWSYS_NAMESPACE) && !defined(@KWSYS_NAMESPACE@_NAME_IS_KWSYS)
+# define kwsys_std @KWSYS_NAMESPACE@_std
+#endif
 
 namespace @KWSYS_NAMESPACE@
 {
@@ -381,5 +386,10 @@ inline kwsys_std::string RegularExpression::match(int n) const
 }
 
 } // namespace @KWSYS_NAMESPACE@
+
+/* Undefine temporary macro.  */
+#if !defined (KWSYS_NAMESPACE) && !defined(@KWSYS_NAMESPACE@_NAME_IS_KWSYS)
+# undef kwsys_std
+#endif
 
 #endif

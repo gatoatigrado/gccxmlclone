@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-05-12 17:15:49 $
-  Version:   $Revision: 1.4 $
+  Date:      $Date: 2003-06-19 22:57:11 $
+  Version:   $Revision: 1.5 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -20,6 +20,11 @@
 #include <@KWSYS_NAMESPACE@/std/iosfwd>
 #include <@KWSYS_NAMESPACE@/std/string>
 #include <@KWSYS_NAMESPACE@/std/vector>
+
+/* Define this macro temporarily to keep the code readable.  */
+#if !defined (KWSYS_NAMESPACE) && !defined(@KWSYS_NAMESPACE@_NAME_IS_KWSYS)
+# define kwsys_std @KWSYS_NAMESPACE@_std
+#endif
 
 namespace @KWSYS_NAMESPACE@
 {
@@ -286,5 +291,10 @@ protected:
 };
 
 } // namespace @KWSYS_NAMESPACE@
+
+/* Undefine temporary macro.  */
+#if !defined (KWSYS_NAMESPACE) && !defined(@KWSYS_NAMESPACE@_NAME_IS_KWSYS)
+# undef kwsys_std
+#endif
 
 #endif
