@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-04-10 17:41:15 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2003-04-11 20:22:35 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -129,11 +129,6 @@ public:
   static bool FileExists(const char* filename);
   
   static unsigned long FileLength(const char *filename);
-  /**
-   * given a (possibly) relative path, return the completely
-   * qualified path to a file system entity
-   */
-  static char *RealPath(const char *path, char *resolved_path);
   /**
    *  Add the paths from the environment variable PATH to the 
    *  string vector passed in.
