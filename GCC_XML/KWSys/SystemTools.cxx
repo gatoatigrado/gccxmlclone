@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-04-08 17:14:29 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2003-04-10 13:03:46 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -14,6 +14,10 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
+#ifdef _MSC_VER
+# pragma warning (disable: 4786)
+#endif
+
 #include <SystemTools.hxx>
 #include <RegularExpression.hxx>
 #include <Directory.hxx>
@@ -1247,7 +1251,7 @@ kwsys_std::string SystemTools::GetProgramPath(const char* in_name)
 bool SystemTools::SplitProgramPath(const char* in_name,
                                    kwsys_std::string& dir,
                                    kwsys_std::string& file,
-                                   bool errorReport)
+                                   bool)
 {
   dir = in_name;
   file = "";
