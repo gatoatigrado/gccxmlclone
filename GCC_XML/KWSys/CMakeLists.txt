@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-06-20 18:10:28 $
-#  Version:   $Revision: 1.16 $
+#  Date:      $Date: 2003-06-23 12:56:03 $
+#  Version:   $Revision: 1.17 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -82,6 +82,9 @@ ENDIF(NOT KWSYS_NAMESPACE)
 #-----------------------------------------------------------------------------
 # The project name is that of the specified namespace.
 PROJECT(${KWSYS_NAMESPACE})
+
+# Do full dependency headers.
+INCLUDE_REGULAR_EXPRESSION("^.*$")
 
 # Work-around for CMake 1.6.7 bug in custom command dependencies when
 # there is no executable output path.
@@ -189,11 +192,11 @@ SET(KWSYS_CLASSES)
 SET(KWSYS_H_FILES)
 SET(KWSYS_HXX_FILES Configure)
 
-# Enforce component dependencies.
-IF(KWSYS_USE_SystemTools)
-  SET(KWSYS_USE_Directory 1)
-  SET(KWSYS_USE_RegularExpression 1)
-ENDIF(KWSYS_USE_SystemTools)
+# Enforce component dependencies (none currently exists).
+#IF(KWSYS_USE_SystemTools)
+#  SET(KWSYS_USE_Directory 1)
+#  SET(KWSYS_USE_RegularExpression 1)
+#ENDIF(KWSYS_USE_SystemTools)
 
 # Add selected C++ classes.
 FOREACH(c Directory RegularExpression SystemTools)
