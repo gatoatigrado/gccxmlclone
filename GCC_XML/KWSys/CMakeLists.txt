@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-06-19 22:57:11 $
-#  Version:   $Revision: 1.15 $
+#  Date:      $Date: 2003-06-20 18:10:28 $
+#  Version:   $Revision: 1.16 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -29,11 +29,13 @@
 #
 # Optional settings are as follows:
 #
-#  KWSYS_HEADER_DIR = The directory into which to generate the kwsys headers.
+#  KWSYS_HEADER_ROOT = The directory into which to generate the kwsys headers.
+#                      A directory called "${KWSYS_NAMESPACE}" will be
+#                      created under this root directory to hold the files.
 #
 #    Example:
 #
-#      SET(KWSYS_HEADER_DIR ${CMAKE_CURRENT_BINARY_DIR}/${KWSYS_NAMESPACE})
+#      SET(KWSYS_HEADER_ROOT ${CMAKE_CURRENT_BINARY_DIR})
 #      INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 #
 #  KWSYS_LIBRARY_INSTALL_DIR = The installation target directories into
@@ -141,9 +143,10 @@ SET(KWSYS_NO_ANSI_STRING_STREAM ${CMAKE_NO_ANSI_STRING_STREAM})
 
 #-----------------------------------------------------------------------------
 # Choose a directory for the generated headers.
-IF(NOT KWSYS_HEADER_DIR)
-  SET(KWSYS_HEADER_DIR "${PROJECT_BINARY_DIR}/${KWSYS_NAMESPACE}")
-ENDIF(NOT KWSYS_HEADER_DIR)
+IF(NOT KWSYS_HEADER_ROOT)
+  SET(KWSYS_HEADER_ROOT "${PROJECT_BINARY_DIR}")
+ENDIF(NOT KWSYS_HEADER_ROOT)
+SET(KWSYS_HEADER_DIR "${KWSYS_HEADER_ROOT}/${KWSYS_NAMESPACE}")
 
 #-----------------------------------------------------------------------------
 # Create STL header wrappers to block warnings in the STL headers and
@@ -334,7 +337,7 @@ ENDIF(KWSYS_USE_Process)
 #-----------------------------------------------------------------------------
 # Setup testing if not being built as part of another project.
 IF(KWSYS_STANDALONE)
-  INCLUDE_DIRECTORIES(${KWSYS_HEADER_DIR}/..)
+  INCLUDE_DIRECTORIES(${KWSYS_HEADER_ROOT})
   ADD_EXECUTABLE(testProcess testProcess.c)
   ADD_EXECUTABLE(test1 test1.cxx)
   TARGET_LINK_LIBRARIES(testProcess ${KWSYS_NAMESPACE})
