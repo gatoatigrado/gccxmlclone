@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2002-10-29 15:25:31 $
-  Version:   $Revision: 1.5 $
+  Date:      $Date: 2002-10-30 19:53:12 $
+  Version:   $Revision: 1.6 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -56,6 +56,15 @@ public:
   /** Ask whether the --debug argument was given.  */
   bool GetDebugFlag() const;
   
+  /** Ask whether the --man argument was given.  */
+  bool GetManFlag() const;
+  
+  /** Ask whether the --copyright argument was given.  */
+  bool GetCopyrightFlag() const;
+  
+  /** Ask whether the --help-html argument was given.  */
+  bool GetHelpHTMLFlag() const;
+  
   /** Get the GCCXML_EXECUTABLE setting.  */
   const std::string& GetGCCXML_EXECUTABLE() const;
   
@@ -89,6 +98,9 @@ protected:
   bool m_VersionFlag;
   bool m_PrintFlag;
   bool m_DebugFlag;
+  bool m_ManFlag;
+  bool m_CopyrightFlag;
+  bool m_HelpHTMLFlag;
   
   // Find executable and data locations of GCC-XML.
   void FindRoots(const char* argv0);
