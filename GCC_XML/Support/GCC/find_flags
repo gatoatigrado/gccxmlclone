@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2003-09-09 15:38:27 $
-#  Version:   $Revision: 1.3 $
+#  Date:      $Date: 2003-09-10 13:57:48 $
+#  Version:   $Revision: 1.4 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -69,5 +69,5 @@ elif [ "$MAJOR_VERSION" = 3 -a "$MINOR_VERSION" -ge 3 ]; then
 fi
 
 # Format and print out the options.
-OPTIONS="$MACROS -D__declspec(x)= $INCLUDES $SPECIAL"
+OPTIONS="$MACROS -D__declspec(x)= -D__attribute__(x)= $INCLUDES $SPECIAL"
 echo $OPTIONS
