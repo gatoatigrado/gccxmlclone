@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFlagsParser.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-10-29 15:25:31 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-12-17 00:00:32 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -64,6 +64,11 @@ void gxFlagsParser::AddFlag(const std::string& flag)
     {
     m_Flags.push_back("-o");
     m_Flags.push_back("/dev/null");
+    }
+  else if(tmp == "-o NUL")
+    {
+    m_Flags.push_back("-o");
+    m_Flags.push_back("NUL");
     }
   else
     {
