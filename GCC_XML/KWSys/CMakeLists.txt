@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-07-08 02:41:46 $
-#  Version:   $Revision: 1.23 $
+#  Date:      $Date: 2003-07-08 13:21:45 $
+#  Version:   $Revision: 1.24 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -37,8 +37,8 @@
 #
 #    Example:
 #
-#      SET(KWSYS_HEADER_ROOT ${CMAKE_CURRENT_BINARY_DIR})
-#      INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+#      SET(KWSYS_HEADER_ROOT ${PROJECT_BINARY_DIR})
+#      INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 #
 #  KWSYS_LIBRARY_INSTALL_DIR = The installation target directories into
 #  KWSYS_HEADER_INSTALL_DIR    which the libraries and headers from
