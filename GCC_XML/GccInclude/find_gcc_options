@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_gcc_options,v $
 #  Language:  C++
-#  Date:      $Date: 2003-03-18 21:46:46 $
-#  Version:   $Revision: 1.17 $
+#  Date:      $Date: 2003-03-18 21:48:58 $
+#  Version:   $Revision: 1.18 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -57,10 +57,9 @@ echo "__GNUC__" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>/dev/null |
 # For GCC versions before 3, some special options are needed.
 if test $MAJOR_VERSION -lt 3 ; then
   HONOR_STD="-fxml-no-honor-std "
-  STRICT_INCLUDES="-I- "
   INCLUDES="-I$SELFPATH/2_95 $INCLUDES"
 fi
 
 # Format and print out the options.
-OPTIONS="$STRICT_INCLUDES $MACROS $INCLUDES $HONOR_STD"
+OPTIONS="$MACROS $INCLUDES $HONOR_STD"
 echo $OPTIONS
