@@ -420,19 +420,22 @@ SET_SOURCE_FILES_PROPERTIES(toplev.c
   PROPERTIES COMPILE_FLAGS "-DTARGET_NAME=\\\"${target}\\\"")
 
 #-----------------------------------------------------------------------------
-# C Compiler Executable
+# C Compiler Executable.  This is not needed by GCC-XML, so we do not
+# build it by default.
 
-IF(CMAKE_SYSTEM MATCHES "HP-UX")
-  IF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
-    SET_SOURCE_FILES_PROPERTIES(c-opts.c PROPERTIES COMPILE_FLAGS "-Wp,-H,11000")
-  ENDIF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
-ENDIF(CMAKE_SYSTEM MATCHES "HP-UX")
+IF(GCC_BUILD_C)
+  IF(CMAKE_SYSTEM MATCHES "HP-UX")
+    IF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+      SET_SOURCE_FILES_PROPERTIES(c-opts.c PROPERTIES COMPILE_FLAGS "-Wp,-H,11000")
+    ENDIF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+  ENDIF(CMAKE_SYSTEM MATCHES "HP-UX")
 
-ADD_EXECUTABLE(cc1
-  c-parse.c c-lang.c c-pretty-print.c attribs.c c-errors.c c-lex.c
-  c-pragma.c c-decl.c c-typeck.c c-convert.c c-aux-info.c c-common.c
-  c-opts.c c-format.c c-semantics.c c-objc-common.c c-dump.c
-  ${c_target_srcs}
-  )
+  ADD_EXECUTABLE(cc1
+    c-parse.c c-lang.c c-pretty-print.c attribs.c c-errors.c c-lex.c
+    c-pragma.c c-decl.c c-typeck.c c-convert.c c-aux-info.c c-common.c
+    c-opts.c c-format.c c-semantics.c c-objc-common.c c-dump.c
+    ${c_target_srcs}
+    )
 
-TARGET_LINK_LIBRARIES(cc1 backend cpp iberty)
+  TARGET_LINK_LIBRARIES(cc1 backend cpp iberty)
+ENDIF(GCC_BUILD_C)
