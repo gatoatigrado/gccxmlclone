@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-10-09 19:52:29 $
-  Version:   $Revision: 1.24 $
+  Date:      $Date: 2003-12-09 16:44:53 $
+  Version:   $Revision: 1.25 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -577,7 +577,8 @@ bool SystemTools::SameFile(const char* file1, const char* file2)
    GetFileInformationByHandle( hFile2, &fiBuf2 );
    CloseHandle(hFile1);
    CloseHandle(hFile2);
-   return (fiBuf1.nFileIndexHigh == fiBuf2.nFileIndexHigh &&
+   return (fiBuf1.dwVolumeSerialNumber == fiBuf2.dwVolumeSerialNumber &&
+           fiBuf1.nFileIndexHigh == fiBuf2.nFileIndexHigh &&
            fiBuf1.nFileIndexLow == fiBuf2.nFileIndexLow);
 #else
   struct stat fileStat1, fileStat2;
