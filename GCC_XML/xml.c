@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2004-04-21 18:02:52 $
-  Version:   $Revision: 1.78 $
+  Date:      $Date: 2004-04-21 19:43:11 $
+  Version:   $Revision: 1.79 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -73,6 +73,8 @@
 #if !defined(GCC_XML_GCC_VERSION) || (GCC_XML_GCC_VERSION < 0x030400)
 # define XML_PRE_3_4_TREE_VIA_PUBLIC
 #endif
+
+#define GCC_XML_C_VERSION "$Revision: 1.79 $"
 
 /* A "dump node" corresponding to a particular tree node.  */
 typedef struct xml_dump_node
@@ -175,6 +177,24 @@ extern int errorcount;
     xml_add_node(xdi, node, complete))
 #endif
 
+/* Get the revision number of this source file.  */
+const char* xml_get_xml_c_version()
+{
+  const char* revision = GCC_XML_C_VERSION;
+  char* version = (char*)xmalloc(strlen(revision)+1);
+  const char* in=revision;
+  char* out = version;
+  while(*in && *in != ':') { ++in; }
+  if(*in) { ++in; }
+  while(*in && *in == ' ') { ++in; }
+  while(*in && *in != ' ' && *in != '$')
+    {
+    *out++ = *in++;
+    }
+  *out = 0;
+  return version;
+}
+
 /* Main XML output function.  Called by parser at the end of a translation
    unit.  Walk the entire translation unit starting at the global
    namespace.  Output all declarations.  */
@@ -234,11 +254,12 @@ do_xml_output (const char* filename)
 
   /* Start dump.  */
   fprintf (file, "<?xml version=\"1.0\"?>\n");
+  fprintf (file, "<GCC_XML");
 #if defined(GCCXML_VERSION_FULL)
-  fprintf (file, "<GCC_XML version=\"" GCCXML_VERSION_FULL "\">\n");
-#else
-  fprintf (file, "<GCC_XML>\n");
+  fprintf (file, " version=\"" GCCXML_VERSION_FULL "\"");
 #endif
+  fprintf (file, " cvs_revision=\"%s\"", xml_get_xml_c_version());
+  fprintf (file, ">\n");
 
   /* Dump the complete nodes.  */
   xml_dump (&xdi);
