@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Building a minimal part of GCC to get the GCC-XML executable.</title>
+  </head>
+
+  <body>
+  <h1>Building a minimal part of GCC to get the GCC-XML executable.</h1>
+  This example assumes that you have the patched GCC source in the directory
+  ~/gccxml, and that you are building it into a parallel directory called
+  ~/gccxml-build.
+
+   <blockquote>
+     <code>
+       $ cd ~<br>
+       $ mkdir gccxml-build<br>
+       $ cd gccxml-build<br>
+       $ ../gccxml/configure --enable-languages=c++ --disable-nls --without-libstdcxx --without-libstdc<br>
+       $ cd libiberty<br>
+       $ make libiberty.a<br>
+       $ cd ../gcc<br>
+       $ make tm.h<br>
+       $ make tm_p.h<br>
+       $ make cc1plus<br>
+     </code>
+   </blockquote>
+
+   The <code>cc1plus</code> executable should now be available.  Note that
+   if you are doing this under cygwin, the last line of the example should
+   be changed to "<code>make cc1plus.exe</code>" due to Windows-style
+   executable naming.
+    <hr>
+    <address><a href="mailto:brad.king@kitware.com"></a></address>
+<!-- Created: Wed Jan 17 15:22:05 EST 2001 -->
+<!-- hhmts start -->
+Last modified: Thu Jul 19 11:27:06 EDT 2001
+<!-- hhmts end -->
+  </body>
+</html>
