@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-10-29 15:25:31 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2002-10-30 19:52:02 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -76,6 +76,9 @@ public:
   
   /** Find a program in the system search path.  */
   static std::string FindProgram(const char* name);
+  
+  /** Format date/time string with the current time.  */
+  static std::string GetCurrentDateTime(const char* format);
 };
 
 #endif

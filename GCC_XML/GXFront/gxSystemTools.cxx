@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-10-29 15:25:31 $
-  Version:   $Revision: 1.6 $
+  Date:      $Date: 2002-10-30 19:52:02 $
+  Version:   $Revision: 1.7 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -22,6 +22,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <errno.h>
+#include <time.h>
 
 #if !defined(_WIN32) || defined(__CYGWIN__)
 #include <limits.h>
@@ -535,4 +536,14 @@ std::string gxSystemTools::FindProgram(const char* name)
 
   // Couldn't find the program.
   return "";
+}
+
+//----------------------------------------------------------------------------
+std::string gxSystemTools::GetCurrentDateTime(const char* format)
+{
+  char buf[1024];
+  time_t t;
+  time(&t);
+  strftime(buf, sizeof(buf), format, localtime(&t));
+  return buf;
 }
