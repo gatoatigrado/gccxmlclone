@@ -73,7 +73,11 @@ typedef struct
   DWORDLONG ullAvailVirtual;
   DWORDLONG ullAvailExtendedVirtual;
 } lMEMORYSTATUSEX;
+# if !defined(_MSC_VER)
 typedef WINBOOL (WINAPI *PFN_MS_EX) (lMEMORYSTATUSEX*);
+# else
+typedef BOOL (WINAPI *PFN_MS_EX) (lMEMORYSTATUSEX*);
+# endif
 #endif
 
 #include "libiberty.h"
@@ -96,10 +100,10 @@ physmem_total ()
     struct pst_static pss;
     if (0 <= pstat_getstatic (&pss, sizeof pss, 1, 0))
       {
-	double pages = pss.physical_memory;
-	double pagesize = pss.page_size;
-	if (0 <= pages && 0 <= pagesize)
-	  return pages * pagesize;
+        double pages = pss.physical_memory;
+        double pagesize = pss.page_size;
+        if (0 <= pages && 0 <= pagesize)
+          return pages * pagesize;
       }
   }
 #endif
@@ -109,10 +113,10 @@ physmem_total ()
     struct rminfo realmem;
     if (sysmp (MP_SAGET, MPSA_RMINFO, &realmem, sizeof realmem) == 0)
       {
-	double pagesize = sysconf (_SC_PAGESIZE);
-	double pages = realmem.physmem;
-	if (0 <= pages && 0 <= pagesize)
-	  return pages * pagesize;
+        double pagesize = sysconf (_SC_PAGESIZE);
+        double pages = realmem.physmem;
+        if (0 <= pages && 0 <= pagesize)
+          return pages * pagesize;
       }
   }
 #endif
@@ -122,12 +126,12 @@ physmem_total ()
     int physmem;
 
     if (getsysinfo (GSI_PHYSMEM, (caddr_t) &physmem, sizeof (physmem),
-		    NULL, NULL, NULL) == 1)
+                    NULL, NULL, NULL) == 1)
       {
-	double kbytes = physmem;
+        double kbytes = physmem;
 
-	if (0 <= kbytes)
-	  return kbytes * 1024.0;
+        if (0 <= kbytes)
+          return kbytes * 1024.0;
       }
   }
 #endif
@@ -139,7 +143,7 @@ physmem_total ()
     static int mib[2] = { CTL_HW, HW_PHYSMEM };
 
     if (sysctl (mib, ARRAY_SIZE (mib), &physmem, &len, NULL, 0) == 0
-	&& len == sizeof (physmem))
+        && len == sizeof (physmem))
       return (double) physmem;
   }
 #endif
@@ -160,20 +164,28 @@ physmem_total ()
     /*  Use GlobalMemoryStatusEx if available.  */
     if ((pfnex = (PFN_MS_EX) GetProcAddress (h, "GlobalMemoryStatusEx")))
       {
-	lMEMORYSTATUSEX lms_ex;
-	lms_ex.dwLength = sizeof lms_ex;
-	if (!pfnex (&lms_ex))
-	  return 0.0;
-	return (double) lms_ex.ullTotalPhys;
+        lMEMORYSTATUSEX lms_ex;
+        lms_ex.dwLength = sizeof lms_ex;
+        if (!pfnex (&lms_ex))
+          return 0.0;
+#if !defined(_MSC_VER)
+        return (double) lms_ex.ullTotalPhys;
+#else
+        return (double)(signed __int64) lms_ex.ullTotalPhys;
+#endif
       }
 
     /*  Fall back to GlobalMemoryStatus which is always available.
         but returns wrong results for physical memory > 4GB.  */
     else
       {
-	MEMORYSTATUS ms;
-	GlobalMemoryStatus (&ms);
-	return (double) ms.dwTotalPhys;
+        MEMORYSTATUS ms;
+        GlobalMemoryStatus (&ms);
+#if !defined(_MSC_VER)
+        return (double) ms.dwTotalPhys;
+#else
+        return (double)(signed __int64) ms.dwTotalPhys;
+#endif
       }
   }
 #endif
@@ -200,12 +212,12 @@ physmem_available ()
     struct pst_static pss;
     struct pst_dynamic psd;
     if (0 <= pstat_getstatic (&pss, sizeof pss, 1, 0)
-	&& 0 <= pstat_getdynamic (&psd, sizeof psd, 1, 0))
+        && 0 <= pstat_getdynamic (&psd, sizeof psd, 1, 0))
       {
-	double pages = psd.psd_free;
-	double pagesize = pss.page_size;
-	if (0 <= pages && 0 <= pagesize)
-	  return pages * pagesize;
+        double pages = psd.psd_free;
+        double pagesize = pss.page_size;
+        if (0 <= pages && 0 <= pagesize)
+          return pages * pagesize;
       }
   }
 #endif
@@ -215,10 +227,10 @@ physmem_available ()
     struct rminfo realmem;
     if (sysmp (MP_SAGET, MPSA_RMINFO, &realmem, sizeof realmem) == 0)
       {
-	double pagesize = sysconf (_SC_PAGESIZE);
-	double pages = realmem.availrmem;
-	if (0 <= pages && 0 <= pagesize)
-	  return pages * pagesize;
+        double pagesize = sysconf (_SC_PAGESIZE);
+        double pages = realmem.availrmem;
+        if (0 <= pages && 0 <= pagesize)
+          return pages * pagesize;
       }
   }
 #endif
@@ -229,11 +241,11 @@ physmem_available ()
 
     if (table (TBL_VMSTATS, 0, &vmstats, 1, sizeof (vmstats)) == 1)
       {
-	double pages = vmstats.free_count;
-	double pagesize = vmstats.pagesize;
+        double pages = vmstats.free_count;
+        double pagesize = vmstats.pagesize;
 
-	if (0 <= pages && 0 <= pagesize)
-	  return pages * pagesize;
+        if (0 <= pages && 0 <= pagesize)
+          return pages * pagesize;
       }
   }
 #endif
@@ -245,7 +257,7 @@ physmem_available ()
     static int mib[2] = { CTL_HW, HW_USERMEM };
 
     if (sysctl (mib, ARRAY_SIZE (mib), &usermem, &len, NULL, 0) == 0
-	&& len == sizeof (usermem))
+        && len == sizeof (usermem))
       return (double) usermem;
   }
 #endif
@@ -261,20 +273,28 @@ physmem_available ()
     /*  Use GlobalMemoryStatusEx if available.  */
     if ((pfnex = (PFN_MS_EX) GetProcAddress (h, "GlobalMemoryStatusEx")))
       {
-	lMEMORYSTATUSEX lms_ex;
-	lms_ex.dwLength = sizeof lms_ex;
-	if (!pfnex (&lms_ex))
-	  return 0.0;
-	return (double) lms_ex.ullAvailPhys;
+        lMEMORYSTATUSEX lms_ex;
+        lms_ex.dwLength = sizeof lms_ex;
+        if (!pfnex (&lms_ex))
+          return 0.0;
+#if !defined(_MSC_VER)
+        return (double) lms_ex.ullAvailPhys;
+#else
+        return (double)(signed __int64) lms_ex.ullAvailPhys;
+#endif
       }
 
     /*  Fall back to GlobalMemoryStatus which is always available.
         but returns wrong results for physical memory > 4GB  */
     else
       {
-	MEMORYSTATUS ms;
-	GlobalMemoryStatus (&ms);
-	return (double) ms.dwAvailPhys;
+        MEMORYSTATUS ms;
+        GlobalMemoryStatus (&ms);
+#if !defined(_MSC_VER)
+        return (double) ms.dwAvailPhys;
+#else
+        return (double)(signed __int64) ms.dwAvailPhys;
+#endif
       }
   }
 #endif
