@@ -70,7 +70,9 @@ static int unary_op_p PARAMS ((enum tree_code));
 static cxx_saved_binding *store_bindings (tree, cxx_saved_binding *);
 static tree lookup_tag_reverse PARAMS ((tree, tree));
 static tree lookup_name_real PARAMS ((tree, int, int, int));
-static void push_local_name PARAMS ((tree));
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+static int push_local_name PARAMS ((tree));
+/* END GCC-XML MODIFICATIONS (November 2003) */
 static void warn_extern_redeclared_static PARAMS ((tree, tree));
 static tree grok_reference_init PARAMS ((tree, tree, tree, tree *));
 static tree grokfndecl PARAMS ((tree, tree, tree, tree, int,
@@ -2935,7 +2937,9 @@ create_implicit_typedef (name, type)
 
 /* Remember a local name for name-mangling purposes.  */
 
-static void
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+static int
+/* END GCC-XML MODIFICATIONS (November 2003) */
 push_local_name (decl)
      tree decl;
 {
@@ -2964,12 +2968,17 @@ push_local_name (decl)
             DECL_DISCRIMINATOR (decl) = 1;
 
           VARRAY_TREE (local_names, i) = decl;
-          POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, (void)0);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+          POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
+/* END GCC-XML MODIFICATIONS (November 2003) */
         }
     }
 
   VARRAY_PUSH_TREE (local_names, decl);
   timevar_pop (TV_NAME_LOOKUP);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+  return 0;
+/* END GCC-XML MODIFICATIONS (November 2003) */
 }
 
 /* Push a tag name NAME for struct/class/union/enum type TYPE.
@@ -8633,20 +8642,26 @@ make_rtl_for_nonlocal_decl (decl, init, asmspec)
    DECL is a just-declared VAR_DECL; if necessary inject its
    declaration into the surrounding scope.  */
 
-void
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+int
+/* END GCC-XML MODIFICATIONS (November 2003) */
 maybe_inject_for_scope_var (decl)
      tree decl;
 {
   timevar_push (TV_NAME_LOOKUP);
 
   if (!DECL_NAME (decl))
-    POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, (void)0);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+    POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
+/* END GCC-XML MODIFICATIONS (November 2003) */
   
   /* Declarations of __FUNCTION__ and its ilk appear magically when
      the variable is first used.  If that happens to be inside a
      for-loop, we don't want to do anything special.  */
   if (DECL_PRETTY_FUNCTION_P (decl))
-    POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, (void)0);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+    POP_TIMEVAR_AND_RETURN (TV_NAME_LOOKUP, 0);
+/* END GCC-XML MODIFICATIONS (November 2003) */
 
   if (current_binding_level->is_for_scope)
     {
@@ -8679,6 +8694,9 @@ maybe_inject_for_scope_var (decl)
     }
 
   timevar_pop (TV_NAME_LOOKUP);
+/* BEGIN GCC-XML MODIFICATIONS (November 2003) */
+  return 0;
+/* END GCC-XML MODIFICATIONS (November 2003) */
 }
 
 /* Generate code to initialize DECL (a local variable).  */
