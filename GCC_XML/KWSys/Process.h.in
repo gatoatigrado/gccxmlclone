@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Process.h.in,v $
   Language:  C++
-  Date:      $Date: 2003-07-07 12:36:40 $
-  Version:   $Revision: 1.6 $
+  Date:      $Date: 2003-07-07 13:12:34 $
+  Version:   $Revision: 1.7 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -99,10 +99,11 @@ kwsysEXPORT void kwsysProcess_SetCommand(kwsysProcess* cp,
 kwsysEXPORT void kwsysProcess_SetTimeout(kwsysProcess* cp, double timeout);
 
 /**
- * Set the working directory for the child process. The working directory can
- * be absolute or relative to the current directory. 
+ * Set the working directory for the child process.  The working
+ * directory can be absolute or relative to the current directory.
  */
-kwsysEXPORT void kwsysProcess_SetWorkingDirectory(kwsysProcess* cp, const char* dir);
+kwsysEXPORT void kwsysProcess_SetWorkingDirectory(kwsysProcess* cp,
+                                                  const char* dir);
 
 /**
  * Get the current state of the Process instance.  Possible states are:
