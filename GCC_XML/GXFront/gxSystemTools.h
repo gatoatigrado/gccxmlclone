@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2002-03-29 16:31:45 $
-  Version:   $Revision: 1.6 $
+  Date:      $Date: 2002-05-29 18:49:17 $
+  Version:   $Revision: 1.7 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -73,6 +73,9 @@ public:
   static std::string ConvertToOutputPath(const char* path);
   static std::string ConvertToWindowsOutputPath(const char* path);
   static std::string ConvertToUnixOutputPath(const char* path);
+  
+  /** Find a program in the system search path.  */
+  static std::string FindProgram(const char* name);
 };
 
 #endif

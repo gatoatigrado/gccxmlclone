@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-29 14:10:34 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2002-05-29 18:49:17 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -159,6 +159,11 @@ void gxConfiguration::FindRoots(const char* argv0)
   std::string av0 = argv0;
   gxSystemTools::ConvertToUnixSlashes(av0);
   std::string::size_type pos = av0.find_last_of("/");
+  if(pos == std::string::npos)
+    {
+    av0 = gxSystemTools::FindProgram(argv0);
+    pos = av0.find_last_of("/");
+    }
   std::string selfPath;
   if(pos != std::string::npos)
     {
@@ -289,7 +294,14 @@ bool gxConfiguration::ProcessCommandLine(int argc, const char*const* argv)
       }
     else
       {
-      m_Arguments.push_back(argv[i]);
+#if defined(_WIN32)
+      std::string arg = "\"";
+      arg += argv[i];
+      arg += "\"";
+#else
+      std::string arg = argv[i];
+#endif
+      m_Arguments.push_back(arg);
       }
     }
   
