@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: SystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2003-04-11 20:22:57 $
-  Version:   $Revision: 1.6 $
+  Date:      $Date: 2003-04-11 22:05:57 $
+  Version:   $Revision: 1.7 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -1044,7 +1044,6 @@ int SystemTools::Strucmp(const char *s1, const char *s2)
  
   return tolower(*(unsigned char *) s1) - tolower(*(unsigned char *) s2);
 
-#endif
 }
 
 // return true if the file exists
