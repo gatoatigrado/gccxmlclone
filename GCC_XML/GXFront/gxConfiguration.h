@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2003-06-10 18:30:48 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2003-07-14 19:18:21 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -102,6 +102,9 @@ protected:
   bool m_CopyrightFlag;
   bool m_HelpHTMLFlag;
   
+  // Bool whether executable is running in its build tree.
+  bool m_RunningInBuildTree;
+  
   // Find executable and data locations of GCC-XML.
   void FindRoots(const char* argv0);
   
@@ -132,6 +135,7 @@ protected:
   bool FindFlagsMSVC6();
   bool FindFlagsMSVC7();
   bool FindFlagsMSVC71();
+  bool FindFlagsBCC55(const char* inBcc32);
 };
 
 #endif
