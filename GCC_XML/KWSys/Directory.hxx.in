@@ -3,8 +3,8 @@
   Program:   KWSys - Kitware System Library
   Module:    $RCSfile: Directory.hxx.in,v $
   Language:  C++
-  Date:      $Date: 2003-04-08 17:10:44 $
-  Version:   $Revision: 1.1 $
+  Date:      $Date: 2003-04-23 21:24:49 $
+  Version:   $Revision: 1.2 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See http://www.cmake.org/HTML/Copyright.html for details.
@@ -16,6 +16,10 @@
 =========================================================================*/
 #ifndef @KWSYS_NAMESPACE@_Directory_hxx
 #define @KWSYS_NAMESPACE@_Directory_hxx
+
+#ifdef _MSC_VER
+#pragma warning ( disable : 4786 )
+#endif
 
 #include <@KWSYS_NAMESPACE@/StandardIncludes.hxx>
 
