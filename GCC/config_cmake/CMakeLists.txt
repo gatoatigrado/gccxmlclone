@@ -1,4 +1,4 @@
-PROJECT(GCCCONFIG)
+PROJECT(GCCCONFIG C)
 
 INCLUDE(${CMAKE_ROOT}/Modules/TestBigEndian.cmake)
 INCLUDE(${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)

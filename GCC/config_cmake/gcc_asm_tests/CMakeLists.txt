@@ -1,4 +1,4 @@
-PROJECT(GAT)
+PROJECT(GAT C)
 
 SET(GAT_AS as)
 
