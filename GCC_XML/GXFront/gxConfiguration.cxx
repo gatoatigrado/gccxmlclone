@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-03-27 22:22:51 $
-  Version:   $Revision: 1.2 $
+  Date:      $Date: 2002-03-27 22:53:51 $
+  Version:   $Revision: 1.3 $
 
   Copyright (c) 2002 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
@@ -171,13 +171,21 @@ void gxConfiguration::FindRoots(const char* argv0)
   // Find the data files.
   std::string sharePath = selfPath+"/../share/GCC_XML";
   
-  if(gxSystemTools::FileIsDirectory(sharePath.c_str()))
+  // If we are running from the build directory, use the source
+  // directory as the data root.
+  if(selfPath == GCCXML_BINARY_DIR)
     {
+    m_DataRoot = GCCXML_SOURCE_DIR;
+    }
+  else if(gxSystemTools::FileIsDirectory(sharePath.c_str()))
+    {
+    // The data files are in the share path next to the bin path.
     m_DataRoot = sharePath;
     }
   else
     {
-    // Just assume that the data are next to the executable.
+    // Just assume that the data are next to the executable in the
+    // intallation.
     m_DataRoot = m_ExecutableRoot;
     }
 }
