@@ -3,8 +3,8 @@
 #  Program:   KWSys - Kitware System Library
 #  Module:    $RCSfile: CMakeLists.txt,v $
 #  Language:  C++
-#  Date:      $Date: 2003-06-30 14:30:38 $
-#  Version:   $Revision: 1.21 $
+#  Date:      $Date: 2003-07-03 11:58:07 $
+#  Version:   $Revision: 1.22 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See http://www.cmake.org/HTML/Copyright.html for details.
@@ -180,7 +180,7 @@ FOREACH(header algorithm deque iterator list map numeric queue set stack string
   
   # Create an install target for the header wrapper.
   IF(KWSYS_HEADER_INSTALL_DIR)
-    INSTALL_FILES(${KWSYS_HEADER_INSTALL_DIR}/${KWSYS_NAMESPACE}
+    INSTALL_FILES(${KWSYS_HEADER_INSTALL_DIR}/${KWSYS_NAMESPACE}/std
       FILES ${KWSYS_HEADER_DIR}/std/${header})
   ENDIF(KWSYS_HEADER_INSTALL_DIR)
 ENDFOREACH(header)
@@ -196,7 +196,7 @@ FOREACH(header iostream fstream sstream iosfwd)
 
   # Create an install target for the header wrapper.
   IF(KWSYS_HEADER_INSTALL_DIR)
-    INSTALL_FILES(${KWSYS_HEADER_INSTALL_DIR}/${KWSYS_NAMESPACE}
+    INSTALL_FILES(${KWSYS_HEADER_INSTALL_DIR}/${KWSYS_NAMESPACE}/std
       FILES ${KWSYS_HEADER_DIR}/std/${header})
   ENDIF(KWSYS_HEADER_INSTALL_DIR)
 ENDFOREACH(header)
