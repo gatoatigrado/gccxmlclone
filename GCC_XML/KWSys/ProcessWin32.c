@@ -3,8 +3,8 @@
 Program:   KWSys - Kitware System Library
 Module:    $RCSfile: ProcessWin32.c,v $
 Language:  C++
-Date:      $Date: 2003-08-05 19:10:33 $
-Version:   $Revision: 1.18 $
+Date:      $Date: 2003-08-06 13:27:56 $
+Version:   $Revision: 1.19 $
 
 Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 See http://www.cmake.org/HTML/Copyright.html for details.
@@ -781,6 +781,7 @@ void kwsysProcess_Execute(kwsysProcess* cp)
   
   /* Connect the child's output pipes to the threads.  */
   si.dwFlags = STARTF_USESTDHANDLES;
+  si.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
   si.hStdOutput = cp->Pipe[CMPE_PIPE_STDOUT].Write;
   si.hStdError = cp->Pipe[CMPE_PIPE_STDERR].Write;
   
