@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-01-22 21:51:36 $
-  Version:   $Revision: 1.35 $
+  Date:      $Date: 2004-05-07 11:03:42 $
+  Version:   $Revision: 1.36 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -15,6 +15,8 @@
 
 =========================================================================*/
 #include "gxConfiguration.h"
+
+#include <gxsys/ios/sstream>
 
 //----------------------------------------------------------------------------
 const char* gxConfigurationVc6Registry =
@@ -221,6 +223,13 @@ void gxConfiguration::AddArguments(std::vector<std::string>& arguments) const
 #endif
     }
   arguments.push_back("-nostdinc");
+
+  // Allow source code to be aware of GCC-XML.
+  gxsys_ios::ostringstream version;
+  version << "-D__GCCXML__=" << int(GCCXML_VERSION_MAJOR*10000 +
+                                    GCCXML_VERSION_MINOR*100 +
+                                    GCCXML_VERSION_PATCH);
+  arguments.push_back(version.str().c_str());
 
   // Add user arguments.
   for(std::vector<std::string>::const_iterator i=m_Arguments.begin();
