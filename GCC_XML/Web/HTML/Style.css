@@ -3,7 +3,6 @@
   <!--
   Body  {
   	font-family : verdana, tahoma, sans-serif;
-  	font-size : 9pt;
   	color : black;
   }
   
@@ -15,17 +14,15 @@
   
   Table, TD  {
         font-family : verdana, tahoma, sans-serif;
-        font-size : 9pt;
         color : black; 
         background-repeat : no-repeat;
   }
   
-  P {font-family : verdana, tahoma, sans-serif; font-size : 9pt; 
+  P {font-family : verdana, tahoma, sans-serif;
 color: black; }
 
   a {
   	Font-Family : verdana, tahoma, sans-serif;
-  	Font-Size : 8pt;
   	Font-Style : normal;
   	text-decoration : none;
   	color : blue;
