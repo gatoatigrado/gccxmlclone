@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_gcc_options,v $
 #  Language:  C++
-#  Date:      $Date: 2003-02-01 04:16:37 $
-#  Version:   $Revision: 1.16 $
+#  Date:      $Date: 2003-03-18 21:46:46 $
+#  Version:   $Revision: 1.17 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -26,9 +26,6 @@ else
   shift
   CXXFLAGS="$@"
 fi
-
-# These options are always needed.
-STANDARD="-quiet -o /dev/null -w -fsyntax-only -nostdinc "
 
 # Find the macro definition options.
 MACROS=`
@@ -65,5 +62,5 @@ if test $MAJOR_VERSION -lt 3 ; then
 fi
 
 # Format and print out the options.
-OPTIONS="$STANDARD $STRICT_INCLUDES $MACROS $INCLUDES $HONOR_STD"
+OPTIONS="$STRICT_INCLUDES $MACROS $INCLUDES $HONOR_STD"
 echo $OPTIONS
