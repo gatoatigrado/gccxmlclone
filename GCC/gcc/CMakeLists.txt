@@ -422,6 +422,12 @@ SET_SOURCE_FILES_PROPERTIES(toplev.c
 #-----------------------------------------------------------------------------
 # C Compiler Executable
 
+IF(CMAKE_SYSTEM MATCHES "HP-UX")
+  IF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+    SET_SOURCE_FILES_PROPERTIES(c-opts.c PROPERTIES COMPILE_FLAGS "-Wp,-H,11000")
+  ENDIF(CMAKE_C_COMPILER MATCHES "(^cc$|/cc$)")
+ENDIF(CMAKE_SYSTEM MATCHES "HP-UX")
+
 ADD_EXECUTABLE(cc1
   c-parse.c c-lang.c c-pretty-print.c attribs.c c-errors.c c-lex.c
   c-pragma.c c-decl.c c-typeck.c c-convert.c c-aux-info.c c-common.c
