@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFront.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-07 23:23:07 $
-  Version:   $Revision: 1.16 $
+  Date:      $Date: 2002-11-27 20:14:39 $
+  Version:   $Revision: 1.17 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -133,6 +133,13 @@ int main(int argc, char** argv)
       }
     }
 
+  // Make sure we have the GCC parser executable.
+  if(cGCCXML_EXECUTABLE.length() == 0)
+    {
+    std::cerr << "Could not determine GCCXML_EXECUTABLE setting.\n";
+    return 1;
+    }
+  
 #if defined(_WIN32) && !defined(__CYGWIN__)
   // Make sure a cygwin1.dll is available.
   std::string cyg = gxSystemTools::GetFilenamePath(cGCCXML_EXECUTABLE.c_str());

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2002-11-07 23:23:07 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2002-11-27 20:14:39 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -458,6 +458,7 @@ void gxDocumentation::PrintManPage(std::ostream& os)
 //----------------------------------------------------------------------------
 void gxDocumentation::PrintCopyright(std::ostream& os)
 {
+  os << "GCC-XML version " GCCXML_VERSION_STRING "\n";
   for(const gxDocumentationEntry* op = gxDocumentationCopyright;
       op->brief; ++op)
     {
