@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2004-01-14 14:19:13 $
-  Version:   $Revision: 1.16 $
+  Date:      $Date: 2004-01-14 16:14:33 $
+  Version:   $Revision: 1.17 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -222,7 +222,7 @@ const gxDocumentationEntry gxDocumentationSettings[] =
 const gxDocumentationEntry gxDocumentationCopyright[] =
 {
   {0,
-   "Copyright (c) 2002-2003 Kitware, Inc., Insight Consortium.\n"
+   "Copyright (c) 2002-2004 Kitware, Inc., Insight Consortium.\n"
    "All rights reserved.\n", 0},
   {0,
    "Redistribution and use in source and binary forms, with or without "

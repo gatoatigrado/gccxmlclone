@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2004-01-09 20:00:43 $
-#  Version:   $Revision: 1.2 $
+#  Date:      $Date: 2004-01-14 16:14:33 $
+#  Version:   $Revision: 1.3 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -61,8 +61,8 @@ sed -n 'H;${g;s/\n/ /g;p;}'`
 # The support headers are located where this script is.
 SELFPATH=`echo $0 | sed -n '/\//{s/\/find_flags//;p;}'`
 if test "x$SELFPATH" = "x" ; then SELFPATH="." ; fi
-SELFPATH=`cd $SELFPATH ; pwd`
-INCLUDES="-I$SELFPATH/7.3 $INCLUDES"
+SELFPATH=`cd "$SELFPATH" ; pwd`
+INCLUDES="-iwrapper$SELFPATH/7.3 $INCLUDES"
 
 rm -f /tmp/$TESTFILE.cxx
 
