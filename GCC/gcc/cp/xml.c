@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2004-05-06 14:16:33 $
-  Version:   $Revision: 1.82 $
+  Date:      $Date: 2004-05-13 20:20:22 $
+  Version:   $Revision: 1.83 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -74,7 +74,7 @@
 # define XML_PRE_3_4_TREE_VIA_PUBLIC
 #endif
 
-#define GCC_XML_C_VERSION "$Revision: 1.82 $"
+#define GCC_XML_C_VERSION "$Revision: 1.83 $"
 
 /* A "dump node" corresponding to a particular tree node.  */
 typedef struct xml_dump_node
@@ -1339,7 +1339,10 @@ xml_output_record_type (xml_dump_info_p xdi, tree rt, xml_dump_node_p dn)
 
   fprintf (xdi->file, "  <%s", tag);
   xml_print_id_attribute (xdi, dn);
-  xml_print_name_attribute (xdi, DECL_NAME (TYPE_NAME (rt)));
+  if(!TYPE_ANONYMOUS_P (rt))
+    {
+    xml_print_name_attribute (xdi, DECL_NAME (TYPE_NAME (rt)));
+    }
   xml_print_context_attribute (xdi, TYPE_NAME (rt));
   xml_print_access_attribute (xdi, TYPE_NAME (rt));
   xml_print_abstract_attribute (xdi, rt);
