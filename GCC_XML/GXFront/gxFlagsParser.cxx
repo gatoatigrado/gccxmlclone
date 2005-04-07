@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxFlagsParser.cxx,v $
   Language:  C++
-  Date:      $Date: 2005-04-06 19:37:33 $
-  Version:   $Revision: 1.8 $
+  Date:      $Date: 2005-04-07 14:45:46 $
+  Version:   $Revision: 1.9 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -37,7 +37,7 @@ static int gxFlags_CommandLineParse(const char* in, char*** pargv)
   int argc = gxFlagsCommandLineParseInternal(in, buffer);
 
   /* Allocate the resulting arguments array.  */
-  char** argv = (char**)malloc(sizeof(char*)*argc + 1);
+  char** argv = (char**)malloc(sizeof(char*) * (argc+1));
 
   /* Loop through the arguments in the working space.  */
   char* begin = buffer;
