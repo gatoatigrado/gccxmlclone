@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2005-04-07 12:51:07 $
-#  Version:   $Revision: 1.14 $
+#  Date:      $Date: 2005-04-26 20:04:12 $
+#  Version:   $Revision: 1.15 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -66,9 +66,12 @@ if [ "$MAJOR_VERSION" -lt 3 ]; then
   if [ "$MINOR_VERSION" = 96 ]; then
     INCLUDES="-iwrapper\"$SELFPATH/2.96\" $INCLUDES"
   fi
+elif [ "$MAJOR_VERSION" = 4 -a "$MINOR_VERSION" -ge 0 ]; then
+  INCLUDES="-iwrapper\"$SELFPATH/4.0\" $INCLUDES"
+  SPECIAL="-include \"$SELFPATH/4.0/gccxml_builtins.h\""
 elif [ "$MAJOR_VERSION" = 3 -a "$MINOR_VERSION" -ge 4 ]; then
   INCLUDES="-iwrapper\"$SELFPATH/3.4\" $INCLUDES"
-  SPECIAL="-include $SELFPATH/3.4/gccxml_builtins.h"
+  SPECIAL="-include \"$SELFPATH/3.4/gccxml_builtins.h\""
 elif [ "$MAJOR_VERSION" = 3 -a "$MINOR_VERSION" = 3 ]; then
   INCLUDES="-iwrapper\"$SELFPATH/3.3\" $INCLUDES"
   SPECIAL="-include \"$SELFPATH/3.3/gccxml_builtins.h\""
