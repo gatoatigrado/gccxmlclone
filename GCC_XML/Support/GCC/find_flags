@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2005-09-15 13:25:34 $
-#  Version:   $Revision: 1.16 $
+#  Date:      $Date: 2005-09-21 18:02:10 $
+#  Version:   $Revision: 1.17 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -30,7 +30,7 @@ fi
 # Find the macro definition options.
 MACROS=`echo "" | ${CXX} -x c++ -E -dM ${CXXFLAGS} - 2>/dev/null |
   sed -n '
-/^#define / {s/#define \([A-Za-z_][A-Za-z0-9_]*\) \(.*\)/-D\1='\''\2'\''/;p;}
+/^#define / {s/#define \([A-Za-z_][A-Za-z0-9_()]*\) \(.*\)/-D\1='\''\2'\''/;p;}
 ' |
   awk '
 BEGIN { first=1 }
@@ -92,5 +92,5 @@ elif [ "$MAJOR_VERSION" = 3 -a "$MINOR_VERSION" = 0 ]; then
 fi
 
 # Format and print out the options.
-OPTIONS="$MACROS -D__declspec(x)=__attribute__((x)) $INCLUDES $SPECIAL"
+OPTIONS="$MACROS $INCLUDES $SPECIAL"
 echo $OPTIONS
