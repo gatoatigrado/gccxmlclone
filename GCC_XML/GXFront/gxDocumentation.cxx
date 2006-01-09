@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2005-06-07 13:20:57 $
-  Version:   $Revision: 1.21 $
+  Date:      $Date: 2006-01-09 19:01:09 $
+  Version:   $Revision: 1.22 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -64,11 +64,17 @@ const gxDocumentationEntry gxDocumentationCompilers[] =
   {"Visual C++", "Versions 7.1, 7.0, and 6 (sp5)", 0},
   {"Intel C++", "Versions 7.0 and 7.1 for Linux", 0},
   {"Borland C++", "Version 5.5.x for Windows", 0},
-  {0, "The following extra C preprocessor definition is provided:", 0},
+  {0, "The following extra C preprocessor definitions are provided:", 0},
   {"-D__GCCXML__=MMmmpp", "MM, mm, and pp are the major, minor, and "
    "patch versions of GCC-XML.  This preprocessor symbol identifies "
    "GCC-XML to the source code as it is preprocessed.  It can be used "
    "to enable GCC-XML-specific information.", 0},
+  {"-D__GCCXML_GNUC__=3",
+   "Defined to internal GCC parser major version.", 0},
+  {"-D__GCCXML_GNUC_MINOR__=3",
+   "Defined to internal GCC parser minor version.", 0},
+  {"-D__GCCXML_GNUC_PATCHLEVEL__=2",
+   "Defined to internal GCC parser patchlevel.", 0},
   {0,
    "Advanced users can simulate other compilers by manually configuring "
    "the GCCXML_FLAGS setting.  Contact the mailing list for help.", 0},

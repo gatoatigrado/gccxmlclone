@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2005-12-23 17:25:19 $
-  Version:   $Revision: 1.42 $
+  Date:      $Date: 2006-01-09 19:01:08 $
+  Version:   $Revision: 1.43 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -234,6 +234,9 @@ void gxConfiguration::AddArguments(std::vector<std::string>& arguments) const
                                     GCCXML_VERSION_MINOR*100 +
                                     GCCXML_VERSION_PATCH);
   arguments.push_back(version.str().c_str());
+  arguments.push_back("-D__GCCXML_GNUC__=3");
+  arguments.push_back("-D__GCCXML_GNUC_MINOR__=3");
+  arguments.push_back("-D__GCCXML_GNUC_PATCHLEVEL__=2");
 
   // Add user arguments.
   for(std::vector<std::string>::const_iterator i=m_Arguments.begin();
