@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2005-12-14 14:40:58 $
-  Version:   $Revision: 1.13 $
+  Date:      $Date: 2006-05-05 20:18:37 $
+  Version:   $Revision: 1.14 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -147,6 +147,7 @@ protected:
   bool FindFlagsMSVC7();
   bool FindFlagsMSVC71();
   bool FindFlagsMSVC8();
+  bool FindFlagsMSVC8ex();
   bool FindFlagsBCC55(const char* inBcc32);
 };
 
