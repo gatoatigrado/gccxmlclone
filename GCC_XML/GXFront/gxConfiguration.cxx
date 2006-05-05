@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2006-05-05 20:18:36 $
-  Version:   $Revision: 1.44 $
+  Date:      $Date: 2006-05-05 20:22:20 $
+  Version:   $Revision: 1.45 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -868,7 +868,17 @@ bool gxConfiguration::FindFlags()
     }
   else if(compilerName == "msvc8")
     {
-    return this->FindFlagsMSVC8();
+    std::string loc;
+    bool have8ex =
+      gxSystemTools::ReadRegistryValue(gxConfigurationVc8exRegistry, loc);
+    if(have8ex)
+      {
+      return this->FindFlagsMSVC8ex();
+      }
+    else
+      {
+      return this->FindFlagsMSVC8();
+      }
     }
   else if(compilerName == "cl")
     {
