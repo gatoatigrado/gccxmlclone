@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: xml.c,v $
   Language:  C++
-  Date:      $Date: 2006-07-17 14:37:51 $
-  Version:   $Revision: 1.113 $
+  Date:      $Date: 2006-10-19 13:53:52 $
+  Version:   $Revision: 1.114 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -76,7 +76,7 @@
 # define XML_PRE_3_4_TREE_VIA_PUBLIC
 #endif
 
-#define GCC_XML_C_VERSION "$Revision: 1.113 $"
+#define GCC_XML_C_VERSION "$Revision: 1.114 $"
 
 /*--------------------------------------------------------------------------*/
 /* Data structures for the actual XML dump.  */
