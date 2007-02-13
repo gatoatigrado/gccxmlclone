@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.h,v $
   Language:  C++
-  Date:      $Date: 2006-05-05 20:18:37 $
-  Version:   $Revision: 1.14 $
+  Date:      $Date: 2007-02-13 21:16:24 $
+  Version:   $Revision: 1.15 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -91,6 +91,7 @@ protected:
   std::string m_GCCXML_USER_FLAGS;
   std::string m_GCCXML_ROOT;
   bool m_HaveGCCXML_CXXFLAGS;
+  bool m_HaveGCCXML_ROOT;
 
   // Program and data locations.
   std::string m_ExecutableRoot;
@@ -115,6 +116,13 @@ protected:
 
   // Find executable and data locations of GCC-XML.
   void FindRoots(const char* argv0);
+
+  // Find the data file or directory with the given name.  This
+  // searches the potential roots.  Returns true only if the data
+  // location was found.
+  bool FindData(const char* name);
+  bool FindData(const char* name, std::string& path,
+                bool required = true);
 
   // Parse settings off the command line.
   bool ProcessCommandLine(int argc, const char*const* argv);
