@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-02-14 15:31:35 $
-  Version:   $Revision: 1.48 $
+  Date:      $Date: 2007-03-03 17:07:15 $
+  Version:   $Revision: 1.49 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -23,6 +23,8 @@
 #endif
 
 #include <gxsys/ios/sstream>
+
+#include <stdio.h>
 
 //----------------------------------------------------------------------------
 const char* gxConfigurationVc6Registry =
@@ -929,9 +931,6 @@ bool gxConfiguration::FindFlags()
                                                    loc);
     bool have8ex =
       gxSystemTools::ReadRegistryValue(gxConfigurationVc8exRegistry, loc);
-    bool have8sdk =
-      gxSystemTools::ReadRegistryValue(gxConfigurationVc8sdk2Registry, loc) ||
-      gxSystemTools::ReadRegistryValue(gxConfigurationVc8sdkRegistry, loc);
 
     // Look for a VS8 that is not the beta release.
     bool have8 = false;
