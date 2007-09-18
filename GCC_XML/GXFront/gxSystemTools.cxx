@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2005-05-05 15:02:46 $
-  Version:   $Revision: 1.16 $
+  Date:      $Date: 2007-09-18 17:19:30 $
+  Version:   $Revision: 1.17 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -70,6 +70,7 @@ bool gxSystemTools::RunCommand(const char* command,  std::string& output,
     {
     fin.getline(buffer, BUFFER_SIZE);
     output += buffer;
+    output += "\n";
     }
   fin.close();
   gxSystemTools::RemoveFile(tempFile.c_str());
