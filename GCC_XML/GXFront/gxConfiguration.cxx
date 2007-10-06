@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-10-06 17:17:14 $
-  Version:   $Revision: 1.51 $
+  Date:      $Date: 2007-10-06 21:01:47 $
+  Version:   $Revision: 1.52 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -893,7 +893,17 @@ std::string gxConfiguration::GetCompilerId()
   // Write a temp file such that after preprocessing there should only be
   // one "<Id>(.*)</Id>" chunk in the output.
   //
-  std::string cppFile = _tempnam(0, "gx");
+  std::string cppFile;
+  const char* cppFileBase = tempnam(0, "gx");
+  if(cppFileBase)
+    {
+    cppFile = cppFileBase;
+    free((void*) cppFileBase);
+    }
+  else
+    {
+    cppFile = "gx1";
+    }
   cppFile += ".cpp";
 
   std::ofstream ofs(cppFile.c_str());
