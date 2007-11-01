@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-10-31 15:08:55 $
-  Version:   $Revision: 1.54 $
+  Date:      $Date: 2007-11-01 14:19:35 $
+  Version:   $Revision: 1.55 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -245,7 +245,12 @@ void gxConfiguration::AddArguments(std::vector<std::string>& arguments) const
     arguments.push_back("/dev/null");
 #endif
     }
+
+  // Remove preprocessor include paths built into the GCC parser.
   arguments.push_back("-nostdinc");
+
+  // Remove preprocessor definitions built into the GCC parser.
+  arguments.push_back("-undef");
 
   // Allow source code to be aware of GCC-XML.
   gxsys_ios::ostringstream version;
