@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2007-11-02 15:08:21 $
-#  Version:   $Revision: 1.19 $
+#  Date:      $Date: 2007-11-02 19:03:40 $
+#  Version:   $Revision: 1.20 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -41,7 +41,7 @@ BEGIN { first=1 }
 INCLUDES=`
   echo "" | ${CXX} -v -x c++ -E ${CXXFLAGS} - 2>&1 |
   awk '/^[^ \/].*$/ { if (f) { printf("\n"); exit } }
-       /^[ ]*\/.*$/ { if (f) { printf("-I%s ",$0) } }
+       /^[ ]*\/[^ ]*$/ { if (f) { printf("-I%s ",$0) } }
        /\#include <\.\.\..*$/   {f=1} ' - |
   sed 's/^-I /-I/;s/ -I / -I/g'
 `
