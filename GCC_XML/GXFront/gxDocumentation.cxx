@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-11-05 21:03:34 $
-  Version:   $Revision: 1.25 $
+  Date:      $Date: 2007-11-05 21:38:35 $
+  Version:   $Revision: 1.26 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -59,7 +59,7 @@ const gxDocumentationEntry gxDocumentationDescription[] =
 const gxDocumentationEntry gxDocumentationCompilers[] =
 {
   {0, "GCC-XML can simulate any of the following compilers:", 0},
-  {"GCC", "Versions 4.2, 4.1, 4.0, 3.4, 3.3", 0},
+  {"GCC", "Versions 4.2, 4.1, 4.0, 3.4, 3.3, 3.2, 2.95.x", 0},
   //{"GCC", "Versions 4.2, 4.1, 4.0, 3.x, 2.95.x", 0},
   //{"SGI MIPSpro", "Version 7.3x", 0},
   {"Visual C++", "Versions 8, 7.1, 7.0, and 6 (sp5)", 0},
