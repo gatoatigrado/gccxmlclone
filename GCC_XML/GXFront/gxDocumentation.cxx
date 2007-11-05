@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxDocumentation.cxx,v $
   Language:  C++
-  Date:      $Date: 2006-02-17 00:22:09 $
-  Version:   $Revision: 1.23 $
+  Date:      $Date: 2007-11-05 20:51:36 $
+  Version:   $Revision: 1.24 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -59,11 +59,13 @@ const gxDocumentationEntry gxDocumentationDescription[] =
 const gxDocumentationEntry gxDocumentationCompilers[] =
 {
   {0, "GCC-XML can simulate any of the following compilers:", 0},
-  {"GCC", "Versions 4.0, 3.x, and 2.95.x", 0},
-  {"SGI MIPSpro", "Version 7.3x", 0},
+  {"GCC", "Versions 4.2, 4.1, 4.0, 3.4, 3.3", 0},
+  //{"GCC", "Versions 4.2, 4.1, 4.0, 3.x, 2.95.x", 0},
+  //{"SGI MIPSpro", "Version 7.3x", 0},
   {"Visual C++", "Versions 8, 7.1, 7.0, and 6 (sp5)", 0},
-  {"Intel C++", "Versions 7.0 and 7.1 for Linux", 0},
-  {"Borland C++", "Version 5.5.x for Windows", 0},
+  //{"Intel C++", "Versions 7.0 and 7.1 for Linux", 0},
+  //{"Borland C++", "Version 5.5.x for Windows", 0},
+  {"Borland, Intel, SGI", "formerly supported but no longer tested", 0},
   {0, "The following extra C preprocessor definitions are provided:", 0},
   {"-D__GCCXML__=MMmmpp", "MM, mm, and pp are the major, minor, and "
    "patch versions of GCC-XML.  This preprocessor symbol identifies "
