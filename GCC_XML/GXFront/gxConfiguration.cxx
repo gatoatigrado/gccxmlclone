@@ -3,10 +3,10 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-11-02 15:08:21 $
-  Version:   $Revision: 1.57 $
+  Date:      $Date: 2007-12-28 23:35:20 $
+  Version:   $Revision: 1.58 $
 
-  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
+  Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
 
      This software is distributed WITHOUT ANY WARRANTY; without even
