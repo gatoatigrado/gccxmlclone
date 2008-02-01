@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-02-01 16:34:42 $
-  Version:   $Revision: 1.16 $
+  Date:      $Date: 2008-02-01 16:36:06 $
+  Version:   $Revision: 1.17 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2153,7 +2153,7 @@ int SystemInformationImplementation::RetreiveInformationFromCpuInfoFile()
     return 0;
     }
   
-  long int fileSize = 0;
+  size_t fileSize = 0;
   while(!feof(fd))
     {
     buffer += fgetc(fd);
@@ -2809,7 +2809,7 @@ kwsys_stl::string SystemInformationImplementation::ParseValueFromKStat(const cha
   args.push_back("-p");
   
   kwsys_stl::string command = arguments;
-  long int start = -1;
+  size_t start = command.npos;
   size_t pos = command.find(' ',0);
   while(pos!=command.npos)
     {
