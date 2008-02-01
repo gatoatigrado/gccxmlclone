@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-02-01 16:33:14 $
-  Version:   $Revision: 1.15 $
+  Date:      $Date: 2008-02-01 16:34:42 $
+  Version:   $Revision: 1.16 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -221,7 +221,7 @@ protected:
   // For Linux
   int RetreiveInformationFromCpuInfoFile();
   kwsys_stl::string ExtractValueFromCpuInfoFile(kwsys_stl::string buffer,
-                                          const char* word, int init=0);
+                                          const char* word, size_t init=0);
 
   static void Delay (unsigned int);
   static void DelayOverhead (unsigned int);
@@ -2122,7 +2122,7 @@ bool SystemInformationImplementation::RetrieveClassicalCPUIdentity()
 }
 
 /** Extract a value from the CPUInfo file */
-kwsys_stl::string SystemInformationImplementation::ExtractValueFromCpuInfoFile(kwsys_stl::string buffer,const char* word,int init)
+kwsys_stl::string SystemInformationImplementation::ExtractValueFromCpuInfoFile(kwsys_stl::string buffer,const char* word,size_t init)
 {
   size_t pos = buffer.find(word,init);
   if(pos != buffer.npos)
