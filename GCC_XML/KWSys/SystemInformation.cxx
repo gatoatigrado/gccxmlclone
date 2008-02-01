@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-02-01 16:30:08 $
-  Version:   $Revision: 1.14 $
+  Date:      $Date: 2008-02-01 16:33:14 $
+  Version:   $Revision: 1.15 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -245,7 +245,7 @@ protected:
   unsigned long TotalPhysicalMemory;
   unsigned long AvailablePhysicalMemory;
 
-  long int CurrentPositionInFile;
+  size_t CurrentPositionInFile;
 
   // Operating System information
   bool QueryOSInformation();
@@ -2135,7 +2135,7 @@ kwsys_stl::string SystemInformationImplementation::ExtractValueFromCpuInfoFile(k
       return buffer.substr(pos+2,pos2-pos-2);
       }
     }
-  this->CurrentPositionInFile = -1;
+  this->CurrentPositionInFile = buffer.npos;
   return "";
 }
 
