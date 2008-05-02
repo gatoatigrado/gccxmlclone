@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-05-02 13:14:37 $
-  Version:   $Revision: 1.24 $
+  Date:      $Date: 2008-05-02 15:44:26 $
+  Version:   $Revision: 1.25 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2228,13 +2228,13 @@ int SystemInformationImplementation::QueryMemory()
 #ifdef __CYGWIN__
   return 0;
 #elif _WIN32
-  MEMORYSTATUS ms;
-  GlobalMemoryStatus(&ms);
+  MEMORYSTATUSEX ms;
+  GlobalMemoryStatusEx(&ms);
 
-  unsigned long tv = ms.dwTotalVirtual;
-  unsigned long tp = ms.dwTotalPhys;
-  unsigned long av = ms.dwAvailVirtual;
-  unsigned long ap = ms.dwAvailPhys;
+  unsigned long tv = ms.ullTotalVirtual;
+  unsigned long tp = ms.ullTotalPhys;
+  unsigned long av = ms.ullAvailVirtual;
+  unsigned long ap = ms.ullAvailPhys;
   this->TotalVirtualMemory = tv>>10>>10;
   this->TotalPhysicalMemory = tp>>10>>10;
   this->AvailableVirtualMemory = av>>10>>10;
