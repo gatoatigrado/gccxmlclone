@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-05-02 21:22:46 $
-  Version:   $Revision: 1.26 $
+  Date:      $Date: 2008-05-02 21:36:08 $
+  Version:   $Revision: 1.27 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2230,13 +2230,13 @@ int SystemInformationImplementation::QueryMemory()
 #elif _WIN32
 #if  _MSC_VER < 1300
   MEMORYSTATUS ms;
+  GlobalMemoryStatus(&ms);
 #define MEM_VAL(value) dw##value
 #else
   MEMORYSTATUSEX ms;
+  GlobalMemoryStatusEx(&ms);
 #define MEM_VAL(value) ull##value
 #endif
-  GlobalMemoryStatusEx(&ms);
-
   unsigned long tv = ms.MEM_VAL(TotalVirtual);
   unsigned long tp = ms.MEM_VAL(TotalPhys);
   unsigned long av = ms.MEM_VAL(AvailVirtual);
