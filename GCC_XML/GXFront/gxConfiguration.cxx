@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-04-23 00:18:28 $
-  Version:   $Revision: 1.61 $
+  Date:      $Date: 2008-05-30 15:09:51 $
+  Version:   $Revision: 1.62 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -26,6 +26,8 @@
 #include <gxsys/ios/sstream>
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 //----------------------------------------------------------------------------
 const char* gxConfigurationVc6Registry =
