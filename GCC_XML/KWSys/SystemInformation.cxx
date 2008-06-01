@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-06-01 18:40:11 $
-  Version:   $Revision: 1.31 $
+  Date:      $Date: 2008-06-01 20:11:38 $
+  Version:   $Revision: 1.32 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2186,7 +2186,6 @@ int SystemInformationImplementation::RetreiveInformationFromCpuInfoFile()
   // Physical ids returned by Linux don't distinguish cores.
   // We want to record the total number of cores in this->NumberOfPhysicalCPU
   // (checking only the first proc)
-
   kwsys_stl::string cores =
                         this->ExtractValueFromCpuInfoFile(buffer,"cpu cores");
   int numberOfCoresPerCPU=atoi(cores.c_str());
@@ -2194,8 +2193,11 @@ int SystemInformationImplementation::RetreiveInformationFromCpuInfoFile()
 
 #else // __CYGWIN__
   // does not have "physical id" entries, neither "cpu cores"
-  // this has to be fixed for hyper-threading.
-  this->NumberOfPhysicalCPU=this->NumberOfLogicalCPU;
+  // this has to be fixed for hyper-threading.  
+  kwsys_stl::string cpucount =
+    this->ExtractValueFromCpuInfoFile(buffer,"cpu count");
+  this->NumberOfPhysicalCPU=
+    this->NumberOfLogicalCPU = atoi(cpucount.c_str());
 #endif
 
   // LogicalProcessorsPerPhysical>1 => hyperthreading.
