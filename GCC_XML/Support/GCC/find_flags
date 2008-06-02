@@ -4,8 +4,8 @@
 #  Program:   GCC-XML
 #  Module:    $RCSfile: find_flags,v $
 #  Language:  C++
-#  Date:      $Date: 2008-03-19 21:14:33 $
-#  Version:   $Revision: 1.21 $
+#  Date:      $Date: 2008-06-02 15:33:54 $
+#  Version:   $Revision: 1.22 $
 #
 #  Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
 #  See Copyright.txt for details.
@@ -43,7 +43,7 @@ INCLUDES=`
   awk '/^[^ \/].*$/ { if (f) { printf("\n"); exit } }
        /^[ ]*\/[^ ]*$/ { if (f) { printf("-I%s ",$0) } }
        /\#include <\.\.\..*$/   {f=1} ' - |
-  sed 's/^-I /-I/;s/ -I / -I/g'
+  sed 's/^-I /-isystem/;s/ -I / -isystem/g'
 `
 
 # The support headers are located where this script is.

@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-05-30 15:09:51 $
-  Version:   $Revision: 1.62 $
+  Date:      $Date: 2008-06-02 15:33:50 $
+  Version:   $Revision: 1.63 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -2002,12 +2002,12 @@ bool gxConfiguration::FindFlagsMIPSpro()
 
             if (s.find(' ') == s.npos)
               {
-              INCLUDES += "-I";
+              INCLUDES += "-isystem";
               INCLUDES += s;
               }
             else
               {
-              INCLUDES += "-I\"";
+              INCLUDES += "-isystem\"";
               INCLUDES += s;
               INCLUDES += "\"";
               }
