@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.h,v $
   Language:  C++
-  Date:      $Date: 2004-01-06 22:10:59 $
-  Version:   $Revision: 1.15 $
+  Date:      $Date: 2009-02-05 14:10:57 $
+  Version:   $Revision: 1.16 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -44,6 +44,11 @@ public:
   /** Given a path to a directory, convert it to a full path.  This
    * collapses away relative paths.  The full path is returned.  */
   static std::string CollapseDirectory(const char* in_dir);
+
+  /**
+   * Read a registry value from the 32-bit registry view.
+   */
+  static bool ReadRegistryValue(const char *key, std::string &value);
 };
 
 #endif

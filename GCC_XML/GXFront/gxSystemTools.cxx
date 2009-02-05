@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxSystemTools.cxx,v $
   Language:  C++
-  Date:      $Date: 2007-09-18 17:19:30 $
-  Version:   $Revision: 1.17 $
+  Date:      $Date: 2009-02-05 14:10:57 $
+  Version:   $Revision: 1.18 $
 
   Copyright (c) 2002 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -106,4 +106,11 @@ bool gxSystemTools::FileCopy(const char* source, const char* destination)
 std::string gxSystemTools::CollapseDirectory(const char* in_dir)
 {
   return gxsys::SystemTools::CollapseFullPath(in_dir);
+}
+
+//----------------------------------------------------------------------------
+bool gxSystemTools::ReadRegistryValue(const char *key, std::string &value)
+{
+  return SystemTools::ReadRegistryValue(key, value,
+                                        SystemTools::KeyWOW64_32);
 }
