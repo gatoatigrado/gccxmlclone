@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2008-12-17 12:37:57 $
-  Version:   $Revision: 1.64 $
+  Date:      $Date: 2009-02-05 14:18:40 $
+  Version:   $Revision: 1.65 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1314,7 +1314,7 @@ bool gxConfiguration::FindFlags()
       {
       std::cerr << "Compiler \"" << m_GCCXML_COMPILER
                 << "\" is not supported by GCC_XML because "
-                << "none of MSVC 6, 7, 7.1, 8 is installed.\n";
+                << "none of MSVC 6, 7, 7.1, 8, or 9 is installed.\n";
       return false;
       }
     }
