@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-05-19 20:35:13 $
-  Version:   $Revision: 1.41 $
+  Date:      $Date: 2009-05-19 20:46:24 $
+  Version:   $Revision: 1.42 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2768,6 +2768,7 @@ unsigned int SystemInformationImplementation::GetNumberOfPhysicalCPU()
 /** For Mac use sysctlbyname calls to find system info */
 bool SystemInformationImplementation::ParseSysCtl()
 {
+#if defined(__APPLE__)
   int err = 0;
   uint64_t value = 0;
   size_t len = sizeof(value);
@@ -2866,6 +2867,9 @@ bool SystemInformationImplementation::ParseSysCtl()
   this->Features.L2CacheSize = value;
   
   return true;
+#else
+  return false;
+#endif
 }
 
 /** Extract a value from sysctl command */
