@@ -3,8 +3,8 @@
   Program:   BatchMake
   Module:    $RCSfile: SystemInformation.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-05-19 20:46:24 $
-  Version:   $Revision: 1.42 $
+  Date:      $Date: 2009-05-19 20:56:47 $
+  Version:   $Revision: 1.43 $
   Copyright (c) 2005 Insight Consortium. All rights reserved.
   See ITKCopyright.txt or http://www.itk.org/HTML/Copyright.htm for details.
 
@@ -2859,7 +2859,6 @@ bool SystemInformationImplementation::ParseSysCtl()
     this->ChipID.Model = value;
     }
   // Cache size
-  int iValue = 0;
   len = sizeof(value);
   err = sysctlbyname("hw.l1icachesize", &value, &len, NULL, 0);
   this->Features.L1CacheSize = value;
