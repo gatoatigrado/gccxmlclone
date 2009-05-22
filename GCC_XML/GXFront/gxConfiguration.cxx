@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-02-05 14:18:40 $
-  Version:   $Revision: 1.65 $
+  Date:      $Date: 2009-05-22 13:13:12 $
+  Version:   $Revision: 1.66 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -613,6 +613,23 @@ bool gxConfiguration::ProcessCommandLine(int argc, const char*const* argv)
     else if(strcmp(argv[i], "--help-html") == 0)
       {
       m_HelpHTMLFlag = true;
+      }
+    else if(strcmp(argv[i], "-c") == 0)
+      {
+      // Accept and ignore "-c" for ccache.
+      }
+    else if(strcmp(argv[i], "-o") == 0)
+      {
+      // Convert "-o" to "-fxml=" for ccache.
+      if(++i < argc)
+        {
+        m_Arguments.push_back(std::string("-fxml=") + argv[i]);
+        }
+      else
+        {
+        std::cerr << "Option -o requires an argument.\n";
+        return false;
+        }
       }
     else
       {
