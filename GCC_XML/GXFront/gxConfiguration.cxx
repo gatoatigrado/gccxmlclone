@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-05-22 13:13:12 $
-  Version:   $Revision: 1.66 $
+  Date:      $Date: 2009-06-03 14:04:31 $
+  Version:   $Revision: 1.67 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1022,7 +1022,7 @@ std::string gxConfiguration::GetCompilerId()
   if(gxSystemTools::RunCommand(cmd.c_str(), output, retVal) && (0 == retVal))
     {
     gxsys::RegularExpression reId;
-    reId.compile("GCCXML_SUPPORT=\"(.*)\"");
+    reId.compile("GCCXML_SUPPORT[ ]*=[ ]*\"(.*)\"");
 
     std::vector<gxsys::String> lines = gxSystemTools::SplitString(output.c_str(), '\n');
     std::vector<gxsys::String>::iterator it;
