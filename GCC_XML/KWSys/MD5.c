@@ -54,7 +54,7 @@
   ghost@aladdin.com
 
  */
-/* $Id: MD5.c,v 1.2 2009-07-08 20:15:21 david.cole Exp $ */
+/* $Id: MD5.c,v 1.3 2009-07-08 20:18:19 david.cole Exp $ */
 /*
   Independent implementation of MD5 (RFC 1321).
 
@@ -382,7 +382,7 @@ static void md5_append(md5_state_t *pms, const md5_byte_t *data, size_t nbytes)
         return;
 
     /* Update the message length. */
-    pms->count[1] += nbytes >> 29;
+    pms->count[1] += (md5_word_t)(nbytes >> 29);
     pms->count[0] += nbits;
     if (pms->count[0] < nbits)
         pms->count[1]++;
