@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-06-03 14:04:31 $
-  Version:   $Revision: 1.67 $
+  Date:      $Date: 2009-09-01 14:17:16 $
+  Version:   $Revision: 1.68 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1466,6 +1466,12 @@ bool gxConfiguration::FindFlagsGCC()
       {
       if(reDefine.find(it->c_str()))
         {
+        // __BLOCKS__ is an Apple extension to gcc unknown to gccxml.
+        if(reDefine.match(1) == "__BLOCKS__")
+          {
+          continue;
+          }
+
         if (MACROS == "")
           {
           MACROS = "-D";
