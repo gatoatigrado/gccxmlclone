@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2009-09-01 14:17:16 $
-  Version:   $Revision: 1.68 $
+  Date:      $Date: 2010-01-14 13:36:38 $
+  Version:   $Revision: 1.69 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1594,6 +1594,11 @@ bool gxConfiguration::FindFlagsGCC()
       {
       INCLUDES = "-iwrapper\"" + supportPath + "/2.96\" " + INCLUDES;
       }
+    }
+  else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 4)
+    {
+    INCLUDES = "-iwrapper\"" + supportPath + "/4.4\" " + INCLUDES;
+    SPECIAL = "-include \"gccxml_builtins.h\"";
     }
   else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 3)
     {
