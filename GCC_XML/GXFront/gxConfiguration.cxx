@@ -3,8 +3,8 @@
   Program:   GCC-XML
   Module:    $RCSfile: gxConfiguration.cxx,v $
   Language:  C++
-  Date:      $Date: 2010-01-19 14:08:08 $
-  Version:   $Revision: 1.70 $
+  Date:      $Date: 2010-02-10 14:29:32 $
+  Version:   $Revision: 1.71 $
 
   Copyright (c) 2002-2007 Kitware, Inc., Insight Consortium.  All rights reserved.
   See Copyright.txt for details.
@@ -1593,29 +1593,13 @@ bool gxConfiguration::FindFlagsGCC()
       INCLUDES = "-iwrapper\"" + supportPath + "/2.96\" " + INCLUDES;
       }
     }
-  else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 4)
+  else if(MAJOR_VERSION >= 4)
     {
-    INCLUDES = "-iwrapper\"" + supportPath + "/4.4\" " + INCLUDES;
-    SPECIAL = "-include \"gccxml_builtins.h\"";
-    }
-  else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 3)
-    {
-    INCLUDES = "-iwrapper\"" + supportPath + "/4.3\" " + INCLUDES;
-    SPECIAL = "-include \"gccxml_builtins.h\"";
-    }
-  else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 2)
-    {
-    INCLUDES = "-iwrapper\"" + supportPath + "/4.2\" " + INCLUDES;
-    SPECIAL = "-include \"gccxml_builtins.h\"";
-    }
-  else if(MAJOR_VERSION == 4 && MINOR_VERSION >= 1)
-    {
-    INCLUDES = "-iwrapper\"" + supportPath + "/4.1\" " + INCLUDES;
-    SPECIAL = "-include \"gccxml_builtins.h\"";
-    }
-  else if(MAJOR_VERSION == 4 && MINOR_VERSION == 0)
-    {
-    INCLUDES = "-iwrapper\"" + supportPath + "/4.0\" " + INCLUDES;
+    gxsys_ios::ostringstream includes;
+    includes << "-iwrapper\"" << supportPath << "/"
+             << MAJOR_VERSION << "." << MINOR_VERSION << "\" "
+             << INCLUDES;
+    INCLUDES = includes.str();
     SPECIAL = "-include \"gccxml_builtins.h\"";
     }
   else if(MAJOR_VERSION == 3 && MINOR_VERSION >= 4)
